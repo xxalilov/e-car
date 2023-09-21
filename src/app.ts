@@ -1,4 +1,6 @@
 import express from "express";
+import database from "./utils/database";
+import config from "./config/config";
 
 class App {
   public app: express.Application;
@@ -6,7 +8,12 @@ class App {
 
   constructor() {
     this.app = express();
-    this.port = 3000;
+    this.port = config.PORT || 3000;
+    this.connectDatabase();
+  }
+
+  private connectDatabase(): void {
+    database();
   }
 
   public listen(): void {
