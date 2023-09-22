@@ -1,6 +1,9 @@
 import { Sequelize } from "sequelize";
 import config from "../config/config";
 
+// MODELS
+import UserModel from "../modules/Users/user.model";
+
 export const sequelize = new Sequelize(
   config.DB_DATABASE,
   config.DB_USER,
@@ -22,6 +25,8 @@ const DB = async function () {
   }
 };
 
-export const models = {};
+export const models = {
+  User: UserModel(sequelize),
+};
 
 export default DB;
