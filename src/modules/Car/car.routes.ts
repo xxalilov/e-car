@@ -1,0 +1,35 @@
+import { Router } from "express";
+import { Routes } from "../../routes/route.interface";
+import validationMiddleware from "../../middlewares/validation.middleware";
+import CarController from "./car.controller";
+import { CreateCarDto } from "./car.dto";
+import authMiddleware from "../../middlewares/auth.middleware";
+
+class CarRouter implements Routes {
+  public path = "/car";
+  public router = Router();
+  public carController = new CarController();
+
+  constructor() {
+    this.initializeRoutes();
+  }
+
+  private initializeRoutes() {
+    this.router.post(
+      `${this.path}`,
+      authMiddleware("user"),
+      validationMiddleware(CreateCarDto, "body"),
+      this.carController.createCar.bind(this.carController)
+    );
+    this.router.get(
+      `${this.path}`,
+      this.carController.getAllCar.bind(this.carController)
+    );
+    this.router.get(
+      `${this.path}/:id`,
+      this.carController.getCarById.bind(this.carController)
+    );
+  }
+}
+
+export default CarRouter;

@@ -1,4 +1,5 @@
-import express, { json } from "express";
+import { join } from "path";
+import express, { json, static as static_ } from "express";
 import cookieParser from "cookie-parser";
 
 import database from "./utils/database";
@@ -27,10 +28,10 @@ class App {
   }
 
   public initializeMiddleware(): void {
-    // this.app.use(
-    //   "/uploads/images",
-    //   static_(join(__dirname, "../", "uploads", "images"))
-    // );
+    this.app.use(
+      "/uploads/images",
+      static_(join(__dirname, "../", "uploads", "images"))
+    );
     // this.app.use(cors());
     this.app.use(json());
     this.app.use(cookieParser());
