@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { User } from "../modules/Users/user.interface";
 
 export interface Photo {
   fieldname: string;
@@ -17,4 +18,5 @@ export interface FileUploads {
 
 export interface RequestWithFile extends Request {
   files: FileUploads;
+  user: User;
 }

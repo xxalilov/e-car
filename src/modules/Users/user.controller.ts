@@ -3,6 +3,7 @@ import UserService from "./user.service";
 import { User } from "./user.interface";
 import { UpdateUserDto } from "./user.dto";
 import { RequestWithUser } from "../../modules/Auth/auth.interface";
+import { Photo, RequestWithFile } from "../../interfaces/file-upload.interface";
 
 class UserController {
   private userService = new UserService();
@@ -33,12 +34,16 @@ class UserController {
   }
 
   public async updateUser(
-    req: RequestWithUser,
+    req: RequestWithFile,
     res: Response,
     next: NextFunction
   ) {
     try {
       const userData: UpdateUserDto = req.body;
+      const photo: Photo[] = req.files.photo;
+      if (photo) {
+        userData.photo = photo[0].path;
+      }
       const updatedUser: User = await this.userService.updateUserDetails(
         req.user.id,
         userData

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { RequestWithUser } from "../../modules/Auth/auth.interface";
 import CarService from "./car.service";
 import { Car } from "./car.interface";
+import { Photo, RequestWithFile } from "../../interfaces/file-upload.interface";
 
 class CarController {
   private carService = new CarService();
@@ -29,15 +30,38 @@ class CarController {
   }
 
   public async createCar(
-    req: RequestWithUser,
+    req: RequestWithFile,
     res: Response,
     next: NextFunction
   ) {
     try {
       const carData = req.body;
       const userId = req.user.id;
+      const photo: Photo[] = req.files.photo;
+      if (photo) {
+        carData.photo = photo[0].path;
+      }
       const newCar = await this.carService.createCar(carData, userId);
       res.status(201).json({ data: newCar, message: "created" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async updateCar(
+    req: RequestWithFile,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const carData = req.body;
+      const carId = req.params.id;
+      const photo: Photo[] = req.files.photo;
+      if (photo) {
+        carData.photo = photo[0].path;
+      }
+      const updatedCar = await this.carService.updateCar(carData, carId);
+      res.status(200).json({ data: updatedCar, message: "updated" });
     } catch (error) {
       next(error);
     }

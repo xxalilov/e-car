@@ -17,3 +17,25 @@ export class CreateCarDto {
   @IsOptional({ always: false })
   public photo: string;
 }
+
+export class UpdateCarDto {
+  @IsString()
+  @IsOptional({ always: false })
+  public model: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public name: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public carNumber: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public licenseNumber: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public photo: string;
+}

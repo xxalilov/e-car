@@ -2,7 +2,7 @@ import { Router } from "express";
 import { Routes } from "../../routes/route.interface";
 import validationMiddleware from "../../middlewares/validation.middleware";
 import CarController from "./car.controller";
-import { CreateCarDto } from "./car.dto";
+import { CreateCarDto, UpdateCarDto } from "./car.dto";
 import authMiddleware from "../../middlewares/auth.middleware";
 
 class CarRouter implements Routes {
@@ -20,6 +20,12 @@ class CarRouter implements Routes {
       authMiddleware("user"),
       validationMiddleware(CreateCarDto, "body"),
       this.carController.createCar.bind(this.carController)
+    );
+    this.router.put(
+      `${this.path}`,
+      authMiddleware("user"),
+      validationMiddleware(UpdateCarDto, "body"),
+      this.carController.updateCar.bind(this.carController)
     );
     this.router.get(
       `${this.path}`,

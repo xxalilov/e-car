@@ -4,6 +4,7 @@ import { User } from "./user.interface";
 import { HttpException } from "../../exceptions/HttpException";
 import { isEmpty } from "../../utils/isEpmty";
 import { UpdateUserDto } from "./user.dto";
+import { deleteFile } from "../../utils/file";
 
 class UserService {
   public user = models.User;
@@ -31,6 +32,7 @@ class UserService {
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
     const user = await this.user.findByPk(userId);
     if (!user) throw new HttpException(409, "User doesn't exist");
+    if (user.phone && userData.phone) deleteFile(user.phone);
     const updatedUser: User = await user.update(userData);
     return updatedUser;
   }

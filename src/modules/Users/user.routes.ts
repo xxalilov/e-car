@@ -3,6 +3,8 @@ import { Routes } from "../../routes/route.interface";
 import UserController from "./user.controller";
 import validationMiddleware from "../../middlewares/validation.middleware";
 import { UpdateUserDto } from "./user.dto";
+import authMiddleware from "../../middlewares/auth.middleware";
+import { upload } from "../../utils/file";
 
 class UserRouter implements Routes {
   public path = "/user";
@@ -16,7 +18,9 @@ class UserRouter implements Routes {
   private initializeRoutes() {
     this.router.put(
       `${this.path}`,
+      authMiddleware("user"),
       validationMiddleware(UpdateUserDto, "body"),
+      upload.fields([{ name: "photo", maxCount: 1 }]),
       this.userController.updateUser.bind(this.userController)
     );
     this.router.get(

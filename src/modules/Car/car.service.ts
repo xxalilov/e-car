@@ -3,7 +3,8 @@ import { Car } from "./car.interface";
 import PaginationHelper, { ResultInterface } from "../../utils/pagination";
 import { isEmpty } from "../../utils/isEpmty";
 import { HttpException } from "../../exceptions/HttpException";
-import { CreateCarDto } from "./car.dto";
+import { CreateCarDto, UpdateCarDto } from "./car.dto";
+import { deleteFile } from "../../utils/file";
 
 class CarService {
   public car = models.Car;
@@ -29,6 +30,14 @@ class CarService {
     const user = await this.user.findByPk(userId);
     if (!user) throw new HttpException(400, "User not found");
     const car = await this.car.create({ ...carData, userId });
+    return car;
+  }
+
+  public async updateCar(carData: UpdateCarDto, carId: string): Promise<Car> {
+    const car = await this.car.findByPk(carId);
+    if (!car) throw new HttpException(400, "Car not found");
+    if (carData.photo && car.photo) deleteFile(car.photo);
+    await car.update(carData);
     return car;
   }
 }
