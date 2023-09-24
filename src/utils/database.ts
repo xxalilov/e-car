@@ -4,6 +4,7 @@ import config from "../config/config";
 // MODELS
 import UserModel from "../modules/Users/user.model";
 import CarModel from "../modules/Car/car.model";
+import StationModel from "../modules/Stations/station.model";
 
 export const sequelize = new Sequelize(
   config.DB_DATABASE,
@@ -29,6 +30,7 @@ const DB = async function () {
 export const models = {
   User: UserModel(sequelize),
   Car: CarModel(sequelize),
+  Station: StationModel(sequelize),
 };
 
 export default DB;

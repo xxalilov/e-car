@@ -1,0 +1,35 @@
+import { Router } from "express";
+import { Routes } from "../../routes/route.interface";
+import validationMiddleware from "../../middlewares/validation.middleware";
+import authMiddleware from "../../middlewares/auth.middleware";
+import StationController from "./station.controller";
+import { CreateStationDto } from "./station.dto";
+
+class StationRouter implements Routes {
+  public path = "/station";
+  public router = Router();
+  public stationController = new StationController();
+
+  constructor() {
+    this.initializeRoutes();
+  }
+
+  private initializeRoutes() {
+    this.router.post(
+      `${this.path}`,
+      //   authMiddleware("user"),
+      validationMiddleware(CreateStationDto, "body"),
+      this.stationController.createStation.bind(this.stationController)
+    );
+    this.router.get(
+      `${this.path}`,
+      this.stationController.getAllStations.bind(this.stationController)
+    );
+    this.router.get(
+      `${this.path}/:id`,
+      this.stationController.deleteStation.bind(this.stationController)
+    );
+  }
+}
+
+export default StationRouter;
