@@ -17,16 +17,18 @@ class StationRouter implements Routes {
   private initializeRoutes() {
     this.router.post(
       `${this.path}`,
-      //   authMiddleware("user"),
+      authMiddleware("admin"),
       validationMiddleware(CreateStationDto, "body"),
       this.stationController.createStation.bind(this.stationController)
     );
     this.router.get(
       `${this.path}`,
+      authMiddleware("all"),
       this.stationController.getAllStations.bind(this.stationController)
     );
     this.router.get(
       `${this.path}/:id`,
+      authMiddleware("all"),
       this.stationController.deleteStation.bind(this.stationController)
     );
   }

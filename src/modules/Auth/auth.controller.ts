@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AuthService from "./auth.service";
 import { CreateAdminDto } from "../../modules/Admin/admin.dto";
+import { RequestWithUser } from "./auth.interface";
 
 class AuthController {
   private authService = new AuthService();
@@ -55,6 +56,22 @@ class AuthController {
           .status(403)
           .json({ data: null, message: "Confirmation code is incorrect" });
       }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async getCurrentUser(
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const user = req.user;
+      res.status(200).json({
+        message: "Sent User data",
+        data: user,
+      });
     } catch (error) {
       next(error);
     }

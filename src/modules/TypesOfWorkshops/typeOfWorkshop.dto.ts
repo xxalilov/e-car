@@ -5,5 +5,6 @@ export class CreateTypeOfWorkshopDto {
   public title: string;
 
   @IsString()
+  @IsOptional({ always: false })
   public photo: string;
 }

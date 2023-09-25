@@ -3,7 +3,7 @@ import { TypeOfWorkshop } from "./typeOfWorkshop.interface";
 
 export type TypeOfWorkshopCreationAttributes = Optional<
   TypeOfWorkshop,
-  "id" | "title" | "slug" | "photo"
+  "id" | "title" | "photo"
 >;
 
 export class TypeOfWorkshopModel
@@ -12,7 +12,6 @@ export class TypeOfWorkshopModel
 {
   public id: string;
   public title: string;
-  public slug: string;
 
   public photo: string;
   public readonly createdAt!: Date;
@@ -28,10 +27,6 @@ export default function (sequelize: Sequelize): typeof TypeOfWorkshopModel {
         defaultValue: DataTypes.UUIDV4,
       },
       title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      slug: {
         type: DataTypes.STRING,
         allowNull: false,
       },

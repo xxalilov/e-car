@@ -19,6 +19,14 @@ class CarService {
     return result;
   }
 
+  public async getUserCars(userId: string): Promise<Car[]> {
+    if (isEmpty(userId)) throw new HttpException(400, "userId is empty");
+    const user = await this.user.findByPk(userId);
+    if (!user) throw new HttpException(400, "User not found");
+    const cars = await this.car.findAll({ where: { userId } });
+    return cars;
+  }
+
   public async getCarById(carId: string): Promise<Car> {
     if (isEmpty(carId)) throw new HttpException(400, "carId is empty");
     const car: Car = await this.car.findByPk(carId);

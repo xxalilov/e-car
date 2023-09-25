@@ -4,6 +4,7 @@ import validationMiddleware from "../../middlewares/validation.middleware";
 import CarController from "./car.controller";
 import { CreateCarDto, UpdateCarDto } from "./car.dto";
 import authMiddleware from "../../middlewares/auth.middleware";
+import { upload } from "../../utils/file";
 
 class CarRouter implements Routes {
   public path = "/car";
@@ -19,20 +20,29 @@ class CarRouter implements Routes {
       `${this.path}`,
       authMiddleware("user"),
       validationMiddleware(CreateCarDto, "body"),
+      upload.fields([{ name: "photo", maxCount: 1 }]),
       this.carController.createCar.bind(this.carController)
     );
+    this.router.get(
+      `${this.path}/user`,
+      authMiddleware("user"),
+      this.carController.getUserCars.bind(this.carController)
+    );
     this.router.put(
-      `${this.path}`,
+      `${this.path}/:id`,
       authMiddleware("user"),
       validationMiddleware(UpdateCarDto, "body"),
+      upload.fields([{ name: "photo", maxCount: 1 }]),
       this.carController.updateCar.bind(this.carController)
     );
     this.router.get(
       `${this.path}`,
+      authMiddleware("admin"),
       this.carController.getAllCar.bind(this.carController)
     );
     this.router.get(
       `${this.path}/:id`,
+      authMiddleware("all"),
       this.carController.getCarById.bind(this.carController)
     );
   }

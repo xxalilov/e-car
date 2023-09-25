@@ -4,6 +4,7 @@ import validationMiddleware from "../../middlewares/validation.middleware";
 import authMiddleware from "../../middlewares/auth.middleware";
 import TypeOfWorkshopController from "./typeOfWorkshop.controller";
 import { CreateTypeOfWorkshopDto } from "./typeOfWorkshop.dto";
+import { upload } from "../../utils/file";
 
 class TypeOfWorkshopRouter implements Routes {
   public path = "/types-of-workshops";
@@ -17,21 +18,23 @@ class TypeOfWorkshopRouter implements Routes {
   private initializeRoutes() {
     this.router.post(
       `${this.path}`,
-      //   authMiddleware("user"),
-      validationMiddleware(CreateTypeOfWorkshopDto, "body"),
+      authMiddleware("admin"),
+      // validationMiddleware(CreateTypeOfWorkshopDto, "body"),
+      upload.fields([{ name: "photo", maxCount: 1 }]),
       this.typesOfWorkshopController.createTypeOfWorkshop.bind(
         this.typesOfWorkshopController
       )
     );
     this.router.delete(
-      `${this.path}`,
-      //   authMiddleware("user"),
+      `${this.path}/:id`,
+      authMiddleware("admin"),
       this.typesOfWorkshopController.deleteTypeOfWorkshop.bind(
         this.typesOfWorkshopController
       )
     );
     this.router.get(
       `${this.path}`,
+      authMiddleware("all"),
       this.typesOfWorkshopController.getAllTypeOfWorkshop.bind(
         this.typesOfWorkshopController
       )

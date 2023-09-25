@@ -23,7 +23,7 @@ export class CreateWorkshopDto {
   public long: string;
 
   @IsString()
-  public typeId: string;
+  public typeOfWorkshopId: string;
 }
 
 export class UpdateWorkshopDto {
@@ -57,5 +57,5 @@ export class UpdateWorkshopDto {
 
   @IsString()
   @IsOptional({ always: false })
-  public typeId: string;
+  public typeOfWorkshopId: string;
 }

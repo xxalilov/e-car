@@ -1,6 +1,7 @@
 import { join } from "path";
 import express, { json, static as static_ } from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import database from "./utils/database";
 import config from "./config/config";
@@ -32,7 +33,7 @@ class App {
       "/uploads/images",
       static_(join(__dirname, "../", "uploads", "images"))
     );
-    // this.app.use(cors());
+    this.app.use(cors());
     this.app.use(json());
     this.app.use(cookieParser());
   }

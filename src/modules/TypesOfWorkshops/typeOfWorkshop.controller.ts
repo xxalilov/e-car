@@ -28,9 +28,11 @@ class TypeOfWorkshopController {
   ) {
     try {
       const data = req.body;
-      const photo: Photo[] = req.files.photo;
-      if (photo) {
-        data.photo = photo[0].path;
+      if (req.files && req.files.photo) {
+        const photo: Photo[] = req.files.photo;
+        if (photo) {
+          data.photo = photo[0].path;
+        }
       }
       const newTypeOfWorkshop =
         await this.typeOfWorkshopService.createTypeOfWorkshop(data);

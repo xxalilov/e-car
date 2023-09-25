@@ -22,6 +22,21 @@ class WorkshopController {
     }
   }
 
+  public async getAllWorkshopsByType(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const typeOfWorkshopId = req.params.id;
+    try {
+      const findAllWorkshopData =
+        await this.workshopService.getAllWorkshopsByType(typeOfWorkshopId);
+      res.status(200).json({ data: findAllWorkshopData, message: "findAll" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async createWorkshop(req: Request, res: Response, next: NextFunction) {
     try {
       const workshopData = req.body;

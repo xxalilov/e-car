@@ -12,7 +12,7 @@ export type WorkshopCreationAttributes = Optional<
   | "workingTime"
   | "lat"
   | "long"
-  | "typeId"
+  | "typeOfWorkshopId"
 >;
 
 export class WorkshopModel
@@ -27,7 +27,7 @@ export class WorkshopModel
   public workingTime: string;
   public lat: string;
   public long: string;
-  public typeId: string;
+  public typeOfWorkshopId: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -68,7 +68,7 @@ export default function (sequelize: Sequelize): typeof WorkshopModel {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      typeId: {
+      typeOfWorkshopId: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -80,11 +80,11 @@ export default function (sequelize: Sequelize): typeof WorkshopModel {
   );
 
   TypeOfWorkshopModel.hasMany(WorkshopModel, {
-    foreignKey: "typeId",
+    foreignKey: "typeOfWorkshopId",
     as: "workshops",
   });
   WorkshopModel.belongsTo(TypeOfWorkshopModel, {
-    foreignKey: "typeId",
+    foreignKey: "typeOfWorkshopId",
     as: "type",
   });
 

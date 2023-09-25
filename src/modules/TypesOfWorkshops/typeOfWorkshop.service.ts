@@ -16,6 +16,9 @@ class TypeOfWorkshopService {
   public async createTypeOfWorkshop(
     data: CreateTypeOfWorkshopDto
   ): Promise<TypeOfWorkshop> {
+    if (!data.photo) {
+      throw new HttpException(400, "Please input photo");
+    }
     const typeOfWorkshop = await this.typeOfWorkshop.create(data);
     return typeOfWorkshop;
   }

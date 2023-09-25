@@ -40,9 +40,11 @@ class UserController {
   ) {
     try {
       const userData: UpdateUserDto = req.body;
-      const photo: Photo[] = req.files.photo;
-      if (photo) {
-        userData.photo = photo[0].path;
+      if (req.files) {
+        const photo: Photo[] = req.files.photo;
+        if (photo) {
+          userData.photo = photo[0].path;
+        }
       }
       const updatedUser: User = await this.userService.updateUserDetails(
         req.user.id,

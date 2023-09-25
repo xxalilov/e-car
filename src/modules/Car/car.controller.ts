@@ -29,6 +29,19 @@ class CarController {
     }
   }
 
+  public async getUserCars(
+    req: RequestWithUser,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const findUserCars = await this.carService.getUserCars(req.user.id);
+      res.status(200).json({ data: findUserCars, message: "findAll" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async createCar(
     req: RequestWithFile,
     res: Response,
@@ -37,8 +50,9 @@ class CarController {
     try {
       const carData = req.body;
       const userId = req.user.id;
-      const photo: Photo[] = req.files.photo;
-      if (photo) {
+      console.log(req.files);
+      if (req.files && req.files.photo) {
+        const photo: Photo[] = req.files.photo;
         carData.photo = photo[0].path;
       }
       const newCar = await this.carService.createCar(carData, userId);

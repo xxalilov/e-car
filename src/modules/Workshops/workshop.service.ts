@@ -18,11 +18,18 @@ class WorkshopService {
     return result;
   }
 
+  public async getAllWorkshopsByType(typeOfWorkshopId): Promise<Workshop[]> {
+    const workshops = await this.workshop.findAll({
+      where: { typeOfWorkshopId },
+    });
+    return workshops;
+  }
+
   public async createWorkshop(
     workshopData: CreateWorkshopDto
   ): Promise<Workshop> {
     const typeOfWorkshop = await this.typeOfWorkshop.findByPk(
-      workshopData.typeId
+      workshopData.typeOfWorkshopId
     );
     if (!typeOfWorkshop) throw new HttpException(400, "Type not found");
     const workshop = await this.workshop.create(workshopData);

@@ -17,22 +17,31 @@ class WorkshopRouter implements Routes {
   private initializeRoutes() {
     this.router.post(
       `${this.path}`,
-      //   authMiddleware("user"),
+      authMiddleware("admin"),
       validationMiddleware(CreateWorkshopDto, "body"),
       this.workshopController.createWorkshop.bind(this.workshopController)
     );
     this.router.put(
-      `${this.path}`,
-      //   authMiddleware("user"),
+      `${this.path}/:id`,
+      authMiddleware("admin"),
       validationMiddleware(UpdateWorkshopDto, "body"),
       this.workshopController.updateWorkshop.bind(this.workshopController)
     );
     this.router.get(
       `${this.path}`,
+      authMiddleware("all"),
       this.workshopController.getAllWorkshops.bind(this.workshopController)
+    );
+    this.router.get(
+      `${this.path}/:id`,
+      authMiddleware("all"),
+      this.workshopController.getAllWorkshopsByType.bind(
+        this.workshopController
+      )
     );
     this.router.delete(
       `${this.path}/:id`,
+      authMiddleware("all"),
       this.workshopController.deleteWorkshop.bind(this.workshopController)
     );
   }

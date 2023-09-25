@@ -25,6 +25,7 @@ class UserRouter implements Routes {
     );
     this.router.get(
       `${this.path}`,
+      authMiddleware("admin"),
       this.userController.getAllUsers.bind(this.userController)
     );
     this.router.get(

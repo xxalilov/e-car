@@ -7,5 +7,5 @@ export interface Workshop {
   address: string;
   lat: string;
   long: string;
-  typeId: string;
+  typeOfWorkshopId: string;
 }
