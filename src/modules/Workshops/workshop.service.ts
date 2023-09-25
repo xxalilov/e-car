@@ -22,7 +22,7 @@ class WorkshopService {
     workshopData: CreateWorkshopDto
   ): Promise<Workshop> {
     const typeOfWorkshop = await this.typeOfWorkshop.findByPk(
-      workshopData.type
+      workshopData.typeId
     );
     if (!typeOfWorkshop) throw new HttpException(400, "Type not found");
     const workshop = await this.workshop.create(workshopData);

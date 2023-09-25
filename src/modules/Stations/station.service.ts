@@ -1,8 +1,8 @@
-import PaginationHelper, { ResultInterface } from "utils/pagination";
+import PaginationHelper, { ResultInterface } from "../../utils/pagination";
 import { models } from "../../utils/database";
 import { Station } from "./station.interface";
 import { CreateStationDto } from "./station.dto";
-import { HttpException } from "exceptions/HttpException";
+import { HttpException } from "../../exceptions/HttpException";
 
 class StationService {
   public station = models.Station;

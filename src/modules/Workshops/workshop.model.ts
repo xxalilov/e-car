@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 import { Workshop } from "./workshop.interface";
-import { TypeOfWorkshopModel } from "modules/TypesOfWorkshops/typeOfWorkshop.model";
+import { TypeOfWorkshopModel } from "../../modules/TypesOfWorkshops/typeOfWorkshop.model";
 
 export type WorkshopCreationAttributes = Optional<
   Workshop,
@@ -12,7 +12,7 @@ export type WorkshopCreationAttributes = Optional<
   | "workingTime"
   | "lat"
   | "long"
-  | "type"
+  | "typeId"
 >;
 
 export class WorkshopModel
@@ -27,7 +27,7 @@ export class WorkshopModel
   public workingTime: string;
   public lat: string;
   public long: string;
-  public type: string;
+  public typeId: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -68,7 +68,7 @@ export default function (sequelize: Sequelize): typeof WorkshopModel {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      type: {
+      typeId: {
         type: DataTypes.STRING,
         allowNull: false,
       },
