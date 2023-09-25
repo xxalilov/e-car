@@ -3,11 +3,13 @@ import UserRouter from "../modules/Users/user.routes";
 import AuthRouter from "../modules/Auth/auth.routes";
 import CarRouter from "../modules/Car/car.routes";
 import StationRouter from "../modules/Stations/station.routes";
+import TypeOfWorkshopRouter from "../modules/TypesOfWorkshops/typeOfWorkshop.routes";
 const router = express.Router();
 
 router.use("/", new UserRouter().router);
 router.use("/", new AuthRouter().router);
 router.use("/", new CarRouter().router);
 router.use("/", new StationRouter().router);
+router.use("/", new TypeOfWorkshopRouter().router);
 
 export default router;
