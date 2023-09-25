@@ -12,8 +12,8 @@ interface ENV {
   DB_PORT: string | undefined;
   DB_HOST: string | undefined;
   SECRET_KEY: string | undefined;
-  //   ADMIN_EMAIL: string | undefined;
-  //   ADMIN_PASSWORD: string | undefined;
+  ADMIN_EMAIL: string | undefined;
+  ADMIN_PASSWORD: string | undefined;
 }
 
 interface ConfigInterface {
@@ -25,8 +25,8 @@ interface ConfigInterface {
   DB_PORT: string;
   DB_HOST: string;
   SECRET_KEY: string;
-  //   ADMIN_EMAIL: string;
-  //   ADMIN_PASSWORD: string;
+  ADMIN_EMAIL: string;
+  ADMIN_PASSWORD: string;
 }
 
 class Config {
@@ -40,8 +40,8 @@ class Config {
       DB_PORT: process.env.DB_PORT,
       DB_HOST: process.env.DB_HOST,
       SECRET_KEY: process.env.SECRET_KEY,
-      //   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
-      //   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+      ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+      ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
     };
   }
 

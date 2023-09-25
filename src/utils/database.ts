@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 import config from "../config/config";
 
 // MODELS
+import AdminMode from "../modules/Admin/admin.model";
 import UserModel from "../modules/Users/user.model";
 import CarModel from "../modules/Car/car.model";
 import StationModel from "../modules/Stations/station.model";
@@ -30,6 +31,7 @@ const DB = async function () {
 };
 
 export const models = {
+  Admin: AdminMode(sequelize),
   User: UserModel(sequelize),
   Car: CarModel(sequelize),
   Station: StationModel(sequelize),

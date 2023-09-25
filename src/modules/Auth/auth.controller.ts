@@ -1,8 +1,22 @@
 import { NextFunction, Request, Response } from "express";
 import AuthService from "./auth.service";
+import { CreateAdminDto } from "../../modules/Admin/admin.dto";
 
 class AuthController {
   private authService = new AuthService();
+
+  public async signInAdmin(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userData: CreateAdminDto = req.body;
+      const { cookie, findAdmin, token } = await this.authService.signinAdmin(
+        userData
+      );
+      res.setHeader("Set-Cookie", [cookie]);
+      res.status(200).json({ data: findAdmin, token, message: "signin admin" });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   public async sendConfirmation(
     req: Request,
