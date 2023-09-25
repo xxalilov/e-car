@@ -6,6 +6,7 @@ import UserModel from "../modules/Users/user.model";
 import CarModel from "../modules/Car/car.model";
 import StationModel from "../modules/Stations/station.model";
 import TypeOfWorkshopModel from "../modules/TypesOfWorkshops/typeOfWorkshop.model";
+import WorkshopModel from "../modules/Workshops/workshop.model";
 
 export const sequelize = new Sequelize(
   config.DB_DATABASE,
@@ -33,6 +34,7 @@ export const models = {
   Car: CarModel(sequelize),
   Station: StationModel(sequelize),
   TypeOfWorkshop: TypeOfWorkshopModel(sequelize),
+  Workshop: WorkshopModel(sequelize),
 };
 
 export default DB;
