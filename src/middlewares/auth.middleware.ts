@@ -26,30 +26,27 @@ const authMiddleware =
         ) as DataStoredInToken;
         const userId = verificationResponse.id;
         if (role === "all") {
-          // const findAdmin = await models.Admin.findByPk(userId);
+          const findAdmin = await models.Admin.findByPk(userId);
           const findUser = await models.User.findByPk(userId);
 
-          // if (findAdmin) {
-          //   req.user = findAdmin;
-          //   next();
-          // } else
-          if (findUser) {
+          if (findAdmin) {
+            req.user = findAdmin;
+            next();
+          } else if (findUser) {
             req.user = findUser;
             next();
           } else {
             next(new HttpException(401, "Wrong authentication token"));
           }
-        }
-        // else if (role === "admin") {
-        //   const findAdmin = await models.Admin.findByPk(userId);
-        //   if (findAdmin) {
-        //     req.user = findAdmin;
-        //     next();
-        //   } else {
-        //     next(new HttpException(401, "Wrong authentication token"));
-        //   }
-        // }
-        else if (role === "user") {
+        } else if (role === "admin") {
+          const findAdmin = await models.Admin.findByPk(userId);
+          if (findAdmin) {
+            req.user = findAdmin;
+            next();
+          } else {
+            next(new HttpException(401, "Wrong authentication token"));
+          }
+        } else if (role === "user") {
           const findUser = await models.User.findByPk(userId);
           if (findUser) {
             req.user = findUser;
