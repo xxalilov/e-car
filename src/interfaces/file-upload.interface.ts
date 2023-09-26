@@ -17,6 +17,6 @@ export interface FileUploads {
 }
 
 export interface RequestWithFile extends Request {
-  files: FileUploads;
+  files: { [fileldname: string]: [] };
   user: User;
 }
