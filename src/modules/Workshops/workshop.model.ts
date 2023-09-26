@@ -79,14 +79,14 @@ export default function (sequelize: Sequelize): typeof WorkshopModel {
     }
   );
 
-  TypeOfWorkshopModel.hasMany(WorkshopModel, {
-    foreignKey: "typeOfWorkshopId",
-    as: "workshops",
-  });
-  WorkshopModel.belongsTo(TypeOfWorkshopModel, {
-    foreignKey: "typeOfWorkshopId",
-    as: "type",
-  });
+  // TypeOfWorkshopModel.hasMany(WorkshopModel, {
+  //   foreignKey: "typeOfWorkshopId",
+  //   as: "workshops",
+  // });
+  // WorkshopModel.belongsTo(TypeOfWorkshopModel, {
+  //   foreignKey: "typeOfWorkshopId",
+  //   as: "type",
+  // });
 
   return WorkshopModel;
 }
