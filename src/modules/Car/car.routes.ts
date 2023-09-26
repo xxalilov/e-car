@@ -19,7 +19,7 @@ class CarRouter implements Routes {
     this.router.post(
       `${this.path}`,
       authMiddleware("user"),
-      validationMiddleware(CreateCarDto, "body"),
+      // validationMiddleware(CreateCarDto, "body"),
       upload.fields([{ name: "photo", maxCount: 1 }]),
       this.carController.createCar.bind(this.carController)
     );
@@ -31,7 +31,7 @@ class CarRouter implements Routes {
     this.router.put(
       `${this.path}/:id`,
       authMiddleware("user"),
-      validationMiddleware(UpdateCarDto, "body"),
+      // validationMiddleware(UpdateCarDto, "body"),
       upload.fields([{ name: "photo", maxCount: 1 }]),
       this.carController.updateCar.bind(this.carController)
     );
