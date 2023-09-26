@@ -4,6 +4,7 @@ import validationMiddleware from "../../middlewares/validation.middleware";
 import authMiddleware from "../../middlewares/auth.middleware";
 import AdvertisingController from "./advertising.controller";
 import { CreateAdvertisingDto } from "./advertising.dto";
+import { upload } from "../../utils/file";
 
 class AdvertisingRouter implements Routes {
   public path = "/advertising";
@@ -17,21 +18,23 @@ class AdvertisingRouter implements Routes {
   private initializeRoutes() {
     this.router.post(
       `${this.path}`,
-      //   authMiddleware("user"),
-      validationMiddleware(CreateAdvertisingDto, "body"),
+      authMiddleware("admin"),
+      // validationMiddleware(CreateAdvertisingDto, "body"),
+      upload.fields([{ name: "photo", maxCount: 1 }]),
       this.advertisingController.createAdvertising.bind(
         this.advertisingController
       )
     );
     this.router.delete(
-      `${this.path}`,
-      //   authMiddleware("user"),
+      `${this.path}/:id`,
+      authMiddleware("admin"),
       this.advertisingController.deleteAdvertising.bind(
         this.advertisingController
       )
     );
     this.router.get(
       `${this.path}`,
+      authMiddleware("all"),
       this.advertisingController.getAllAdvertisings.bind(
         this.advertisingController
       )

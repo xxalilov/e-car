@@ -26,8 +26,8 @@ class AdvertisingController {
   ) {
     try {
       const advertisingData = req.body;
-      const photo: Photo[] = req.files.photo;
-      if (photo) {
+      if (req.files && req.files.photo) {
+        const photo: Photo[] = req.files.photo;
         advertisingData.photo = photo[0].path;
       }
       const newAdvertising = await this.advertisingService.createAdvertising(

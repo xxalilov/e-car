@@ -16,6 +16,8 @@ class AdvertisingService {
   public async createAdvertising(
     advertisingData: CreateAdvertisingDto
   ): Promise<Advertising> {
+    if (!advertisingData.photo)
+      throw new HttpException(400, "Please input photo");
     const advertising = await this.advertising.create(advertisingData);
     return advertising;
   }
