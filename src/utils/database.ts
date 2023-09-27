@@ -9,6 +9,8 @@ import StationModel from "../modules/Stations/station.model";
 import TypeOfWorkshopModel from "../modules/TypesOfWorkshops/typeOfWorkshop.model";
 import WorkshopModel from "../modules/Workshops/workshop.model";
 import AdvertisingModel from "../modules/Advertising/advertising.model";
+import TypeOfProductModel from "../modules/TypesOfProducts/typeOfProduct.model";
+import ProductModel from "../modules/Products/product.model";
 
 export const sequelize = new Sequelize(
   config.DB_DATABASE,
@@ -39,6 +41,8 @@ export const models = {
   TypeOfWorkshop: TypeOfWorkshopModel(sequelize),
   Workshop: WorkshopModel(sequelize),
   Advertising: AdvertisingModel(sequelize),
+  TypeOfProduct: TypeOfProductModel(sequelize),
+  Product: ProductModel(sequelize),
 };
 
 export default DB;

@@ -6,6 +6,8 @@ import StationRouter from "../modules/Stations/station.routes";
 import TypeOfWorkshopRouter from "../modules/TypesOfWorkshops/typeOfWorkshop.routes";
 import WorkshopRouter from "../modules/Workshops/workshop.routes";
 import AdvertisingRouter from "../modules/Advertising/advertising.routes";
+import TypeOfProductRouter from "../modules/TypesOfProducts/typeOfProduct.routes";
+import ProductRouter from "../modules/Products/product.routes";
 const router = express.Router();
 
 router.use("/", new UserRouter().router);
@@ -15,5 +17,7 @@ router.use("/", new StationRouter().router);
 router.use("/", new TypeOfWorkshopRouter().router);
 router.use("/", new WorkshopRouter().router);
 router.use("/", new AdvertisingRouter().router);
+router.use("/", new TypeOfProductRouter().router);
+router.use("/", new ProductRouter().router);
 
 export default router;

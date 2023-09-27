@@ -40,7 +40,7 @@ const deleteFile = (filePath) => {
 const upload = multer({
   storage: fileStorage,
   fileFilter: fileFilter,
-  limits: { fileSize: 1024 * 1024 },
+  limits: { fileSize: 3 * 1024 * 1024 },
 });
 
 export { upload, deleteFile };

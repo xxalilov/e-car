@@ -80,6 +80,17 @@ class CarController {
       next(error);
     }
   }
+
+  public async deleteCarById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const deletedCarData: Car = await this.carService.deleteCar(
+        req.params.id
+      );
+      res.status(200).json({ data: deletedCarData, message: "deleted" });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default CarController;

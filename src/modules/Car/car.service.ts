@@ -48,6 +48,14 @@ class CarService {
     await car.update(carData);
     return car;
   }
+
+  public async deleteCar(carId: string): Promise<Car> {
+    const car = await this.car.findByPk(carId);
+    if (!car) throw new HttpException(400, "Car not found");
+    if (car.photo) deleteFile(car.photo);
+    await car.destroy();
+    return car;
+  }
 }
 
 export default CarService;
