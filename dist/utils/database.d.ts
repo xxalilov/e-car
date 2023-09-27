@@ -9,5 +9,7 @@ export declare const models: {
     TypeOfWorkshop: typeof import("../modules/TypesOfWorkshops/typeOfWorkshop.model").TypeOfWorkshopModel;
     Workshop: typeof import("../modules/Workshops/workshop.model").WorkshopModel;
     Advertising: typeof import("../modules/Advertising/advertising.model").AdvertisingModel;
+    TypeOfProduct: typeof import("../modules/TypesOfProducts/typeOfProduct.model").TypeOfProductModel;
+    Product: typeof import("../modules/Products/product.model").ProductModel;
 };
 export default DB;

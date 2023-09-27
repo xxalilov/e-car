@@ -9,6 +9,8 @@ const station_routes_1 = tslib_1.__importDefault(require("../modules/Stations/st
 const typeOfWorkshop_routes_1 = tslib_1.__importDefault(require("../modules/TypesOfWorkshops/typeOfWorkshop.routes"));
 const workshop_routes_1 = tslib_1.__importDefault(require("../modules/Workshops/workshop.routes"));
 const advertising_routes_1 = tslib_1.__importDefault(require("../modules/Advertising/advertising.routes"));
+const typeOfProduct_routes_1 = tslib_1.__importDefault(require("../modules/TypesOfProducts/typeOfProduct.routes"));
+const product_routes_1 = tslib_1.__importDefault(require("../modules/Products/product.routes"));
 const router = express_1.default.Router();
 router.use("/", new user_routes_1.default().router);
 router.use("/", new auth_routes_1.default().router);
@@ -17,5 +19,7 @@ router.use("/", new station_routes_1.default().router);
 router.use("/", new typeOfWorkshop_routes_1.default().router);
 router.use("/", new workshop_routes_1.default().router);
 router.use("/", new advertising_routes_1.default().router);
+router.use("/", new typeOfProduct_routes_1.default().router);
+router.use("/", new product_routes_1.default().router);
 exports.default = router;
 //# sourceMappingURL=index.route.js.map

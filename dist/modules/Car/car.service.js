@@ -49,6 +49,15 @@ class CarService {
         await car.update(carData);
         return car;
     }
+    async deleteCar(carId) {
+        const car = await this.car.findByPk(carId);
+        if (!car)
+            throw new HttpException_1.HttpException(400, "Car not found");
+        if (car.photo)
+            (0, file_1.deleteFile)(car.photo);
+        await car.destroy();
+        return car;
+    }
 }
 exports.default = CarService;
 //# sourceMappingURL=car.service.js.map

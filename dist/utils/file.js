@@ -36,7 +36,7 @@ exports.deleteFile = deleteFile;
 const upload = (0, multer_1.default)({
     storage: fileStorage,
     fileFilter: fileFilter,
-    limits: { fileSize: 1024 * 1024 },
+    limits: { fileSize: 3 * 1024 * 1024 },
 });
 exports.upload = upload;
 //# sourceMappingURL=file.js.map

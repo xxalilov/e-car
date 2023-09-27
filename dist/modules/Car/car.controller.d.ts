@@ -8,5 +8,6 @@ declare class CarController {
     getUserCars(req: RequestWithUser, res: Response, next: NextFunction): Promise<void>;
     createCar(req: RequestWithFile, res: Response, next: NextFunction): Promise<void>;
     updateCar(req: RequestWithFile, res: Response, next: NextFunction): Promise<void>;
+    deleteCarById(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 export default CarController;

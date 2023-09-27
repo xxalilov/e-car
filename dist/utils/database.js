@@ -12,6 +12,8 @@ const station_model_1 = tslib_1.__importDefault(require("../modules/Stations/sta
 const typeOfWorkshop_model_1 = tslib_1.__importDefault(require("../modules/TypesOfWorkshops/typeOfWorkshop.model"));
 const workshop_model_1 = tslib_1.__importDefault(require("../modules/Workshops/workshop.model"));
 const advertising_model_1 = tslib_1.__importDefault(require("../modules/Advertising/advertising.model"));
+const typeOfProduct_model_1 = tslib_1.__importDefault(require("../modules/TypesOfProducts/typeOfProduct.model"));
+const product_model_1 = tslib_1.__importDefault(require("../modules/Products/product.model"));
 exports.sequelize = new sequelize_1.Sequelize(config_1.default.DB_DATABASE, config_1.default.DB_USER, config_1.default.DB_PASSWORD, {
     dialect: "postgres",
     host: config_1.default.DB_HOST,
@@ -35,6 +37,8 @@ exports.models = {
     TypeOfWorkshop: (0, typeOfWorkshop_model_1.default)(exports.sequelize),
     Workshop: (0, workshop_model_1.default)(exports.sequelize),
     Advertising: (0, advertising_model_1.default)(exports.sequelize),
+    TypeOfProduct: (0, typeOfProduct_model_1.default)(exports.sequelize),
+    Product: (0, product_model_1.default)(exports.sequelize),
 };
 exports.default = DB;
 //# sourceMappingURL=database.js.map

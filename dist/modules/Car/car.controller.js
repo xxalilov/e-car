@@ -66,6 +66,15 @@ class CarController {
             next(error);
         }
     }
+    async deleteCarById(req, res, next) {
+        try {
+            const deletedCarData = await this.carService.deleteCar(req.params.id);
+            res.status(200).json({ data: deletedCarData, message: "deleted" });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 exports.default = CarController;
 //# sourceMappingURL=car.controller.js.map

@@ -9,5 +9,6 @@ declare class CarService {
     getCarById(carId: string): Promise<Car>;
     createCar(carData: CreateCarDto, userId: string): Promise<Car>;
     updateCar(carData: UpdateCarDto, carId: string): Promise<Car>;
+    deleteCar(carId: string): Promise<Car>;
 }
 export default CarService;

@@ -22,6 +22,7 @@ class CarRouter {
         file_1.upload.fields([{ name: "photo", maxCount: 1 }]), this.carController.updateCar.bind(this.carController));
         this.router.get(`${this.path}`, (0, auth_middleware_1.default)("admin"), this.carController.getAllCar.bind(this.carController));
         this.router.get(`${this.path}/:id`, (0, auth_middleware_1.default)("all"), this.carController.getCarById.bind(this.carController));
+        this.router.get(`${this.path}/:id`, (0, auth_middleware_1.default)("user"), this.carController.deleteCarById.bind(this.carController));
     }
 }
 exports.default = CarRouter;
