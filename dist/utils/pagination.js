@@ -4,11 +4,12 @@ class PaginationHelper {
     constructor(model) {
         this.model = model;
     }
-    async paginate(page, pageSize) {
+    async paginate(page, pageSize, whereOption) {
         const offset = (page - 1) * pageSize;
         const options = {
             limit: pageSize,
             offset,
+            where: whereOption,
         };
         const results = await this.model.findAndCountAll(options);
         const totalPages = Math.ceil(results.count / pageSize);

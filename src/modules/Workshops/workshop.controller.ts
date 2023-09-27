@@ -28,10 +28,16 @@ class WorkshopController {
     next: NextFunction
   ) {
     const typeOfWorkshopId = req.params.id;
+    const page = parseInt(req.query.page as string) || 1;
+    const pageSize = parseInt(req.query.pageSize as string) || 10;
     try {
       const findAllWorkshopData =
-        await this.workshopService.getAllWorkshopsByType(typeOfWorkshopId);
-      res.status(200).json({ data: findAllWorkshopData, message: "findAll" });
+        await this.workshopService.getAllWorkshopsByType(
+          page,
+          pageSize,
+          typeOfWorkshopId
+        );
+      res.status(200).json({ ...findAllWorkshopData, message: "findAll" });
     } catch (error) {
       next(error);
     }

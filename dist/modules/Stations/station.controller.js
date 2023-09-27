@@ -17,6 +17,17 @@ class StationController {
             next(error);
         }
     }
+    async getStationsWithDistance(req, res, next) {
+        const lat = req.query.lat.toString();
+        const long = req.query.long.toString();
+        try {
+            const stations = await this.stationService.getStationsWithDistance(lat, long);
+            res.status(201).json({ data: stations, message: "find" });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
     async createStation(req, res, next) {
         const stationData = req.body;
         try {

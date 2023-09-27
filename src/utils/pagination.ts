@@ -15,11 +15,16 @@ class PaginationHelper<T extends Model> {
     this.model = model;
   }
 
-  async paginate(page: number, pageSize: number): Promise<ResultInterface> {
+  async paginate(
+    page: number,
+    pageSize: number,
+    whereOption?: {}
+  ): Promise<ResultInterface> {
     const offset = (page - 1) * pageSize;
     const options: FindOptions = {
       limit: pageSize,
       offset,
+      where: whereOption,
     };
     const results = await this.model.findAndCountAll(options);
 

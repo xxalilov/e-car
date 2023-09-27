@@ -71,6 +71,16 @@ class ProductController {
             next(error);
         }
     }
+    async searchProduct(req, res, next) {
+        try {
+            const searchData = req.query.searchData.toString();
+            const foundProducts = await this.productService.searchProduct(searchData);
+            res.status(200).json({ data: foundProducts, message: "found" });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 exports.default = ProductController;
 //# sourceMappingURL=product.controller.js.map

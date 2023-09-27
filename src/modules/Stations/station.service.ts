@@ -3,6 +3,7 @@ import { models } from "../../utils/database";
 import { Station } from "./station.interface";
 import { CreateStationDto } from "./station.dto";
 import { HttpException } from "../../exceptions/HttpException";
+import { getDistance } from "geolib";
 
 class StationService {
   public station = models.Station;
@@ -14,6 +15,30 @@ class StationService {
     const paginationHelper = new PaginationHelper(this.station);
     const result = await paginationHelper.paginate(page, pageSize);
     return result;
+  }
+
+  public async getStationsWithDistance(
+    lat: string,
+    long: string
+  ): Promise<Station[]> {
+    const allStations = await this.station.findAll();
+    const filteredData = await allStations.filter((data) => {
+      const distance = getDistance(
+        { latitude: parseFloat(lat), longitude: parseFloat(long) },
+        {
+          latitude: parseFloat(data.lat),
+          longitude: parseFloat(data.long),
+        }
+      );
+
+      if (distance / 1000 <= 50) {
+        return data;
+      } else {
+        return;
+      }
+    });
+
+    return filteredData;
   }
 
   public async createStation(stationData: CreateStationDto): Promise<Station> {

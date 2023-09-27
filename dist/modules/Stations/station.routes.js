@@ -15,6 +15,7 @@ class StationRouter {
     }
     initializeRoutes() {
         this.router.post(`${this.path}`, (0, auth_middleware_1.default)("admin"), (0, validation_middleware_1.default)(station_dto_1.CreateStationDto, "body"), this.stationController.createStation.bind(this.stationController));
+        this.router.get(`${this.path}/distance`, (0, auth_middleware_1.default)("all"), this.stationController.getStationsWithDistance.bind(this.stationController));
         this.router.get(`${this.path}`, (0, auth_middleware_1.default)("all"), this.stationController.getAllStations.bind(this.stationController));
         this.router.get(`${this.path}/:id`, (0, auth_middleware_1.default)("all"), this.stationController.deleteStation.bind(this.stationController));
     }

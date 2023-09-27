@@ -5,6 +5,7 @@ const database_1 = require("../../utils/database");
 const pagination_1 = tslib_1.__importDefault(require("../../utils/pagination"));
 const isEpmty_1 = require("../../utils/isEpmty");
 const HttpException_1 = require("../../exceptions/HttpException");
+const sequelize_1 = require("sequelize");
 class ProductService {
     constructor() {
         this.product = database_1.models.Product;
@@ -47,6 +48,12 @@ class ProductService {
         // if (productData.photos && product.photos) deleteFile(product.photos);
         await product.destroy();
         return product;
+    }
+    async searchProduct(searchData) {
+        const products = await this.product.findAll({
+            where: { slug: { [sequelize_1.Op.like]: `%${searchData.toLowerCase()}%` } },
+        });
+        return products;
     }
 }
 exports.default = ProductService;

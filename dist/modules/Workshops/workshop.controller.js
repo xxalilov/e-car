@@ -19,9 +19,11 @@ class WorkshopController {
     }
     async getAllWorkshopsByType(req, res, next) {
         const typeOfWorkshopId = req.params.id;
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 10;
         try {
-            const findAllWorkshopData = await this.workshopService.getAllWorkshopsByType(typeOfWorkshopId);
-            res.status(200).json({ data: findAllWorkshopData, message: "findAll" });
+            const findAllWorkshopData = await this.workshopService.getAllWorkshopsByType(page, pageSize, typeOfWorkshopId);
+            res.status(200).json(Object.assign(Object.assign({}, findAllWorkshopData), { message: "findAll" }));
         }
         catch (error) {
             next(error);

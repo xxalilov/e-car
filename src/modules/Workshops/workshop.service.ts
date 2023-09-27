@@ -18,11 +18,21 @@ class WorkshopService {
     return result;
   }
 
-  public async getAllWorkshopsByType(typeOfWorkshopId): Promise<Workshop[]> {
-    const workshops = await this.workshop.findAll({
-      where: { typeOfWorkshopId },
+  public async getAllWorkshopsByType(
+    page: number,
+    pageSize: number,
+    typeOfWorkshopId: string
+  ): Promise<ResultInterface> {
+    const paginationHelper = new PaginationHelper(this.workshop);
+    const result = await paginationHelper.paginate(page, pageSize, {
+      typeOfWorkshopId,
     });
-    return workshops;
+    return result;
+
+    // const workshops = await this.workshop.findAll({
+    //   where: { typeOfWorkshopId },
+    // });
+    // return workshops;
   }
 
   public async createWorkshop(

@@ -4,6 +4,7 @@ import { CreateStationDto } from "./station.dto";
 declare class StationService {
     station: typeof import("./station.model").StationModel;
     getAllStations(page: number, pageSize: number): Promise<ResultInterface>;
+    getStationsWithDistance(lat: string, long: string): Promise<Station[]>;
     createStation(stationData: CreateStationDto): Promise<Station>;
     deleteStation(stationId: string): Promise<Station>;
 }

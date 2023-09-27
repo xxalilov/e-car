@@ -22,6 +22,13 @@ class StationRouter implements Routes {
       this.stationController.createStation.bind(this.stationController)
     );
     this.router.get(
+      `${this.path}/distance`,
+      authMiddleware("all"),
+      this.stationController.getStationsWithDistance.bind(
+        this.stationController
+      )
+    );
+    this.router.get(
       `${this.path}`,
       authMiddleware("all"),
       this.stationController.getAllStations.bind(this.stationController)

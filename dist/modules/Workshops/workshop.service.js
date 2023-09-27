@@ -15,11 +15,16 @@ class WorkshopService {
         const result = await paginationHelper.paginate(page, pageSize);
         return result;
     }
-    async getAllWorkshopsByType(typeOfWorkshopId) {
-        const workshops = await this.workshop.findAll({
-            where: { typeOfWorkshopId },
+    async getAllWorkshopsByType(page, pageSize, typeOfWorkshopId) {
+        const paginationHelper = new pagination_1.default(this.workshop);
+        const result = await paginationHelper.paginate(page, pageSize, {
+            typeOfWorkshopId,
         });
-        return workshops;
+        return result;
+        // const workshops = await this.workshop.findAll({
+        //   where: { typeOfWorkshopId },
+        // });
+        // return workshops;
     }
     async createWorkshop(workshopData) {
         const typeOfWorkshop = await this.typeOfWorkshop.findByPk(workshopData.typeOfWorkshopId);
