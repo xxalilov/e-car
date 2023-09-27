@@ -46,7 +46,7 @@ class CarRouter implements Routes {
       this.carController.getCarById.bind(this.carController)
     );
 
-    this.router.get(
+    this.router.delete(
       `${this.path}/:id`,
       authMiddleware("user"),
       this.carController.deleteCarById.bind(this.carController)
