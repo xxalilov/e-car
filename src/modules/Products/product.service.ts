@@ -5,6 +5,7 @@ import { isEmpty } from "../../utils/isEpmty";
 import { HttpException } from "../../exceptions/HttpException";
 import { CreateProductDto, UpdateProductDto } from "./product.dto";
 import { deleteFile } from "../../utils/file";
+import { Op } from "sequelize";
 
 class ProductService {
   public product = models.Product;
@@ -54,6 +55,14 @@ class ProductService {
     // if (productData.photos && product.photos) deleteFile(product.photos);
     await product.destroy();
     return product;
+  }
+
+  public async searchProduct(searchData: string): Promise<Product[]> {
+    const products: Product[] = await this.product.findAll({
+      where: { slug: { [Op.like]: `%${searchData.toLowerCase()}%` } },
+    });
+
+    return products;
   }
 }
 

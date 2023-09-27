@@ -27,6 +27,11 @@ class ProductRouter implements Routes {
       authMiddleware("all"),
       this.productController.getAllProducts.bind(this.productController)
     );
+    this.router.get(
+      `${this.path}/search`,
+      //   authMiddleware("all"),
+      this.productController.searchProduct.bind(this.productController)
+    );
     this.router.put(
       `${this.path}/:id`,
       authMiddleware("admin"),
