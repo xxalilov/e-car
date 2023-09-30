@@ -40,6 +40,7 @@ class UserController {
   ) {
     try {
       const userData: UpdateUserDto = req.body;
+      console.log("BODY", req.body);
       console.log("FILE", req.files);
       if (req.files) {
         const photo: Photo[] = req.files.photo;
