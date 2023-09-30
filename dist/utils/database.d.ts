@@ -11,5 +11,6 @@ export declare const models: {
     Advertising: typeof import("../modules/Advertising/advertising.model").AdvertisingModel;
     TypeOfProduct: typeof import("../modules/TypesOfProducts/typeOfProduct.model").TypeOfProductModel;
     Product: typeof import("../modules/Products/product.model").ProductModel;
+    Cart: typeof import("../modules/Cart/cart.model").CartModel;
 };
 export default DB;

@@ -29,6 +29,7 @@ class UserController {
     async updateUser(req, res, next) {
         try {
             const userData = req.body;
+            console.log("FILE", req.files);
             if (req.files) {
                 const photo = req.files.photo;
                 if (photo) {

@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 import { User } from "./user.interface";
+import { models } from "../../utils/database";
 
 export type UserCreationAttributes = Optional<
   User,
@@ -49,6 +50,10 @@ export default function (sequelize: Sequelize): typeof UserModel {
       sequelize,
     }
   );
+
+  // UserModel.afterCreate(async (user: UserModel, options) => {
+  //   await models.Cart.create({ userId: user.id, products: [] });
+  // });
 
   return UserModel;
 }

@@ -31,6 +31,9 @@ function default_1(sequelize) {
         tableName: "users",
         sequelize,
     });
+    // UserModel.afterCreate(async (user: UserModel, options) => {
+    //   await models.Cart.create({ userId: user.id, products: [] });
+    // });
     return UserModel;
 }
 exports.default = default_1;
