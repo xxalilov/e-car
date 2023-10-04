@@ -12,6 +12,7 @@ import AdvertisingModel from "../modules/Advertising/advertising.model";
 import TypeOfProductModel from "../modules/TypesOfProducts/typeOfProduct.model";
 import ProductModel from "../modules/Products/product.model";
 import CartModel from "../modules/Cart/cart.model";
+import CartItemModel from "../modules/CartItem/cartItem.model";
 
 export const sequelize = new Sequelize(
   config.DB_DATABASE,
@@ -27,7 +28,7 @@ export const sequelize = new Sequelize(
 
 const DB = async function () {
   try {
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ force: true });
     console.log("Connected to DATABASE");
   } catch (error) {
     console.log(error);
@@ -45,6 +46,7 @@ export const models = {
   TypeOfProduct: TypeOfProductModel(sequelize),
   Product: ProductModel(sequelize),
   Cart: CartModel(sequelize),
+  CartItem: CartItemModel(sequelize),
 };
 
 export default DB;

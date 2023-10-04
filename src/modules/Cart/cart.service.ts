@@ -9,27 +9,20 @@ class CartService {
   public user = models.User;
   public product = models.Product;
 
-  public async getAllCarts(
-    page: number,
-    pageSize: number
-  ): Promise<ResultInterface> {
-    const paginationHelper = new PaginationHelper(this.cart);
-    const result = await paginationHelper.paginate(page, pageSize);
-    return result;
-  }
-
   public async getUserCart(userId: string): Promise<Cart> {
     if (isEmpty(userId)) throw new HttpException(400, "userId is empty");
     const user = await this.user.findByPk(userId);
     if (!user) throw new HttpException(400, "User not found");
-    const cart = await this.cart.findOne({ where: { userId } });
-    return cart;
-  }
-
-  public async getCartById(cartId: string): Promise<Cart> {
-    if (isEmpty(cartId)) throw new HttpException(400, "cartId is empty");
-    const cart: Cart = await this.cart.findByPk(cartId);
-    if (!cart) throw new HttpException(400, "Cart not found");
+    const cart = await this.cart.findOne({
+      where: { userId },
+      include: [
+        {
+          model: this.product,
+          as: "products",
+          through: { attributes: ["quantity"], as: "cartItem" },
+        },
+      ],
+    });
     return cart;
   }
 
@@ -40,9 +33,7 @@ class CartService {
     if (!findProduct) throw new HttpException(400, "Product not found");
     const cart = await this.cart.findOne({ where: { userId } });
     if (!cart) throw new HttpException(500, "Server error");
-    await cart.update({
-      products: [...cart.products, { productId, quantity: 1 }],
-    });
+    await cart.addProduct(findProduct, 2);
 
     return cart;
   }
@@ -55,41 +46,7 @@ class CartService {
     const cart = await this.cart.findOne({ where: { userId } });
     if (!cart) throw new HttpException(500, "Server error");
 
-    const cartItems = cart.products;
-
-    const updatedCartItems = cartItems.filter(
-      (item) => item.productId !== productId
-    );
-
-    await cart.update({
-      products: updatedCartItems,
-    });
-
-    return cart;
-  }
-
-  public async updateProductQty(
-    productId: string,
-    quantity: number,
-    userId: string
-  ): Promise<Cart> {
-    if (isEmpty(productId))
-      throw new HttpException(400, "Please input productId");
-    const findProduct = await this.product.findByPk(productId);
-    if (!findProduct) throw new HttpException(400, "Product not found");
-    const cart = await this.cart.findOne({ where: { userId } });
-    if (!cart) throw new HttpException(500, "Server error");
-
-    const cartItems = cart.products;
-
-    const updatedCartItemIndex = cartItems.findIndex(
-      (product) => product.productId === productId
-    );
-    cartItems[updatedCartItemIndex].quantity = quantity;
-
-    await cart.update({
-      products: cartItems,
-    });
+    await cart.removeProduct(findProduct);
 
     return cart;
   }

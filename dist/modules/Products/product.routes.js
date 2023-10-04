@@ -13,14 +13,10 @@ class ProductRouter {
         this.initializeRoutes();
     }
     initializeRoutes() {
-        this.router.post(`${this.path}`, 
-        //   authMiddleware("admin"),
+        this.router.post(`${this.path}`, (0, auth_middleware_1.default)("admin"), 
         // validationMiddleware(CreateCarDto, "body"),
         file_1.upload.fields([{ name: "photo", maxCount: 6 }]), this.productController.createProduct.bind(this.productController));
-        this.router.get(`${this.path}`, (0, auth_middleware_1.default)("all"), this.productController.getAllProducts.bind(this.productController));
-        this.router.get(`${this.path}/search`, 
-        //   authMiddleware("all"),
-        this.productController.searchProduct.bind(this.productController));
+        this.router.get(`${this.path}/search`, (0, auth_middleware_1.default)("all"), this.productController.searchProduct.bind(this.productController));
         this.router.put(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), 
         // validationMiddleware(UpdateCarDto, "body"),
         file_1.upload.fields([{ name: "photo", maxCount: 1 }]), this.productController.updateProduct.bind(this.productController));

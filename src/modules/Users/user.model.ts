@@ -51,9 +51,9 @@ export default function (sequelize: Sequelize): typeof UserModel {
     }
   );
 
-  // UserModel.afterCreate(async (user: UserModel, options) => {
-  //   await models.Cart.create({ userId: user.id, products: [] });
-  // });
+  UserModel.afterCreate(async (user: UserModel, options) => {
+    await models.Cart.create({ userId: user.id });
+  });
 
   return UserModel;
 }

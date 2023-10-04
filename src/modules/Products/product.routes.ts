@@ -17,19 +17,14 @@ class ProductRouter implements Routes {
   private initializeRoutes() {
     this.router.post(
       `${this.path}`,
-      //   authMiddleware("admin"),
+      authMiddleware("admin"),
       // validationMiddleware(CreateCarDto, "body"),
       upload.fields([{ name: "photo", maxCount: 6 }]),
       this.productController.createProduct.bind(this.productController)
     );
     this.router.get(
-      `${this.path}`,
-      authMiddleware("all"),
-      this.productController.getAllProducts.bind(this.productController)
-    );
-    this.router.get(
       `${this.path}/search`,
-      //   authMiddleware("all"),
+      authMiddleware("all"),
       this.productController.searchProduct.bind(this.productController)
     );
     this.router.put(

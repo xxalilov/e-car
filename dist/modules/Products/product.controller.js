@@ -9,8 +9,9 @@ class ProductController {
     async getAllProducts(req, res, next) {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 10;
+        const typeOfProductId = req.query.type.toString();
         try {
-            const findAllCarsData = await this.productService.getAllProduct(page, pageSize);
+            const findAllCarsData = await this.productService.getAllProduct(page, pageSize, typeOfProductId);
             res.status(200).json(Object.assign(Object.assign({}, findAllCarsData), { message: "findAll" }));
         }
         catch (error) {
@@ -50,8 +51,8 @@ class ProductController {
         try {
             const productData = req.body;
             const productId = req.params.id;
-            const photo = req.files.photo;
-            if (photo) {
+            if (req.files && req.files.photo) {
+                const photo = req.files.photo;
                 productData.photo = photo[0].path;
             }
             const updatedProduct = await this.productService.updateProduct(productData, productId);

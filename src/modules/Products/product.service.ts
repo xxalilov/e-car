@@ -13,10 +13,13 @@ class ProductService {
 
   public async getAllProduct(
     page: number,
-    pageSize: number
+    pageSize: number,
+    typeOfProductId: string
   ): Promise<ResultInterface> {
     const paginationHelper = new PaginationHelper(this.product);
-    const result = await paginationHelper.paginate(page, pageSize);
+    const result = await paginationHelper.paginate(page, pageSize, {
+      typeOfProductId,
+    });
     return result;
   }
 

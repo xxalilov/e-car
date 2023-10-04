@@ -11,9 +11,11 @@ class ProductService {
         this.product = database_1.models.Product;
         this.typeOfProduct = database_1.models.TypeOfProduct;
     }
-    async getAllProduct(page, pageSize) {
+    async getAllProduct(page, pageSize, typeOfProductId) {
         const paginationHelper = new pagination_1.default(this.product);
-        const result = await paginationHelper.paginate(page, pageSize);
+        const result = await paginationHelper.paginate(page, pageSize, {
+            typeOfProductId,
+        });
         return result;
     }
     async getProductById(productId) {

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModel = void 0;
 const sequelize_1 = require("sequelize");
+const database_1 = require("../../utils/database");
 class UserModel extends sequelize_1.Model {
 }
 exports.UserModel = UserModel;
@@ -31,9 +32,9 @@ function default_1(sequelize) {
         tableName: "users",
         sequelize,
     });
-    // UserModel.afterCreate(async (user: UserModel, options) => {
-    //   await models.Cart.create({ userId: user.id, products: [] });
-    // });
+    UserModel.afterCreate(async (user, options) => {
+        await database_1.models.Cart.create({ userId: user.id });
+    });
     return UserModel;
 }
 exports.default = default_1;
