@@ -26,14 +26,18 @@ class CartService {
     return cart;
   }
 
-  public async addProduct(productId: string, userId: string): Promise<Cart> {
+  public async addProduct(
+    productId: string,
+    userId: string,
+    quantity: number
+  ): Promise<Cart> {
     if (isEmpty(productId))
       throw new HttpException(400, "Please input productId");
     const findProduct = await this.product.findByPk(productId);
     if (!findProduct) throw new HttpException(400, "Product not found");
     const cart = await this.cart.findOne({ where: { userId } });
     if (!cart) throw new HttpException(500, "Server error");
-    await cart.addProduct(findProduct, 2);
+    await cart.addProduct(findProduct, quantity);
 
     return cart;
   }

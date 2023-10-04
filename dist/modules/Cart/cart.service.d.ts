@@ -4,7 +4,7 @@ declare class CartService {
     user: typeof import("../Users/user.model").UserModel;
     product: typeof import("../Products/product.model").ProductModel;
     getUserCart(userId: string): Promise<Cart>;
-    addProduct(productId: string, userId: string): Promise<Cart>;
+    addProduct(productId: string, userId: string, quantity: number): Promise<Cart>;
     removeProduct(productId: string, userId: string): Promise<Cart>;
 }
 export default CartService;

@@ -27,7 +27,7 @@ class CartService {
         });
         return cart;
     }
-    async addProduct(productId, userId) {
+    async addProduct(productId, userId, quantity) {
         if ((0, isEpmty_1.isEmpty)(productId))
             throw new HttpException_1.HttpException(400, "Please input productId");
         const findProduct = await this.product.findByPk(productId);
@@ -36,7 +36,7 @@ class CartService {
         const cart = await this.cart.findOne({ where: { userId } });
         if (!cart)
             throw new HttpException_1.HttpException(500, "Server error");
-        await cart.addProduct(findProduct, 2);
+        await cart.addProduct(findProduct, quantity);
         return cart;
     }
     async removeProduct(productId, userId) {
