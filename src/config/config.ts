@@ -14,6 +14,9 @@ interface ENV {
   SECRET_KEY: string | undefined;
   ADMIN_EMAIL: string | undefined;
   ADMIN_PASSWORD: string | undefined;
+  PAYME_ENDPOINT: string | undefined;
+  PAYME_ID: string | undefined;
+  PAYME_PASSWORD: string | undefined;
 }
 
 interface ConfigInterface {
@@ -27,6 +30,9 @@ interface ConfigInterface {
   SECRET_KEY: string;
   ADMIN_EMAIL: string;
   ADMIN_PASSWORD: string;
+  PAYME_ENDPOINT: string;
+  PAYME_ID: string;
+  PAYME_PASSWORD: string;
 }
 
 class Config {
@@ -42,6 +48,9 @@ class Config {
       SECRET_KEY: process.env.SECRET_KEY,
       ADMIN_EMAIL: process.env.ADMIN_EMAIL,
       ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+      PAYME_ENDPOINT: process.env.PAYME_ENDPOINT,
+      PAYME_ID: process.env.PAYME_ID,
+      PAYME_PASSWORD: process.env.PAYME_PASSWORD,
     };
   }
 

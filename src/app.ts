@@ -13,7 +13,7 @@ import Router from "./routes/index.route";
 
 class App {
   public app: express.Application;
-  private port: string | number;
+  private readonly port: string | number;
 
   constructor() {
     this.app = express();
@@ -25,7 +25,9 @@ class App {
   }
 
   private connectDatabase(): void {
-    database();
+    database().then(() => {
+      console.log("DATABASE CONNECTED")
+    });
   }
 
   public initializeMiddleware(): void {

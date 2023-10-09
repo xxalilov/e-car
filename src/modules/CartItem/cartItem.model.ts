@@ -1,8 +1,8 @@
 import { Association, DataTypes, Model, Optional, Sequelize } from "sequelize";
 import { CartItem } from "./cartItem.interface";
 import { models } from "../../utils/database";
-import { CartModel } from "../../modules/Cart/cart.model";
-import { ProductModel } from "../../modules/Products/product.model";
+import { CartModel } from "../Cart/cart.model";
+import { ProductModel } from "../Products/product.model";
 
 export type CartItemCreationAttributes = Optional<CartItem, "id" | "quantity">;
 
