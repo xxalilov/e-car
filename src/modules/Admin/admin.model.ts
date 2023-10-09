@@ -3,7 +3,7 @@ import { Admin } from "./admin.interface";
 
 export type UserCreationAttributes = Optional<
   Admin,
-  "id" | "email" | "password"
+  "id" | "email" | "password" | "fullname" | "role"
 >;
 
 export class AdminModel
@@ -13,6 +13,8 @@ export class AdminModel
   public id: string;
   public email: string;
   public password: string;
+  public fullname: string;
+  public role: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -33,6 +35,15 @@ export default function (sequelize: Sequelize): typeof AdminModel {
       password: {
         allowNull: false,
         type: DataTypes.STRING(255),
+      },
+      fullname: {
+        type: DataTypes.STRING,
+      },
+      role: {
+        type: DataTypes.ENUM({
+          values: ["admin", "superadmin"],
+        }),
+        defaultValue: "admin",
       },
     },
     {

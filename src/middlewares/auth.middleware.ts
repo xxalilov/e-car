@@ -46,6 +46,14 @@ const authMiddleware =
           } else {
             next(new HttpException(401, "Wrong authentication token"));
           }
+        } else if (role === "superadmin") {
+          const findAdmin = await models.Admin.findByPk(userId);
+          if (findAdmin && findAdmin.role === "superadmin") {
+            req.user = findAdmin;
+            next();
+          } else {
+            next(new HttpException(401, "Wrong authentication token"));
+          }
         } else if (role === "user") {
           const findUser = await models.User.findByPk(userId);
           if (findUser) {

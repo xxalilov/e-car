@@ -27,6 +27,7 @@ class AuthService {
       const admin: Admin = await this.admin.create({
         email,
         password: hashedPassword,
+        role: "superadmin",
       });
       if (admin.email !== adminData.email)
         throw new HttpException(400, "Email yoki parol xato.");
