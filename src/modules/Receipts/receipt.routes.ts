@@ -14,8 +14,29 @@ class ReceiptRouter implements Routes {
 
   private initializeRoutes() {
     this.router.post(
-      `${this.path}/send-card`,
+      `${this.path}/add-card`,
+        authMiddleware('user'),
       this.receiptController.createCard.bind(this.receiptController)
+    );
+    this.router.post(
+        `${this.path}/verify-confirmation`,
+        authMiddleware('user'),
+        this.receiptController.verifyConfirmation.bind(this.receiptController)
+    );
+    this.router.get(
+        `${this.path}/check-card`,
+        authMiddleware('user'),
+        this.receiptController.checkCard.bind(this.receiptController)
+    );
+    this.router.post(
+        `${this.path}/create-receipt`,
+        authMiddleware('user'),
+        this.receiptController.createReceipt.bind(this.receiptController)
+    );
+    this.router.post(
+        `${this.path}/pay-receipt`,
+        authMiddleware('user'),
+        this.receiptController.payReceipt.bind(this.receiptController)
     );
   }
 }

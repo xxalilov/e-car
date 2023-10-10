@@ -35,7 +35,7 @@ class CarController {
     next: NextFunction
   ) {
     try {
-      const findUserCars = await this.carService.getUserCars(req.user.id);
+      const findUserCars = await this.carService.getUserCars(req.user.id.toString());
       res.status(200).json({ data: findUserCars, message: "findAll" });
     } catch (error) {
       next(error);
@@ -55,7 +55,7 @@ class CarController {
         const photo: Photo[] = req.files.photo;
         carData.photo = photo[0].path;
       }
-      const newCar = await this.carService.createCar(carData, userId);
+      const newCar = await this.carService.createCar(carData, userId.toString());
       res.status(201).json({ data: newCar, message: "created" });
     } catch (error) {
       next(error);

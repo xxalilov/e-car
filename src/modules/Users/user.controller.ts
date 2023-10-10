@@ -49,7 +49,7 @@ class UserController {
         }
       }
       const updatedUser: User = await this.userService.updateUserDetails(
-        req.user.id,
+        req.user.id.toString(),
         userData
       );
       res.status(200).json({ data: updatedUser, message: "updateUser" });

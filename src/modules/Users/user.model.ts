@@ -11,7 +11,7 @@ export class UserModel
   extends Model<User, UserCreationAttributes>
   implements User
 {
-  public id: string;
+  public id: number;
   public firstname: string;
   public lastname: string;
   public phone: string;
@@ -27,8 +27,8 @@ export default function (sequelize: Sequelize): typeof UserModel {
     {
       id: {
         primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
+        autoIncrement: true
       },
       firstname: {
         type: DataTypes.STRING,
@@ -46,7 +46,7 @@ export default function (sequelize: Sequelize): typeof UserModel {
         allowNull: true,
       },
       card: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
       },
     },
     {

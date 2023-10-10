@@ -13,7 +13,7 @@ class CartController {
   ) {
     try {
       const userId = req.user.id;
-      const cart = await this.cartService.getUserCart(userId);
+      const cart = await this.cartService.getUserCart(userId.toString());
       res.status(200).json({ data: cart, message: "get" });
     } catch (error) {
       next(error);
@@ -27,7 +27,7 @@ class CartController {
   ) {
     try {
       const productId = req.body.productId;
-      const userId = req.user.id;
+      const userId = req.user.id.toString();
       const quantity = req.body.quantity;
       const addProduct = await this.cartService.addProduct(
         productId,
@@ -50,7 +50,7 @@ class CartController {
       const userId = req.user.id;
       const removedProduct = await this.cartService.removeProduct(
         productId,
-        userId
+        userId.toString()
       );
       res.status(200).json({ data: removedProduct, message: "removed" });
     } catch (error) {

@@ -102,7 +102,7 @@ class AuthService {
 
   // Generate Token
   private createToken(user: User | Admin): TokenData {
-    const dataStoredInToken: DataStoredInToken = { id: user.id };
+    const dataStoredInToken: DataStoredInToken = { id: user.id.toString() };
     const secretKey: string = config.SECRET_KEY;
     // const expiresIn: number = 30 * 24 * 60 * 60;
     return {

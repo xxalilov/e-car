@@ -1,9 +1,11 @@
 import axios from "axios";
 import config from "../../config/config";
 import { models } from "../../utils/database";
+import {User} from "../Users/user.interface";
 
 class ReceiptService {
   public user = models.User;
+  public cart = models.Cart;
   private auth: {} = {
     headers: {
       "X-Auth": `${config.PAYME_ID}:${config.PAYME_PASSWORD}`,
@@ -26,12 +28,17 @@ class ReceiptService {
         save: true,
       },
     };
-    const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
 
-    return response.data.result.card.token;
+    const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
+    if(response.status === 200) {
+      // const user = await this.user.findByPk(account);
+      // await user.update({card: response.data.result.card.token})
+      return response.data.result.card.token;
+    }
   }
 
-  public async getVerifyCode(account: number, token: string): Promise<void> {
+  public async getVerifyCode(account: number, token: string): Promise<{}> {
+    const user = await this.user.findByPk(account);
     const data = {
       id: account,
       method: "cards.get_verify_code",
@@ -39,20 +46,21 @@ class ReceiptService {
         token,
       },
     };
-    console.log(data);
     const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
 
-    console.log(response.data);
+    if (response.status === 200) {
+        await user?.update({ card: token });
+        return response.data;
+    }
   }
 
   public async verify(
-    id: number,
+    id: string,
     token: string,
     code: string,
-    userId: string
   ): Promise<void> {
     const data = {
-      id,
+      id: parseInt(id),
       method: "cards.verify",
       params: {
         token,
@@ -62,29 +70,114 @@ class ReceiptService {
     const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
     console.log(response.data);
     if (response.status === 200) {
-      const user = await this.user.findByPk(userId);
+      const user = await this.user.findByPk(id);
       if (user) {
-        await user.update({ card: response.data.card.token });
+        const responseData = await user.update({ card: response.data.card.token });
+        console.log(responseData);
       }
     }
   }
-
-  public async createReceipt(): Promise<void> {}
-
   public async payReceipt(): Promise<void> {}
 
-  public async addCard(): Promise<void> {
-    const cardToken = await this.createCard("8600495473316478", "0399", 123);
+  public async addCard(userId: number,card_number: string, card_expire: string): Promise<{}> {
+    const cardToken = await this.createCard(card_number, card_expire, userId);
     if (cardToken) {
-      await this.getVerifyCode(123, cardToken);
-      // const verifedCardToken = await this.verify(123, cardToken, "666666");
+      const responseData = await this.getVerifyCode(userId, cardToken);
+      // console.log(responseData);
+      return responseData;
     }
   }
 
-  public async pay(id: number, code: string): Promise<{}> {
-    // await this.verify(id, token, code);
+  public async verifyCode(id: string, code: string): Promise<{}> {
+    const user: User = await  this.user.findByPk(id);
+    if(user.card) {
+      const token = user.card;
+      await this.verify(id, token, code,);
+    }
 
     // console.log(cardToken);
+    return {};
+  }
+
+  public async checkCard(userId: string): Promise<{}> {
+    const user: User = await this.user.findByPk(userId);
+    if (user.card) {
+      const data = {
+        id: parseInt(userId),
+        method: "cards.check",
+        params: {
+          token: user.card,
+        },
+      };
+      const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
+      console.log(response.data);
+      if (response.status === 200) {
+        return response.data;
+      }
+    }
+    return {};
+  }
+
+  public async createReceipt(userId: string, shippingAddress: {}): Promise<{}> {
+    const userCard = await this.cart.findOne({where: {userId}});
+
+    const data = {
+      id: parseInt(userId),
+      method: "receipts.create",
+      params: {
+        amount: 500000,
+        account: {
+          order_id: "test",
+        },
+        detail: {
+          receipt_type: 0,
+          shipping: {
+            title: "Доставка до ттз-4 28/23",
+            price: 500000,
+          },
+          items: [
+            {
+              discount: 10000, //Скидка с учетом количества товаров или услуг в тийинах
+              title: "Помидоры",
+              price: 505000,
+              count: 2,
+              code: "00702001001000001",
+              units: 241092,
+              vat_percent: 15,
+              package_code: "123456",
+            },
+          ],
+        },
+      },
+    };
+
+    const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
+    console.log(response.data);
+    if (response.status === 200) {
+      return response.data;
+    }
+    return {};
+  }
+
+  public  async payReceipts(userId: string, receiptId: string): Promise<{}> {
+    const user = await this.user.findByPk(userId);
+    const data = {
+      id: parseInt(userId),
+      method: "receipts.pay",
+      params: {
+        id: receiptId,
+        token: user.card,
+        payer: {
+          phone: user.phone,
+        }
+      },
+    };
+
+    const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
+    console.log(response.data);
+    if (response.status === 200) {
+      return response.data;
+    }
     return {};
   }
 }
