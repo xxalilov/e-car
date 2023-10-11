@@ -5,9 +5,10 @@ class InstructionController {
     public instructionService = new InstructionService();
 
     public getAllInstructions = async (req: Request, res: Response, next: NextFunction) => {
+        const page = parseInt(req.query.page as string) || 1;
+        const pageSize = parseInt(req.query.pageSize as string) || 10;
         try {
-            const {page, pageSize} = req.query;
-            const instructions = await this.instructionService.getAllInstructions(Number(page), Number(pageSize));
+            const instructions = await this.instructionService.getAllInstructions(page, pageSize);
             res.status(200).json({...instructions, message: "getAll"});
         } catch (error) {
             next(error);

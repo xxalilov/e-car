@@ -6,9 +6,10 @@ class InstructionController {
     constructor() {
         this.instructionService = new instruction_service_1.default();
         this.getAllInstructions = async (req, res, next) => {
+            const page = parseInt(req.query.page) || 1;
+            const pageSize = parseInt(req.query.pageSize) || 10;
             try {
-                const { page, pageSize } = req.query;
-                const instructions = await this.instructionService.getAllInstructions(Number(page), Number(pageSize));
+                const instructions = await this.instructionService.getAllInstructions(page, pageSize);
                 res.status(200).json(Object.assign(Object.assign({}, instructions), { message: "getAll" }));
             }
             catch (error) {
