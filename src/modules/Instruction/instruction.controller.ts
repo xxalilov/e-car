@@ -37,19 +37,19 @@ class InstructionController {
 
     public updateInstruction = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const {typeId} = req.params;
+            const {id} = req.params;
             const instructionData = req.body;
-            const instruction = await this.instructionService.updateInstruction(instructionData, typeId);
+            const instruction = await this.instructionService.updateInstruction(instructionData, id);
             res.status(200).json({data: instruction, message: "update"});
         } catch (error) {
             next(error);
         }
     }
 
-    public deleteInstruction = async (req: Request, res: Response, next: NextFunction) => {
+    public deleteInstruction = async (req:   Request, res: Response, next: NextFunction) => {
         try {
-            const {typeId} = req.params;
-            const instruction = await this.instructionService.deleteInstruction(typeId);
+            const {id} = req.params;
+            const instruction = await this.instructionService.deleteInstruction(id);
             res.status(200).json({data: instruction, message: "delete"});
         } catch (error) {
             next(error);
