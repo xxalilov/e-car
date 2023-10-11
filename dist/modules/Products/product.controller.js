@@ -9,7 +9,10 @@ class ProductController {
     async getAllProducts(req, res, next) {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 10;
-        const typeOfProductId = req.query.type.toString();
+        let typeOfProductId = null;
+        if (req.query.type) {
+            typeOfProductId = req.query.type.toString();
+        }
         try {
             const findAllCarsData = await this.productService.getAllProduct(page, pageSize, typeOfProductId);
             res.status(200).json(Object.assign(Object.assign({}, findAllCarsData), { message: "findAll" }));

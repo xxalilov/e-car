@@ -13,10 +13,16 @@ class ProductService {
     }
     async getAllProduct(page, pageSize, typeOfProductId) {
         const paginationHelper = new pagination_1.default(this.product);
-        const result = await paginationHelper.paginate(page, pageSize, {
-            typeOfProductId,
-        });
-        return result;
+        if (typeOfProductId) {
+            return await paginationHelper.paginate(page, pageSize, {
+                typeOfProductId,
+            });
+        }
+        else {
+            return await paginationHelper.paginate(page, pageSize, {
+                isTop: true,
+            });
+        }
     }
     async getProductById(productId) {
         if ((0, isEpmty_1.isEmpty)(productId))

@@ -17,10 +17,15 @@ class ProductService {
     typeOfProductId: string
   ): Promise<ResultInterface> {
     const paginationHelper = new PaginationHelper(this.product);
-    const result = await paginationHelper.paginate(page, pageSize, {
-      typeOfProductId,
-    });
-    return result;
+    if(typeOfProductId){
+      return await paginationHelper.paginate(page, pageSize, {
+        typeOfProductId,
+      });
+    } else {
+      return await paginationHelper.paginate(page, pageSize, {
+        isTop: true,
+      });
+    }
   }
 
   public async getProductById(productId: string): Promise<Product> {
