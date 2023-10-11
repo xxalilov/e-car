@@ -15,13 +15,14 @@ export type ProductCreationAttributes = Optional<
   | "title"
   | "typeOfProductId"
   | "slug"
+    | "isTop"
 >;
 
 export class ProductModel
   extends Model<Product, ProductCreationAttributes>
   implements Product
 {
-  public id: string;
+  public id: number;
   public address: string;
   public description: string;
   public phone: string;
@@ -32,6 +33,7 @@ export class ProductModel
   public long: string;
   public slug: string;
   public photos: string[];
+  public isTop: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -41,8 +43,8 @@ export default function (sequelize: Sequelize): typeof ProductModel {
     {
       id: {
         primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.BIGINT,
+        autoIncrement: true
       },
       address: {
         type: DataTypes.STRING,
@@ -83,6 +85,10 @@ export default function (sequelize: Sequelize): typeof ProductModel {
       slug: {
         type: DataTypes.STRING,
       },
+        isTop: {
+          type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
     },
     {
       tableName: "products",

@@ -13,6 +13,7 @@ import TypeOfProductModel from "../modules/TypesOfProducts/typeOfProduct.model";
 import ProductModel from "../modules/Products/product.model";
 import CartModel from "../modules/Cart/cart.model";
 import CartItemModel from "../modules/CartItem/cartItem.model";
+import NewsModel from "../modules/News/news.model";
 
 export const sequelize = new Sequelize(
   config.DB_DATABASE,
@@ -47,6 +48,7 @@ export const models = {
   Product: ProductModel(sequelize),
   Cart: CartModel(sequelize),
   CartItem: CartItemModel(sequelize),
+  News: NewsModel(sequelize)
 };
 
 export default DB;

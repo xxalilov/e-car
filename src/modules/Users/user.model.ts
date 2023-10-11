@@ -27,7 +27,7 @@ export default function (sequelize: Sequelize): typeof UserModel {
     {
       id: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         autoIncrement: true
       },
       firstname: {

@@ -38,8 +38,8 @@ export default function (sequelize: Sequelize): typeof CartModel {
     {
       id: {
         primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.BIGINT,
+        autoIncrement: true
       },
       userId: {
         type: DataTypes.INTEGER,

@@ -8,7 +8,7 @@ export type CarCreationAttributes = Optional<
 >;
 
 export class CarModel extends Model<Car, CarCreationAttributes> implements Car {
-  public id: string;
+  public id: number;
   public model: string;
   public name: string;
   public carNumber: string;
@@ -24,8 +24,8 @@ export default function (sequelize: Sequelize): typeof CarModel {
     {
       id: {
         primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.BIGINT,
+        autoIncrement: true
       },
       model: {
         type: DataTypes.STRING,

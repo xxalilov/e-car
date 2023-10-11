@@ -91,9 +91,11 @@ class ProductController {
 
   public async searchProduct(req: Request, res: Response, next: NextFunction) {
     try {
+      const page = parseInt(req.query.page as string) || 1;
+      const pageSize = parseInt(req.query.pageSize as string) || 10;
       const searchData = req.query.searchData.toString();
-      const foundProducts = await this.productService.searchProduct(searchData);
-      res.status(200).json({ data: foundProducts, message: "found" });
+      const foundProducts = await this.productService.searchProduct(page, pageSize, searchData);
+      res.status(200).json({ ...foundProducts, message: "found" });
     } catch (error) {
       next(error);
     }

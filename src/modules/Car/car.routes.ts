@@ -1,8 +1,6 @@
 import { Router } from "express";
 import { Routes } from "../../routes/route.interface";
-import validationMiddleware from "../../middlewares/validation.middleware";
 import CarController from "./car.controller";
-import { CreateCarDto, UpdateCarDto } from "./car.dto";
 import authMiddleware from "../../middlewares/auth.middleware";
 import { upload } from "../../utils/file";
 

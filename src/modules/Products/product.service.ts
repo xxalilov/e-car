@@ -60,12 +60,12 @@ class ProductService {
     return product;
   }
 
-  public async searchProduct(searchData: string): Promise<Product[]> {
-    const products: Product[] = await this.product.findAll({
-      where: { slug: { [Op.like]: `%${searchData.toLowerCase()}%` } },
+  public async searchProduct(page: number, pageSize: number, searchData: string): Promise<ResultInterface> {
+    const paginationHelper = new PaginationHelper(this.product);
+    const result = await paginationHelper.paginate(page, pageSize, {
+      slug: { [Op.like]: `%${searchData.toLowerCase()}%` }
     });
-
-    return products;
+    return result;
   }
 }
 

@@ -1,5 +1,5 @@
 export interface Product {
-  id: string;
+  id: number;
   title: string;
   price: number;
   description: string;
@@ -10,4 +10,5 @@ export interface Product {
   phone: string;
   typeOfProductId: string;
   slug: string;
+  isTop: boolean;
 }
