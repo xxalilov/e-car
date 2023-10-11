@@ -24,7 +24,7 @@ router.use("/", new AdvertisingRouter().router);
 router.use("/", new TypeOfProductRouter().router);
 router.use("/", new ProductRouter().router);
 router.use("/", new CartRouter().router);
-router.use("/", new ReceiptRouter().router);
+// router.use("/", new ReceiptRouter().router);
 router.use("/", new NewsRouter().router);
 router.use("/", new InstructionRouter().router);
 

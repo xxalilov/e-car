@@ -9,11 +9,11 @@ function default_1(sequelize) {
     CartModel.init({
         id: {
             primaryKey: true,
-            type: sequelize_1.DataTypes.UUID,
-            defaultValue: sequelize_1.DataTypes.UUIDV4,
+            type: sequelize_1.DataTypes.BIGINT,
+            autoIncrement: true
         },
         userId: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.INTEGER,
             allowNull: false,
         },
         totalPrice: {

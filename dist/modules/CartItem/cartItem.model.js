@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartItemModel = void 0;
 const sequelize_1 = require("sequelize");
-const cart_model_1 = require("../../modules/Cart/cart.model");
-const product_model_1 = require("../../modules/Products/product.model");
+const cart_model_1 = require("../Cart/cart.model");
+const product_model_1 = require("../Products/product.model");
 class CartItemModel extends sequelize_1.Model {
 }
 exports.CartItemModel = CartItemModel;

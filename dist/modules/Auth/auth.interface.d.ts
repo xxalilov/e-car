@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { User } from "../../modules/Users/user.interface";
-import { Admin } from "../../modules/Admin/admin.interface";
+import { User } from "../Users/user.interface";
+import { Admin } from "../Admin/admin.interface";
 export interface DataStoredInToken {
     id: string;
 }

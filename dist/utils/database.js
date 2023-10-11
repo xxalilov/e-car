@@ -16,6 +16,8 @@ const typeOfProduct_model_1 = tslib_1.__importDefault(require("../modules/TypesO
 const product_model_1 = tslib_1.__importDefault(require("../modules/Products/product.model"));
 const cart_model_1 = tslib_1.__importDefault(require("../modules/Cart/cart.model"));
 const cartItem_model_1 = tslib_1.__importDefault(require("../modules/CartItem/cartItem.model"));
+const news_model_1 = tslib_1.__importDefault(require("../modules/News/news.model"));
+const instruction_model_1 = tslib_1.__importDefault(require("../modules/Instruction/instruction.model"));
 exports.sequelize = new sequelize_1.Sequelize(config_1.default.DB_DATABASE, config_1.default.DB_USER, config_1.default.DB_PASSWORD, {
     dialect: "postgres",
     host: config_1.default.DB_HOST,
@@ -43,6 +45,8 @@ exports.models = {
     Product: (0, product_model_1.default)(exports.sequelize),
     Cart: (0, cart_model_1.default)(exports.sequelize),
     CartItem: (0, cartItem_model_1.default)(exports.sequelize),
+    News: (0, news_model_1.default)(exports.sequelize),
+    Instruction: (0, instruction_model_1.default)(exports.sequelize)
 };
 exports.default = DB;
 //# sourceMappingURL=database.js.map

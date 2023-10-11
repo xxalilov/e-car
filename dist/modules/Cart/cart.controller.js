@@ -9,7 +9,7 @@ class CartController {
     async getUserCart(req, res, next) {
         try {
             const userId = req.user.id;
-            const cart = await this.cartService.getUserCart(userId);
+            const cart = await this.cartService.getUserCart(userId.toString());
             res.status(200).json({ data: cart, message: "get" });
         }
         catch (error) {
@@ -19,7 +19,7 @@ class CartController {
     async addProduct(req, res, next) {
         try {
             const productId = req.body.productId;
-            const userId = req.user.id;
+            const userId = req.user.id.toString();
             const quantity = req.body.quantity;
             const addProduct = await this.cartService.addProduct(productId, userId, quantity);
             res.status(200).json({ data: addProduct, message: "added" });
@@ -32,7 +32,7 @@ class CartController {
         try {
             const productId = req.body.productId;
             const userId = req.user.id;
-            const removedProduct = await this.cartService.removeProduct(productId, userId);
+            const removedProduct = await this.cartService.removeProduct(productId, userId.toString());
             res.status(200).json({ data: removedProduct, message: "removed" });
         }
         catch (error) {

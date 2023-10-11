@@ -25,6 +25,7 @@ class AuthService {
             const admin = await this.admin.create({
                 email,
                 password: hashedPassword,
+                role: "superadmin",
             });
             if (admin.email !== adminData.email)
                 throw new HttpException_1.HttpException(400, "Email yoki parol xato.");
@@ -85,7 +86,7 @@ class AuthService {
     }
     // Generate Token
     createToken(user) {
-        const dataStoredInToken = { id: user.id };
+        const dataStoredInToken = { id: user.id.toString() };
         const secretKey = config_1.default.SECRET_KEY;
         // const expiresIn: number = 30 * 24 * 60 * 60;
         return {

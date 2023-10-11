@@ -17,6 +17,9 @@ class Config {
             SECRET_KEY: process.env.SECRET_KEY,
             ADMIN_EMAIL: process.env.ADMIN_EMAIL,
             ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+            PAYME_ENDPOINT: process.env.PAYME_ENDPOINT,
+            PAYME_ID: process.env.PAYME_ID,
+            PAYME_PASSWORD: process.env.PAYME_PASSWORD,
         };
     }
     getSanitzedConfig(config) {

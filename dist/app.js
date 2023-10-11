@@ -21,7 +21,9 @@ class App {
         this.initializeErrorHandler();
     }
     connectDatabase() {
-        (0, database_1.default)();
+        (0, database_1.default)().then(() => {
+            console.log("DATABASE CONNECTED");
+        });
     }
     initializeMiddleware() {
         this.app.use("/uploads/images", (0, express_1.static)((0, path_1.join)(__dirname, "../", "uploads", "images")));

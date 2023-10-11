@@ -7,8 +7,11 @@ class ReceiptController {
   public async createCard(req: RequestWithUser, res: Response, next: NextFunction) {
     const userId: string = req.user.id.toString();
     try {
-      const response = this.receiptService.addCard(parseInt(userId), req.body.card_number, req.body.card_expire);
-      res.status(200).json({});
+      const response = await this.receiptService.addCard(parseInt(userId), req.body.card_number, req.body.card_expire);
+      res.status(200).json({
+        data: response,
+        message: "Send code"
+      });
     } catch (error) {
       next(error);
     }
@@ -17,8 +20,11 @@ class ReceiptController {
   public async verifyConfirmation(req: RequestWithUser, res: Response, next: NextFunction) {
     const userId: string = req.user.id.toString();
     try {
-      const response = this.receiptService.verifyCode(userId, req.body.code);
-      res.status(200).json({});
+      const response = await this.receiptService.verifyCode(userId, req.body.code);
+      res.status(200).json({
+        data: response,
+        message: "Verify Code"
+      });
     }catch (error) {
       next(error);
     }

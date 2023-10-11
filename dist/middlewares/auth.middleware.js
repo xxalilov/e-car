@@ -41,6 +41,16 @@ const authMiddleware = (role) => async (req, res, next) => {
                     next(new HttpException_1.HttpException(401, "Wrong authentication token"));
                 }
             }
+            else if (role === "superadmin") {
+                const findAdmin = await database_1.models.Admin.findByPk(userId);
+                if (findAdmin && findAdmin.role === "superadmin") {
+                    req.user = findAdmin;
+                    next();
+                }
+                else {
+                    next(new HttpException_1.HttpException(401, "Wrong authentication token"));
+                }
+            }
             else if (role === "user") {
                 const findUser = await database_1.models.User.findByPk(userId);
                 if (findUser) {

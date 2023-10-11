@@ -37,7 +37,7 @@ class UserController {
                     userData.photo = photo[0].path;
                 }
             }
-            const updatedUser = await this.userService.updateUserDetails(req.user.id, userData);
+            const updatedUser = await this.userService.updateUserDetails(req.user.id.toString(), userData);
             res.status(200).json({ data: updatedUser, message: "updateUser" });
         }
         catch (error) {

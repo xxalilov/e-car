@@ -12,6 +12,8 @@ const advertising_routes_1 = tslib_1.__importDefault(require("../modules/Adverti
 const typeOfProduct_routes_1 = tslib_1.__importDefault(require("../modules/TypesOfProducts/typeOfProduct.routes"));
 const product_routes_1 = tslib_1.__importDefault(require("../modules/Products/product.routes"));
 const cart_routes_1 = tslib_1.__importDefault(require("../modules/Cart/cart.routes"));
+const news_routes_1 = tslib_1.__importDefault(require("../modules/News/news.routes"));
+const instruction_routes_1 = tslib_1.__importDefault(require("../modules/Instruction/instruction.routes"));
 const router = express_1.default.Router();
 router.use("/", new user_routes_1.default().router);
 router.use("/", new auth_routes_1.default().router);
@@ -23,5 +25,8 @@ router.use("/", new advertising_routes_1.default().router);
 router.use("/", new typeOfProduct_routes_1.default().router);
 router.use("/", new product_routes_1.default().router);
 router.use("/", new cart_routes_1.default().router);
+// router.use("/", new ReceiptRouter().router);
+router.use("/", new news_routes_1.default().router);
+router.use("/", new instruction_routes_1.default().router);
 exports.default = router;
 //# sourceMappingURL=index.route.js.map

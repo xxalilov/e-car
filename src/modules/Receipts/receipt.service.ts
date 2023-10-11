@@ -2,6 +2,7 @@ import axios from "axios";
 import config from "../../config/config";
 import { models } from "../../utils/database";
 import {User} from "../Users/user.interface";
+import { HttpException } from "../../exceptions/HttpException";
 
 class ReceiptService {
   public user = models.User;
@@ -12,7 +13,7 @@ class ReceiptService {
     },
   };
 
-  public async createCard(
+  private async createCard(
     number: string,
     expire: string,
     account: number
@@ -31,13 +32,17 @@ class ReceiptService {
 
     const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
     if(response.status === 200) {
-      // const user = await this.user.findByPk(account);
-      // await user.update({card: response.data.result.card.token})
-      return response.data.result.card.token;
+      if(response.data.result.card.token) {
+        return response.data.result.card.token;
+      } else {
+        throw new HttpException(400, "Something went wrong");
+      }
+    } else {
+      throw new HttpException(400, "Something went wrong");
     }
   }
 
-  public async getVerifyCode(account: number, token: string): Promise<{}> {
+  private async getVerifyCode(account: number, token: string): Promise<{}> {
     const user = await this.user.findByPk(account);
     const data = {
       id: account,
@@ -51,6 +56,8 @@ class ReceiptService {
     if (response.status === 200) {
         await user?.update({ card: token });
         return response.data;
+    } else {
+      throw new HttpException(400, "Something went wrong");
     }
   }
 
@@ -58,7 +65,7 @@ class ReceiptService {
     id: string,
     token: string,
     code: string,
-  ): Promise<void> {
+  ): Promise<{}> {
     const data = {
       id: parseInt(id),
       method: "cards.verify",
@@ -72,31 +79,28 @@ class ReceiptService {
     if (response.status === 200) {
       const user = await this.user.findByPk(id);
       if (user) {
-        const responseData = await user.update({ card: response.data.card.token });
-        console.log(responseData);
+        const responseData = await user.update({ card: response.data.result.card.token });
+        return response.data;
       }
+    } else {
+      throw new HttpException(400, "Something went wrong");
     }
   }
-  public async payReceipt(): Promise<void> {}
+  // public async payReceipt(): Promise<void> {}
 
   public async addCard(userId: number,card_number: string, card_expire: string): Promise<{}> {
     const cardToken = await this.createCard(card_number, card_expire, userId);
-    if (cardToken) {
-      const responseData = await this.getVerifyCode(userId, cardToken);
-      // console.log(responseData);
-      return responseData;
-    }
+      return await this.getVerifyCode(userId, cardToken);
   }
 
   public async verifyCode(id: string, code: string): Promise<{}> {
     const user: User = await  this.user.findByPk(id);
     if(user.card) {
       const token = user.card;
-      await this.verify(id, token, code,);
-    }
-
-    // console.log(cardToken);
-    return {};
+      return await this.verify(id, token, code);
+    } else  {
+      throw new HttpException(500, "Something went wrong");
+    };
   }
 
   public async checkCard(userId: string): Promise<{}> {

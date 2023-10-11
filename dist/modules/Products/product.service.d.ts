@@ -9,6 +9,6 @@ declare class ProductService {
     createProduct(productData: CreateProductDto): Promise<Product>;
     updateProduct(productData: UpdateProductDto, productId: string): Promise<Product>;
     deleteProduct(productId: string): Promise<Product>;
-    searchProduct(searchData: string): Promise<Product[]>;
+    searchProduct(page: number, pageSize: number, searchData: string): Promise<ResultInterface>;
 }
 export default ProductService;

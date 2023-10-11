@@ -51,11 +51,12 @@ class ProductService {
         await product.destroy();
         return product;
     }
-    async searchProduct(searchData) {
-        const products = await this.product.findAll({
-            where: { slug: { [sequelize_1.Op.like]: `%${searchData.toLowerCase()}%` } },
+    async searchProduct(page, pageSize, searchData) {
+        const paginationHelper = new pagination_1.default(this.product);
+        const result = await paginationHelper.paginate(page, pageSize, {
+            slug: { [sequelize_1.Op.like]: `%${searchData.toLowerCase()}%` }
         });
-        return products;
+        return result;
     }
 }
 exports.default = ProductService;

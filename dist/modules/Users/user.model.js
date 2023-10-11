@@ -10,8 +10,8 @@ function default_1(sequelize) {
     UserModel.init({
         id: {
             primaryKey: true,
-            type: sequelize_1.DataTypes.UUID,
-            defaultValue: sequelize_1.DataTypes.UUIDV4,
+            type: sequelize_1.DataTypes.BIGINT,
+            autoIncrement: true
         },
         firstname: {
             type: sequelize_1.DataTypes.STRING,
@@ -27,6 +27,9 @@ function default_1(sequelize) {
         photo: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: true,
+        },
+        card: {
+            type: sequelize_1.DataTypes.STRING(500),
         },
     }, {
         tableName: "users",

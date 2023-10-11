@@ -11,8 +11,8 @@ function default_1(sequelize) {
     ProductModel.init({
         id: {
             primaryKey: true,
-            type: sequelize_1.DataTypes.UUID,
-            defaultValue: sequelize_1.DataTypes.UUIDV4,
+            type: sequelize_1.DataTypes.BIGINT,
+            autoIncrement: true
         },
         address: {
             type: sequelize_1.DataTypes.STRING,
@@ -53,6 +53,10 @@ function default_1(sequelize) {
         slug: {
             type: sequelize_1.DataTypes.STRING,
         },
+        isTop: {
+            type: sequelize_1.DataTypes.BOOLEAN,
+            defaultValue: false
+        }
     }, {
         tableName: "products",
         sequelize,

@@ -1,7 +1,7 @@
 import express from "express";
 declare class App {
     app: express.Application;
-    private port;
+    private readonly port;
     constructor();
     private connectDatabase;
     initializeMiddleware(): void;

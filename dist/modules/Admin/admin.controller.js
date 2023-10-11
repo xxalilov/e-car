@@ -9,7 +9,8 @@ class AdminController {
     async updateAdminEmail(req, res, next) {
         try {
             const userData = req.body;
-            const updatedUser = await this.adminService.updateAdminEmail(req.user.id, userData);
+            const userId = req.user.id.toString();
+            const updatedUser = await this.adminService.updateAdminEmail(userId, userData);
             res.status(200).json({ data: updatedUser, message: "updateUserEmail" });
         }
         catch (error) {
@@ -19,7 +20,8 @@ class AdminController {
     async updateAdminPassword(req, res, next) {
         try {
             const userData = req.body;
-            const updatedUser = await this.adminService.updateAdminPassword(req.user.id, userData);
+            const userId = req.user.id.toString();
+            const updatedUser = await this.adminService.updateAdminPassword(userId, userData);
             res
                 .status(200)
                 .json({ data: updatedUser, message: "updateUserPassword" });

@@ -20,6 +20,15 @@ function default_1(sequelize) {
             allowNull: false,
             type: sequelize_1.DataTypes.STRING(255),
         },
+        fullname: {
+            type: sequelize_1.DataTypes.STRING,
+        },
+        role: {
+            type: sequelize_1.DataTypes.ENUM({
+                values: ["admin", "superadmin"],
+            }),
+            defaultValue: "admin",
+        },
     }, {
         tableName: "admin",
         sequelize,

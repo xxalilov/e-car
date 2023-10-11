@@ -14,8 +14,7 @@ class AdminService {
         const findAdmin = await this.admin.findByPk(userId);
         if (!findAdmin)
             throw new HttpException_1.HttpException(409, "User doesn't exist");
-        const updatedData = await findAdmin.update(userData);
-        return updatedData;
+        return await findAdmin.update(userData);
     }
     async updateAdminPassword(userId, userData) {
         if ((0, isEpmty_1.isEmpty)(userData))
@@ -24,8 +23,7 @@ class AdminService {
         if (!findAdmin)
             throw new HttpException_1.HttpException(409, "User doesn't exist");
         const hashedPassword = await (0, bcrypt_1.hash)(userData.password, 10);
-        const updatedData = await findAdmin.update({ password: hashedPassword });
-        return updatedData;
+        return await findAdmin.update({ password: hashedPassword });
     }
 }
 exports.default = AdminService;

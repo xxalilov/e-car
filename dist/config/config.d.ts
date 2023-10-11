@@ -9,6 +9,9 @@ interface ConfigInterface {
     SECRET_KEY: string;
     ADMIN_EMAIL: string;
     ADMIN_PASSWORD: string;
+    PAYME_ENDPOINT: string;
+    PAYME_ID: string;
+    PAYME_PASSWORD: string;
 }
 declare const _default: ConfigInterface;
 export default _default;
