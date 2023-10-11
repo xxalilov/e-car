@@ -11,6 +11,7 @@ import ProductRouter from "../modules/Products/product.routes";
 import CartRouter from "../modules/Cart/cart.routes";
 import ReceiptRouter from "../modules/Receipts/receipt.routes";
 import NewsRouter from "../modules/News/news.routes";
+import InstructionRouter from "../modules/Instruction/instruction.routes";
 const router = express.Router();
 
 router.use("/", new UserRouter().router);
@@ -24,6 +25,7 @@ router.use("/", new TypeOfProductRouter().router);
 router.use("/", new ProductRouter().router);
 router.use("/", new CartRouter().router);
 router.use("/", new ReceiptRouter().router);
-router.use("/", new NewsRouter().router)
+router.use("/", new NewsRouter().router);
+router.use("/", new InstructionRouter().router);
 
 export default router;

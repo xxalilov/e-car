@@ -50,7 +50,6 @@ class CarController {
     try {
       const carData = req.body;
       const userId = req.user.id;
-      console.log(req.files);
       if (req.files && req.files.photo) {
         const photo: Photo[] = req.files.photo;
         carData.photo = photo[0].path;

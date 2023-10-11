@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import AdminService from "./admin.service";
 import { Admin } from "./admin.interface";
 import { UpdateAdminEmail, UpdateAdminPassword } from "./admin.dto";
@@ -14,8 +14,9 @@ class AdminController {
   ) {
     try {
       const userData: UpdateAdminEmail = req.body;
+      const userId = req.user.id.toString();
       const updatedUser: Admin = await this.adminService.updateAdminEmail(
-        req.user.id,
+        userId,
         userData
       );
       res.status(200).json({ data: updatedUser, message: "updateUserEmail" });
@@ -31,8 +32,9 @@ class AdminController {
   ) {
     try {
       const userData: UpdateAdminPassword = req.body;
+      const userId = req.user.id.toString();
       const updatedUser: Admin = await this.adminService.updateAdminPassword(
-        req.user.id,
+        userId,
         userData
       );
       res

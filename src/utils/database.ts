@@ -14,6 +14,7 @@ import ProductModel from "../modules/Products/product.model";
 import CartModel from "../modules/Cart/cart.model";
 import CartItemModel from "../modules/CartItem/cartItem.model";
 import NewsModel from "../modules/News/news.model";
+import InstructionModel from "../modules/Instruction/instruction.model";
 
 export const sequelize = new Sequelize(
   config.DB_DATABASE,
@@ -48,7 +49,8 @@ export const models = {
   Product: ProductModel(sequelize),
   Cart: CartModel(sequelize),
   CartItem: CartItemModel(sequelize),
-  News: NewsModel(sequelize)
+  News: NewsModel(sequelize),
+  Instruction: InstructionModel(sequelize)
 };
 
 export default DB;
