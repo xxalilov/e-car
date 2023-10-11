@@ -2,7 +2,7 @@ import { Model, Optional, Sequelize } from "sequelize";
 import { Car } from "./car.interface";
 export type CarCreationAttributes = Optional<Car, "id" | "model" | "name" | "carNumber" | "licenseNumber" | "photo" | "userId">;
 export declare class CarModel extends Model<Car, CarCreationAttributes> implements Car {
-    id: number;
+    id: string;
     model: string;
     name: string;
     carNumber: string;

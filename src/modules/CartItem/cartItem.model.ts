@@ -22,7 +22,7 @@ export default function (sequelize: Sequelize): typeof CartItemModel {
   CartItemModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,

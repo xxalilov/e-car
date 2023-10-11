@@ -10,8 +10,8 @@ function default_1(sequelize) {
     UserModel.init({
         id: {
             primaryKey: true,
-            type: sequelize_1.DataTypes.BIGINT,
-            autoIncrement: true
+            type: sequelize_1.DataTypes.UUID,
+            defaultValue: sequelize_1.DataTypes.UUIDV4
         },
         firstname: {
             type: sequelize_1.DataTypes.STRING,

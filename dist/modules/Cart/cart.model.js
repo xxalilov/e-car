@@ -13,7 +13,7 @@ function default_1(sequelize) {
             autoIncrement: true
         },
         userId: {
-            type: sequelize_1.DataTypes.INTEGER,
+            type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
         totalPrice: {

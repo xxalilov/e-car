@@ -22,7 +22,7 @@ export class CartModel
   implements Cart
 {
   public id: number;
-  public userId: number;
+  public userId: string;
   public totalPrice: number;
 
   public addProduct!: Function; // Function signature for addProduct method
@@ -42,7 +42,7 @@ export default function (sequelize: Sequelize): typeof CartModel {
         autoIncrement: true
       },
       userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       totalPrice: {

@@ -3,7 +3,7 @@ import { Cart } from "./cart.interface";
 export type CartCreationAttributes = Optional<Cart, "id" | "userId" | "totalPrice">;
 export declare class CartModel extends Model<Cart, CartCreationAttributes> implements Cart {
     id: number;
-    userId: number;
+    userId: string;
     totalPrice: number;
     addProduct: Function;
     removeProduct: Function;

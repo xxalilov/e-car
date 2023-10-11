@@ -11,8 +11,8 @@ function default_1(sequelize) {
     ProductModel.init({
         id: {
             primaryKey: true,
-            type: sequelize_1.DataTypes.BIGINT,
-            autoIncrement: true
+            type: sequelize_1.DataTypes.UUID,
+            defaultValue: sequelize_1.DataTypes.UUIDV4
         },
         address: {
             type: sequelize_1.DataTypes.STRING,

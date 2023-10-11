@@ -10,7 +10,7 @@ export class StationModel
   extends Model<Station, StationCreationAttributes>
   implements Station
 {
-  public id: number;
+  public id: string;
   public lat: string;
   public long: string;
   public title: string;
@@ -23,8 +23,8 @@ export default function (sequelize: Sequelize): typeof StationModel {
     {
       id: {
         primaryKey: true,
-        type: DataTypes.BIGINT,
-        autoIncrement: true
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4
       },
       lat: {
         type: DataTypes.STRING,

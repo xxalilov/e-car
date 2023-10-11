@@ -30,7 +30,7 @@ export const sequelize = new Sequelize(
 
 const DB = async function () {
   try {
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ force: true });
     console.log("Connected to DATABASE");
   } catch (error) {
     console.log(error);

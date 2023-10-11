@@ -22,7 +22,7 @@ export class ProductModel
   extends Model<Product, ProductCreationAttributes>
   implements Product
 {
-  public id: number;
+  public id: string;
   public address: string;
   public description: string;
   public phone: string;
@@ -43,8 +43,8 @@ export default function (sequelize: Sequelize): typeof ProductModel {
     {
       id: {
         primaryKey: true,
-        type: DataTypes.BIGINT,
-        autoIncrement: true
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4
       },
       address: {
         type: DataTypes.STRING,

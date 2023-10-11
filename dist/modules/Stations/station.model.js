@@ -9,8 +9,8 @@ function default_1(sequelize) {
     StationModel.init({
         id: {
             primaryKey: true,
-            type: sequelize_1.DataTypes.BIGINT,
-            autoIncrement: true
+            type: sequelize_1.DataTypes.UUID,
+            defaultValue: sequelize_1.DataTypes.UUIDV4
         },
         lat: {
             type: sequelize_1.DataTypes.STRING,

@@ -10,7 +10,7 @@ exports.CartItemModel = CartItemModel;
 function default_1(sequelize) {
     CartItemModel.init({
         id: {
-            type: sequelize_1.DataTypes.INTEGER,
+            type: sequelize_1.DataTypes.BIGINT,
             primaryKey: true,
             allowNull: false,
             autoIncrement: true,

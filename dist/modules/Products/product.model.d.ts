@@ -2,7 +2,7 @@ import { Model, Optional, Sequelize } from "sequelize";
 import { Product } from "./product.interface";
 export type ProductCreationAttributes = Optional<Product, "id" | "address" | "description" | "photos" | "lat" | "long" | "phone" | "price" | "title" | "typeOfProductId" | "slug" | "isTop">;
 export declare class ProductModel extends Model<Product, ProductCreationAttributes> implements Product {
-    id: number;
+    id: string;
     address: string;
     description: string;
     phone: string;
