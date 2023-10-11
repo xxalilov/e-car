@@ -44,8 +44,8 @@ class NewsController {
         try {
             const newsData = req.body;
             const newsId = req.params.id;
-            const photo = req.files.photo;
-            if (photo) {
+            if (req.files && req.files.photo) {
+                const photo = req.files.photo;
                 newsData.photo = photo[0].path;
             }
             const updatedNews = await this.newsService.updateNews(newsData, newsId);
