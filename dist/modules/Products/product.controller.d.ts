@@ -7,6 +7,5 @@ declare class ProductController {
     createProduct(req: RequestWithFile, res: Response, next: NextFunction): Promise<void>;
     updateProduct(req: RequestWithFile, res: Response, next: NextFunction): Promise<void>;
     deleteProduct(req: Request, res: Response, next: NextFunction): Promise<void>;
-    searchProduct(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 export default ProductController;

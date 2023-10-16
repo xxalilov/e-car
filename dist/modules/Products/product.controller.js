@@ -10,11 +10,15 @@ class ProductController {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 10;
         let typeOfProductId = null;
+        let searchProduct = null;
         if (req.query.type) {
             typeOfProductId = req.query.type.toString();
         }
+        if (req.query.searchData) {
+            searchProduct = req.query.searchData.toString();
+        }
         try {
-            const findAllCarsData = await this.productService.getAllProduct(page, pageSize, typeOfProductId);
+            const findAllCarsData = await this.productService.getAllProduct(page, pageSize, typeOfProductId, searchProduct);
             res.status(200).json(Object.assign(Object.assign({}, findAllCarsData), { message: "findAll" }));
         }
         catch (error) {
@@ -70,18 +74,6 @@ class ProductController {
             const productId = req.params.id;
             const deletedProduct = await this.productService.deleteProduct(productId);
             res.status(200).json({ data: deletedProduct, message: "deleted" });
-        }
-        catch (error) {
-            next(error);
-        }
-    }
-    async searchProduct(req, res, next) {
-        try {
-            const page = parseInt(req.query.page) || 1;
-            const pageSize = parseInt(req.query.pageSize) || 10;
-            const searchData = req.query.searchData.toString();
-            const foundProducts = await this.productService.searchProduct(page, pageSize, searchData);
-            res.status(200).json(Object.assign(Object.assign({}, foundProducts), { message: "found" }));
         }
         catch (error) {
             next(error);

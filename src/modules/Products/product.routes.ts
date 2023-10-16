@@ -22,11 +22,6 @@ class ProductRouter implements Routes {
       upload.fields([{ name: "photo", maxCount: 6 }]),
       this.productController.createProduct.bind(this.productController)
     );
-    this.router.get(
-      `${this.path}/search`,
-      authMiddleware("all"),
-      this.productController.searchProduct.bind(this.productController)
-    );
     this.router.put(
       `${this.path}/:id`,
       authMiddleware("admin"),

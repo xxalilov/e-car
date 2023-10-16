@@ -14,9 +14,15 @@ class ProductService {
   public async getAllProduct(
     page: number,
     pageSize: number,
-    typeOfProductId: string
+    typeOfProductId: string,
+    searchProduct: string
   ): Promise<ResultInterface> {
     const paginationHelper = new PaginationHelper(this.product);
+    if(searchProduct){
+        return await paginationHelper.paginate(page, pageSize, {
+            slug: { [Op.like]: `%${searchProduct.toLowerCase()}%` }
+        });
+    }
     if(typeOfProductId){
       return await paginationHelper.paginate(page, pageSize, {
         typeOfProductId,
@@ -63,14 +69,6 @@ class ProductService {
     // if (productData.photos && product.photos) deleteFile(product.photos);
     await product.destroy();
     return product;
-  }
-
-  public async searchProduct(page: number, pageSize: number, searchData: string): Promise<ResultInterface> {
-    const paginationHelper = new PaginationHelper(this.product);
-    const result = await paginationHelper.paginate(page, pageSize, {
-      slug: { [Op.like]: `%${searchData.toLowerCase()}%` }
-    });
-    return result;
   }
 }
 

@@ -11,8 +11,13 @@ class ProductService {
         this.product = database_1.models.Product;
         this.typeOfProduct = database_1.models.TypeOfProduct;
     }
-    async getAllProduct(page, pageSize, typeOfProductId) {
+    async getAllProduct(page, pageSize, typeOfProductId, searchProduct) {
         const paginationHelper = new pagination_1.default(this.product);
+        if (searchProduct) {
+            return await paginationHelper.paginate(page, pageSize, {
+                slug: { [sequelize_1.Op.like]: `%${searchProduct.toLowerCase()}%` }
+            });
+        }
         if (typeOfProductId) {
             return await paginationHelper.paginate(page, pageSize, {
                 typeOfProductId,
@@ -56,13 +61,6 @@ class ProductService {
         // if (productData.photos && product.photos) deleteFile(product.photos);
         await product.destroy();
         return product;
-    }
-    async searchProduct(page, pageSize, searchData) {
-        const paginationHelper = new pagination_1.default(this.product);
-        const result = await paginationHelper.paginate(page, pageSize, {
-            slug: { [sequelize_1.Op.like]: `%${searchData.toLowerCase()}%` }
-        });
-        return result;
     }
 }
 exports.default = ProductService;
