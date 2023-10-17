@@ -17,8 +17,8 @@ class InstructionController {
 
     public getInstructionById = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { id } = req.params;
-            const instruction = await this.instructionService.getInstructionById(id);
+            const {id} = req.params;
+            const instruction = await this.instructionService.getInstructionById(id, req.query.lang as string);
             res.status(200).json({data: instruction, message: "get"});
         } catch (error) {
             next(error);
@@ -46,7 +46,7 @@ class InstructionController {
         }
     }
 
-    public deleteInstruction = async (req:   Request, res: Response, next: NextFunction) => {
+    public deleteInstruction = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const {id} = req.params;
             const instruction = await this.instructionService.deleteInstruction(id);

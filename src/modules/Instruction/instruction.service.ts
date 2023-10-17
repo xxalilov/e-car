@@ -4,6 +4,7 @@ import {isEmpty} from "../../utils/isEpmty";
 import {HttpException} from "../../exceptions/HttpException";
 import {Instruction} from "./instruction.interface";
 import {CreateInstructionDto, UpdateInstructionDto} from "./instruction.dto";
+import {Sequelize} from "sequelize";
 
 class InstructionService {
     public instruction = models.Instruction;
@@ -13,12 +14,30 @@ class InstructionService {
         pageSize: number
     ): Promise<ResultInterface> {
         const paginationHelper = new PaginationHelper(this.instruction);
-        return  await paginationHelper.paginate(page, pageSize);
+        return await paginationHelper.paginate(page, pageSize);
     }
 
-    public async getInstructionById(typeId: string): Promise<Instruction> {
+    public async getInstructionById(typeId: string, lang: string): Promise<Instruction[]> {
         if (isEmpty(typeId)) throw new HttpException(400, "typeId is empty");
-        let instruction: Instruction = await this.instruction.findOne({where: {typeId}}) || await this.instruction.findOne({where: {type: typeId}});
+        let instruction: Instruction[] = await this.instruction.findAll({
+            where: {typeId}, attributes: [
+                "id",
+                [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                "link",
+                "type",
+                "typeId",
+            ]
+        }) || await this.instruction.findAll({
+            where: {type: typeId}, attributes: [
+                "id",
+                [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                "link",
+                "type",
+                "typeId",
+            ]
+        });
         if (!instruction) throw new HttpException(400, "Instruction not found");
         return instruction;
     }

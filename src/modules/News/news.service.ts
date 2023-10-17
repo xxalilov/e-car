@@ -5,21 +5,39 @@ import {HttpException} from "../../exceptions/HttpException";
 import {deleteFile} from "../../utils/file";
 import {News} from "./news.interface";
 import {CreateNewsDto, UpdateNewsDto} from "./news.dto";
+import {Sequelize} from "sequelize";
 
 class NewsService {
     public news = models.News;
 
     public async getAllNews(
         page: number,
-        pageSize: number
+        pageSize: number,
+        lang: string
     ): Promise<ResultInterface> {
         const paginationHelper = new PaginationHelper(this.news);
-        return await paginationHelper.paginate(page, pageSize);
+        return await paginationHelper.paginate(page, pageSize, {}, [
+            "id",
+            [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+            [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+            "link",
+            "image",
+            "createdAt",
+        ]);
     }
 
-    public async getNewsById(newsId: string): Promise<News> {
+    public async getNewsById(newsId: string, lang: string): Promise<News> {
         if (isEmpty(newsId)) throw new HttpException(400, "newsId is empty");
-        const news: News = await this.news.findByPk(newsId);
+        const news: News = await this.news.findByPk(newsId, {
+            attributes: [
+                "id",
+                [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                "link",
+                "image",
+                "createdAt",
+            ]
+        });
         if (!news) throw new HttpException(400, "News not found");
         return news;
     }

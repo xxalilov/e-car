@@ -1,43 +1,73 @@
-import { IsOptional, IsString } from "class-validator";
+import {IsOptional, IsString} from "class-validator";
 
 export class CreateInstructionDto {
     @IsString()
-    public title: string;
+    public title_uz: string;
 
     @IsString()
-    @IsOptional({ always: false })
-    public description: string;
+    public title_ru: string;
 
     @IsString()
-    @IsOptional({ always: false })
+    public title_eng: string;
+
+    @IsString()
+    @IsOptional({always: false})
+    public description_uz: string;
+
+    @IsString()
+    @IsOptional({always: false})
+    public description_ru: string;
+
+    @IsString()
+    @IsOptional({always: false})
+    public description_eng: string;
+
+    @IsString()
+    @IsOptional({always: false})
     public link: string;
 
     @IsString()
     public type: string;
 
     @IsString()
-    @IsOptional({ always: false })
+    @IsOptional({always: false})
     public typeId: string;
 }
 
 export class UpdateInstructionDto {
     @IsString()
-    @IsOptional({ always: false })
-    public title: string;
+    @IsOptional({always: false})
+    public title_uz: string;
 
     @IsString()
-    @IsOptional({ always: false })
-    public description: string;
+    @IsOptional({always: false})
+    public title_ru: string;
 
     @IsString()
-    @IsOptional({ always: false })
+    @IsOptional({always: false})
+    public title_eng: string;
+
+    @IsString()
+    @IsOptional({always: false})
+    public description_uz: string;
+
+    @IsString()
+    @IsOptional({always: false})
+    public description_ru: string;
+
+    @IsString()
+    @IsOptional({always: false})
+    public description_eng: string;
+
+    @IsString()
+    @IsOptional({always: false})
     public link: string;
 
     @IsString()
-    @IsOptional({ always: false })
+    @IsOptional({always: false})
     public type: string;
 
     @IsString()
-    @IsOptional({ always: false })
+    @IsOptional({always: false})
     public typeId: string;
 }

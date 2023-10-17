@@ -2,10 +2,22 @@ import { IsOptional, IsString } from "class-validator";
 
 export class CreateNewsDto {
     @IsString()
-    public title: string;
+    public title_uz: string;
 
     @IsString()
-    public description: string;
+    public title_ru: string;
+
+    @IsString()
+    public title_eng: string;
+
+    @IsString()
+    public description_uz: string;
+
+    @IsString()
+    public description_eng: string;
+
+    @IsString()
+    public description_ru: string;
 
     @IsString()
     public image: string;
@@ -17,11 +29,27 @@ export class CreateNewsDto {
 export class UpdateNewsDto {
     @IsString()
     @IsOptional({ always: false })
-    public title: string;
+    public title_uz: string;
 
     @IsString()
     @IsOptional({ always: false })
-    public description: string;
+    public title_ru: string;
+
+    @IsString()
+    @IsOptional({ always: false })
+    public title_eng: string;
+
+    @IsString()
+    @IsOptional({ always: false })
+    public description_uz: string;
+
+    @IsString()
+    @IsOptional({ always: false })
+    public description_eng: string;
+
+    @IsString()
+    @IsOptional({ always: false })
+    public description_ru: string;
 
     @IsString()
     @IsOptional({ always: false })

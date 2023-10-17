@@ -1,8 +1,9 @@
-import { Router } from "express";
-import { Routes } from "../../routes/route.interface";
+import {Router} from "express";
+import {Routes} from "../../routes/route.interface";
 import authMiddleware from "../../middlewares/auth.middleware";
-import { upload } from "../../utils/file";
+import {upload} from "../../utils/file";
 import NewsController from "./news.controller";
+import LanguageMiddleware from "../../middlewares/language.middleware";
 
 class NewsRouter implements Routes {
     public path = "/news";
@@ -18,24 +19,26 @@ class NewsRouter implements Routes {
             `${this.path}`,
             authMiddleware("admin"),
             // validationMiddleware(CreateCarDto, "body"),
-            upload.fields([{ name: "photo", maxCount: 1 }]),
+            upload.fields([{name: "photo", maxCount: 1}]),
             this.newsController.createNews.bind(this.newsController)
         );
         this.router.put(
             `${this.path}/:id`,
             authMiddleware("admin"),
             // validationMiddleware(UpdateCarDto, "body"),
-            upload.fields([{ name: "photo", maxCount: 1 }]),
+            upload.fields([{name: "photo", maxCount: 1}]),
             this.newsController.updateNews.bind(this.newsController)
         );
         this.router.get(
             `${this.path}`,
             authMiddleware("all"),
+            LanguageMiddleware,
             this.newsController.getAllNews.bind(this.newsController)
         );
         this.router.get(
             `${this.path}/:id`,
             authMiddleware("all"),
+            LanguageMiddleware,
             this.newsController.getNewsById.bind(this.newsController)
         );
 

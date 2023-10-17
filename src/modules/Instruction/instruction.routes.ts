@@ -1,7 +1,8 @@
-import { Router } from "express";
-import { Routes } from "../../routes/route.interface";
+import {Router} from "express";
+import {Routes} from "../../routes/route.interface";
 import authMiddleware from "../../middlewares/auth.middleware";
 import InstructionController from "./instruction.controller";
+import LanguageMiddleware from "../../middlewares/language.middleware";
 
 class InstructionRouter implements Routes {
     public path = "/instruction";
@@ -32,6 +33,7 @@ class InstructionRouter implements Routes {
         this.router.get(
             `${this.path}/:id`,
             authMiddleware("all"),
+            LanguageMiddleware,
             this.instructionController.getInstructionById.bind(this.instructionController)
         );
 

@@ -1,15 +1,19 @@
-import { DataTypes, Model, Optional, Sequelize } from "sequelize";
-import { News } from "./news.interface";
+import {DataTypes, Model, Optional, Sequelize} from "sequelize";
+import {News} from "./news.interface";
 
 export type NewsCreationAttributes = Optional<
     News,
-    "id" | "title" | "description" | "image" | "link"
+    "id" | "title_uz" | "title_ru" | "title_eng" | "description_uz" | "description_ru" | "description_eng" | "image" | "link"
 >;
 
 export class NewsModel extends Model<News, NewsCreationAttributes> implements News {
     public id: number;
-    public title: string;
-    public description: string;
+    public title_uz: string;
+    public title_ru: string;
+    public title_eng: string;
+    public description_uz: string;
+    public description_ru: string;
+    public description_eng: string;
     public image: string;
     public link: string;
     public readonly createdAt!: Date;
@@ -24,11 +28,25 @@ export default function (sequelize: Sequelize): typeof NewsModel {
                 type: DataTypes.BIGINT,
                 autoIncrement: true
             },
-            title: {
+            title_uz: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            description: {
+            title_ru: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            title_eng: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            description_uz: {
+                type: DataTypes.STRING,
+            },
+            description_ru: {
+                type: DataTypes.STRING,
+            },
+            description_eng: {
                 type: DataTypes.STRING,
             },
             link: {
