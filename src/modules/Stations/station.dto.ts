@@ -8,5 +8,11 @@ export class CreateStationDto {
   public long: string;
 
   @IsString()
-  public title: string;
+  public title_uz: string;
+
+  @IsString()
+  public title_ru: string;
+
+  @IsString()
+  public title_eng: string;
 }
