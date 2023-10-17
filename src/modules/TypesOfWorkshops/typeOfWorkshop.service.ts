@@ -1,3 +1,4 @@
+import {Sequelize} from "sequelize";
 import { models } from "../../utils/database";
 import { TypeOfWorkshop } from "./typeOfWorkshop.interface";
 import { isEmpty } from "../../utils/isEpmty";
@@ -8,8 +9,14 @@ import { deleteFile } from "../../utils/file";
 class TypeOfWorkshopService {
   public typeOfWorkshop = models.TypeOfWorkshop;
 
-  public async getAllTypesOfWorkshop(): Promise<TypeOfWorkshop[]> {
-    const typesOfWorkshops = await this.typeOfWorkshop.findAll();
+  public async getAllTypesOfWorkshop(lang: string): Promise<TypeOfWorkshop[]> {
+    const typesOfWorkshops = await this.typeOfWorkshop.findAll({
+      attributes: [
+        "id",
+        [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+        "photo",
+      ]
+    });
     return typesOfWorkshops;
   }
 

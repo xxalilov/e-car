@@ -1,4 +1,5 @@
 import slugify from "slugify";
+import {Op, Sequelize} from "sequelize";
 import {models} from "../../utils/database";
 import {Product} from "./product.interface";
 import PaginationHelper, {ResultInterface} from "../../utils/pagination";
@@ -6,7 +7,7 @@ import {isEmpty} from "../../utils/isEpmty";
 import {HttpException} from "../../exceptions/HttpException";
 import {CreateProductDto, UpdateProductDto} from "./product.dto";
 import {deleteFile} from "../../utils/file";
-import {Op, Sequelize} from "sequelize";
+
 
 class ProductService {
     public product = models.Product;
@@ -52,9 +53,7 @@ class ProductService {
                     "photos",
                 ]);
         } else {
-            return await paginationHelper.paginate(page, pageSize, {
-                    isTop: true,
-                },
+            return await paginationHelper.paginate(page, pageSize, {},
                 [
                     "id",
                     [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
@@ -65,7 +64,8 @@ class ProductService {
                     "long",
                     "phone",
                     "photos",
-                ]);
+                ],
+                [["isTop", "DESC"]]);
         }
     }
 

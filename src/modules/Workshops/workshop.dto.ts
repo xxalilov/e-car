@@ -2,13 +2,31 @@ import { IsOptional, IsString } from "class-validator";
 
 export class CreateWorkshopDto {
   @IsString()
-  public address: string;
+  public address_uz: string;
 
   @IsString()
-  public title: string;
+  public address_ru: string;
 
   @IsString()
-  public description: string;
+  public address_eng: string;
+
+  @IsString()
+  public title_uz: string;
+
+  @IsString()
+  public title_ru: string;
+
+  @IsString()
+  public title_eng: string;
+
+  @IsString()
+  public description_uz: string;
+
+  @IsString()
+  public description_eng: string;
+
+  @IsString()
+  public description_ru: string;
 
   @IsString()
   public phone: string;
@@ -29,15 +47,39 @@ export class CreateWorkshopDto {
 export class UpdateWorkshopDto {
   @IsString()
   @IsOptional({ always: false })
-  public address: string;
+  public address_uz: string;
 
   @IsString()
   @IsOptional({ always: false })
-  public title: string;
+  public address_ru: string;
 
   @IsString()
   @IsOptional({ always: false })
-  public description: string;
+  public address_eng: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public title_uz: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public title_ru: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public title_eng: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public description_uz: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public description_eng: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public description_ru: string;
 
   @IsString()
   @IsOptional({ always: false })
