@@ -4,6 +4,7 @@ import validationMiddleware from "../../middlewares/validation.middleware";
 import authMiddleware from "../../middlewares/auth.middleware";
 import { upload } from "../../utils/file";
 import TypeOfProductController from "./typeOfProduct.controller";
+import LanguageMiddleware from "../../middlewares/language.middleware";
 
 class TypeOfProductRouter implements Routes {
   public path = "/types-of-products";
@@ -34,6 +35,7 @@ class TypeOfProductRouter implements Routes {
     this.router.get(
       `${this.path}`,
       authMiddleware("all"),
+        LanguageMiddleware,
       this.typesOfProductController.getAllTypeOfProduct.bind(
         this.typesOfProductController
       )

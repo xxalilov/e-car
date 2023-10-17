@@ -1,16 +1,22 @@
-import { models } from "../../utils/database";
-import { TypeOfProduct } from "./typeOfProduct.interface";
-import { isEmpty } from "../../utils/isEpmty";
-import { HttpException } from "../../exceptions/HttpException";
-import { CreateTypeOfProductDto } from "./typeOfProduct.dto";
-import { deleteFile } from "../../utils/file";
+import {models} from "../../utils/database";
+import {TypeOfProduct} from "./typeOfProduct.interface";
+import {isEmpty} from "../../utils/isEpmty";
+import {HttpException} from "../../exceptions/HttpException";
+import {CreateTypeOfProductDto} from "./typeOfProduct.dto";
+import {deleteFile} from "../../utils/file";
+import {Sequelize} from "sequelize";
 
 class TypeOfProductService {
   public typeOfProduct = models.TypeOfProduct;
 
-  public async getAllTypesOfProduct(): Promise<TypeOfProduct[]> {
-    const typesOfProducts = await this.typeOfProduct.findAll();
-    return typesOfProducts;
+  public async getAllTypesOfProduct(lang: string): Promise<TypeOfProduct[]> {
+    return await this.typeOfProduct.findAll({
+      attributes: [
+          "id",
+        [Sequelize.literal(`COALESCE("${lang}")`), 'title'],
+          "photo",
+      ]
+    });
   }
 
   public async createTypeOfProduct(
@@ -19,8 +25,7 @@ class TypeOfProductService {
     if (!data.photo) {
       throw new HttpException(400, "Please input photo");
     }
-    const typeOfProduct = await this.typeOfProduct.create(data);
-    return typeOfProduct;
+    return await this.typeOfProduct.create(data);
   }
 
   public async deleteTypeOfProduct(

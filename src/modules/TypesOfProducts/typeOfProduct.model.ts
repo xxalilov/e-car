@@ -3,7 +3,7 @@ import { TypeOfProduct } from "./typeOfProduct.interface";
 
 export type TypeOfProductCreationAttributes = Optional<
   TypeOfProduct,
-  "id" | "title" | "photo"
+  "id" | "photo" | "uz" | "eng" | "ru"
 >;
 
 export class TypeOfProductModel
@@ -11,7 +11,9 @@ export class TypeOfProductModel
   implements TypeOfProduct
 {
   public id: string;
-  public title: string;
+  public uz: string;
+  public eng: string;
+  public ru: string;
 
   public photo: string;
   public readonly createdAt!: Date;
@@ -26,19 +28,26 @@ export default function (sequelize: Sequelize): typeof TypeOfProductModel {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       photo: {
         type: DataTypes.STRING,
       },
+      uz: {
+          type: DataTypes.STRING,
+          allowNull: false,
+      },
+      eng: {
+          type: DataTypes.STRING,
+          allowNull: false,
+      },
+      ru: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        }
     },
     {
-      tableName: "typesofproducts",
       sequelize,
+      tableName: "typesofproducts"
     }
   );
-
   return TypeOfProductModel;
 }

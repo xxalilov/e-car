@@ -11,8 +11,9 @@ class TypeOfProductController {
     next: NextFunction
   ) {
     try {
+      const lang = req.query.lang.toString();
       const findAllTypeOfProductsData =
-        await this.typeOfProductService.getAllTypesOfProduct();
+        await this.typeOfProductService.getAllTypesOfProduct(lang);
       res
         .status(200)
         .json({ data: findAllTypeOfProductsData, message: "findAll" });

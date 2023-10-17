@@ -2,7 +2,13 @@ import { IsOptional, IsString } from "class-validator";
 
 export class CreateTypeOfProductDto {
   @IsString()
-  public title: string;
+  public uz: string;
+
+  @IsString()
+  public eng: string;
+
+  @IsString()
+  public ru: string;
 
   @IsString()
   @IsOptional({ always: false })
