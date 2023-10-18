@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import {Sequelize} from "sequelize";
 import config from "../config/config";
 
 // MODELS
@@ -15,42 +15,46 @@ import CartModel from "../modules/Cart/cart.model";
 import CartItemModel from "../modules/CartItem/cartItem.model";
 import NewsModel from "../modules/News/news.model";
 import InstructionModel from "../modules/Instruction/instruction.model";
+import OrderModel from "../modules/Order/order.model";
+import OrderItemModel from "../modules/Order/order.item.model";
 
 export const sequelize = new Sequelize(
-  config.DB_DATABASE,
-  config.DB_USER,
-  config.DB_PASSWORD,
-  {
-    dialect: "postgres",
-    host: config.DB_HOST,
-    port: parseInt(config.DB_PORT),
-    logging: true,
-  }
+    config.DB_DATABASE,
+    config.DB_USER,
+    config.DB_PASSWORD,
+    {
+        dialect: "postgres",
+        host: config.DB_HOST,
+        port: parseInt(config.DB_PORT),
+        logging: true,
+    }
 );
 
 const DB = async function () {
-  try {
-    await sequelize.sync({ force: false });
-    console.log("Connected to DATABASE");
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+        await sequelize.sync({force: false});
+        console.log("Connected to DATABASE");
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const models = {
-  Admin: AdminMode(sequelize),
-  User: UserModel(sequelize),
-  Car: CarModel(sequelize),
-  Station: StationModel(sequelize),
-  TypeOfWorkshop: TypeOfWorkshopModel(sequelize),
-  Workshop: WorkshopModel(sequelize),
-  Advertising: AdvertisingModel(sequelize),
-  TypeOfProduct: TypeOfProductModel(sequelize),
-  Product: ProductModel(sequelize),
-  Cart: CartModel(sequelize),
-  CartItem: CartItemModel(sequelize),
-  News: NewsModel(sequelize),
-  Instruction: InstructionModel(sequelize)
+    Admin: AdminMode(sequelize),
+    User: UserModel(sequelize),
+    Car: CarModel(sequelize),
+    Station: StationModel(sequelize),
+    TypeOfWorkshop: TypeOfWorkshopModel(sequelize),
+    Workshop: WorkshopModel(sequelize),
+    Advertising: AdvertisingModel(sequelize),
+    TypeOfProduct: TypeOfProductModel(sequelize),
+    Product: ProductModel(sequelize),
+    Cart: CartModel(sequelize),
+    CartItem: CartItemModel(sequelize),
+    News: NewsModel(sequelize),
+    Instruction: InstructionModel(sequelize),
+    Order: OrderModel(sequelize),
+    OrderItem: OrderItemModel(sequelize),
 };
 
 export default DB;
