@@ -1,4 +1,4 @@
-import {IsString} from "class-validator";
+import {IsString, IsNumber} from "class-validator";
 
 export class CreateOrderDto {
     @IsString()
@@ -7,8 +7,8 @@ export class CreateOrderDto {
     @IsString()
     public shipping_address: string;
 
-    @IsString()
-    public shipping_price: string;
+    @IsNumber()
+    public shipping_price: number;
 
     @IsString()
     public payment_type: string;
