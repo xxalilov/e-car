@@ -1,18 +1,19 @@
 import {DataTypes, Model, Optional, Sequelize} from "sequelize";
 import {Order} from "./order.interface";
 import {Product} from "../Products/product.interface";
-import {CartModel} from "../Cart/cart.model";
 
 export type OrderCreationAttributes = Optional<
     Order,
-    "id" | "userId" | "shipping_address" | "shipping_price" | "payment_type" | "is_paid" | "total_price"
+    "id" | "userId" | "shipping_type" | "shipping_address" | "shipping_price" | "shipping_status" | "payment_type" | "is_paid" | "total_price"
 >;
 
 export class OrderModel extends Model<Order, OrderCreationAttributes> implements Order {
     public id: number;
     public userId: string;
+    public shipping_type: string;
     public shipping_price: number;
     public shipping_address: string;
+    public shipping_status: boolean;
     public payment_type: string;
     public is_paid: boolean;
     public total_price: number;
@@ -34,11 +35,20 @@ export default function (sequelize: Sequelize): typeof OrderModel {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            shipping_type: {
+                type: DataTypes.ENUM({
+                    values: ["bts", "express", "normal"]
+                })
+            },
             shipping_address: {
                 type: DataTypes.STRING
             },
             shipping_price: {
                 type: DataTypes.FLOAT
+            },
+            shipping_status: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false
             },
             payment_type: {
                 type: DataTypes.ENUM({

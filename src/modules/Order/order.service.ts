@@ -1,9 +1,9 @@
 import {models} from "../../utils/database";
-import PaginationHelper, {ResultInterface} from "../../utils/pagination";
 import {isEmpty} from "../../utils/isEpmty";
 import {HttpException} from "../../exceptions/HttpException";
 import {Order} from "./order.interface";
 import {CreateOrderDto} from "./order.dto";
+import PaginationHelper, {ResultInterface} from "../../utils/pagination";
 
 class OrderService {
     public order = models.Order;
@@ -11,21 +11,43 @@ class OrderService {
     public user = models.User;
     public product = models.Product;
 
-    public async getUserOrders(userId: string): Promise<Order[]> {
+    public async getUserOrders(page: number, pageSize: number, userId: string, type: string): Promise<ResultInterface> {
+        const paginationHelper = new PaginationHelper(this.order);
         if (isEmpty(userId)) throw new HttpException(400, "userId is empty");
         const user = await this.user.findByPk(userId);
         if (!user) throw new HttpException(400, "User not found");
-        const order = await this.order.findAll({
-            where: {userId},
-            include: [
+        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid"];
+        if (type === "history") {
+            return await paginationHelper.paginate(page, pageSize, {
+                userId,
+                shipping_status: true
+            }, attributes, [], [
                 {
                     model: this.product,
                     as: "products",
                     through: {attributes: ["quantity"], as: "orderItem"},
                 },
-            ],
-        });
-        return order;
+            ]);
+        } else if (type === "pending") {
+            return await paginationHelper.paginate(page, pageSize, {
+                userId,
+                shipping_status: false
+            }, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: {attributes: ["quantity"], as: "orderItem"},
+                },
+            ]);
+        } else {
+            return await paginationHelper.paginate(page, pageSize, {userId}, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: {attributes: ["quantity"], as: "orderItem"},
+                },
+            ]);
+        }
     }
 
     public async createOrder(
@@ -38,16 +60,12 @@ class OrderService {
             where: {userId},
         });
         const products = await userCart.getProducts();
-        console.log(products[0].dataValues.CartItemModel.dataValues);
 
         if (!userCart) throw new HttpException(400, "userCart not found");
         const order = await this.order.create({total_price: userCart.totalPrice, userId, ...orderData});
-        // const order = await this.order.findByPk(1)
-        for(let product of products) {
+        for (let product of products) {
             order.addProduct(product, product.dataValues.CartItemModel.dataValues.quantity);
         }
-        // if (!order) throw new HttpException(500, "Server error");
-        // await order.addProduct(findProduct, quantity);
 
         return order;
     }
