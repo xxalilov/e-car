@@ -38,6 +38,24 @@ class orderController {
         }
     }
 
+    public async payOrder(req: RequestWithUser, res: Response, next: NextFunction) {
+        try {
+            const order = await this.orderService.payOrder(req.user.id, req.body.card_number, req.body.card_expire);
+            res.status(200).json({data: order, message: "send code"});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    public async verifyCode(req: RequestWithUser, res: Response, next: NextFunction) {
+        try {
+            const order = await this.orderService.confirmPayOrder(req.body.orderId, req.user.id, req.body.token, req.body.code);
+            res.status(200).json({data: order, message: "verified"});
+        } catch (error) {
+            next(error);
+        }
+    }
+
     // public async removeProduct(
     //     req: RequestWithUser,
     //     res: Response,

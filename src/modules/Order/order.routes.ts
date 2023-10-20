@@ -19,6 +19,8 @@ class OrderRouter implements Routes {
             // validationMiddleware(CreateCarDto, "body"),
             this.orderController.createOrder.bind(this.orderController)
         );
+        this.router.post(`${this.path}/send-card`, authMiddleware("user"), this.orderController.payOrder.bind(this.orderController));
+        this.router.post(`${this.path}/pay-order`, authMiddleware("user"), this.orderController.verifyCode.bind(this.orderController));
 
         // this.router.post(
         //     `${this.path}/remove-product`,

@@ -4,12 +4,14 @@ import {HttpException} from "../../exceptions/HttpException";
 import {Order} from "./order.interface";
 import {CreateOrderDto} from "./order.dto";
 import PaginationHelper, {ResultInterface} from "../../utils/pagination";
+import PaymeService from "../Payme/payme.service";
 
 class OrderService {
     public order = models.Order;
     public cart = models.Cart;
     public user = models.User;
     public product = models.Product;
+    public paymeService = new PaymeService();
 
     public async getUserOrders(page: number, pageSize: number, userId: string, type: string): Promise<ResultInterface> {
         const paginationHelper = new PaginationHelper(this.order);
@@ -65,7 +67,39 @@ class OrderService {
         const order = await this.order.create({total_price: userCart.totalPrice, userId, ...orderData});
         for (let product of products) {
             order.addProduct(product, product.dataValues.CartItemModel.dataValues.quantity);
+            userCart.removeProduct(product);
         }
+
+        await userCart.update({totalPrice: 0});
+
+        return order;
+    }
+
+    public async payOrder(userId: string, card_number: string, card_expire: string): Promise<{
+        sent: boolean,
+        phone: string,
+        wait: number,
+        token: string
+    }> {
+        const cardToken = await this.paymeService.createCard(card_number, card_expire, userId);
+
+        const response = await this.paymeService.getVerifyCode(userId, cardToken);
+        return {...response, token: cardToken}
+    }
+
+    public async confirmPayOrder(orderId: string, userId: string, token: string, code: string): Promise<Order> {
+        const user = await this.user.findByPk(userId);
+        if (isEmpty(orderId))
+            throw new HttpException(400, "Please input orderId");
+        const findOrder = await this.order.findByPk(orderId);
+
+        if (!findOrder) throw new HttpException(400, "Order not found");
+        const order = await this.order.findOne({where: {userId}});
+
+        if (!order) throw new HttpException(500, "Server error");
+        // await this.paymeService.verify(userId, user.card, code);
+
+        await order.update({is_paid: true});
 
         return order;
     }
