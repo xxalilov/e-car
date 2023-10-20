@@ -1,12 +1,20 @@
 export declare class CreateNewsDto {
-    title: string;
-    description: string;
+    title_uz: string;
+    title_ru: string;
+    title_eng: string;
+    description_uz: string;
+    description_eng: string;
+    description_ru: string;
     image: string;
     link: string;
 }
 export declare class UpdateNewsDto {
-    title: string;
-    description: string;
+    title_uz: string;
+    title_ru: string;
+    title_eng: string;
+    description_uz: string;
+    description_eng: string;
+    description_ru: string;
     image: string;
     link: string;
 }

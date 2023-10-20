@@ -21,7 +21,7 @@ class StationController {
         const lat = req.query.lat.toString();
         const long = req.query.long.toString();
         try {
-            const stations = await this.stationService.getStationsWithDistance(lat, long);
+            const stations = await this.stationService.getStationsWithDistance(lat, long, req.query.lang);
             res.status(201).json({ data: stations, message: "find" });
         }
         catch (error) {

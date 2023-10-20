@@ -12,16 +12,24 @@ function default_1(sequelize) {
             type: sequelize_1.DataTypes.UUID,
             defaultValue: sequelize_1.DataTypes.UUIDV4,
         },
-        title: {
-            type: sequelize_1.DataTypes.STRING,
-            allowNull: false,
-        },
         photo: {
             type: sequelize_1.DataTypes.STRING,
         },
+        uz: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        eng: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        ru: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        }
     }, {
-        tableName: "typesofproducts",
         sequelize,
+        tableName: "typesofproducts"
     });
     return TypeOfProductModel;
 }

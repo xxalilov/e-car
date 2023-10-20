@@ -9,7 +9,15 @@ exports.CreateTypeOfWorkshopDto = CreateTypeOfWorkshopDto;
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateTypeOfWorkshopDto.prototype, "title", void 0);
+], CreateTypeOfWorkshopDto.prototype, "title_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateTypeOfWorkshopDto.prototype, "title_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateTypeOfWorkshopDto.prototype, "title_eng", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),

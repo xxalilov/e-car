@@ -9,12 +9,30 @@ exports.CreateInstructionDto = CreateInstructionDto;
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateInstructionDto.prototype, "title", void 0);
+], CreateInstructionDto.prototype, "title_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateInstructionDto.prototype, "title_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateInstructionDto.prototype, "title_eng", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),
     tslib_1.__metadata("design:type", String)
-], CreateInstructionDto.prototype, "description", void 0);
+], CreateInstructionDto.prototype, "description_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], CreateInstructionDto.prototype, "description_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], CreateInstructionDto.prototype, "description_eng", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),
@@ -36,12 +54,32 @@ tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),
     tslib_1.__metadata("design:type", String)
-], UpdateInstructionDto.prototype, "title", void 0);
+], UpdateInstructionDto.prototype, "title_uz", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),
     tslib_1.__metadata("design:type", String)
-], UpdateInstructionDto.prototype, "description", void 0);
+], UpdateInstructionDto.prototype, "title_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateInstructionDto.prototype, "title_eng", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateInstructionDto.prototype, "description_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateInstructionDto.prototype, "description_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateInstructionDto.prototype, "description_eng", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),

@@ -77,11 +77,7 @@ class PaymeService {
         };
         const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
         if (response.status === 200) {
-            const user = await this.user.findByPk(id);
-            if (user) {
-                const responseData = await user.update({card: response.data.result.card.token});
                 return response.data;
-            }
         } else {
             throw new HttpException(400, "Something went wrong");
         }
@@ -144,14 +140,14 @@ class PaymeService {
         return {};
     }
 
-    public async payReceipts(userId: string, receiptId: string): Promise<{}> {
+    public async payReceipts(userId: string, receiptId: string, token: string): Promise<{}> {
         const user = await this.user.findByPk(userId);
         const data = {
             id: parseInt(userId),
             method: "receipts.pay",
             params: {
                 id: receiptId,
-                token: user.card,
+                token,
                 payer: {
                     phone: user.phone,
                 }

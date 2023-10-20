@@ -4,20 +4,25 @@ const database_1 = require("../../utils/database");
 const isEpmty_1 = require("../../utils/isEpmty");
 const HttpException_1 = require("../../exceptions/HttpException");
 const file_1 = require("../../utils/file");
+const sequelize_1 = require("sequelize");
 class TypeOfProductService {
     constructor() {
         this.typeOfProduct = database_1.models.TypeOfProduct;
     }
-    async getAllTypesOfProduct() {
-        const typesOfProducts = await this.typeOfProduct.findAll();
-        return typesOfProducts;
+    async getAllTypesOfProduct(lang) {
+        return await this.typeOfProduct.findAll({
+            attributes: [
+                "id",
+                [sequelize_1.Sequelize.literal(`COALESCE("${lang}")`), 'title'],
+                "photo",
+            ]
+        });
     }
     async createTypeOfProduct(data) {
         if (!data.photo) {
             throw new HttpException_1.HttpException(400, "Please input photo");
         }
-        const typeOfProduct = await this.typeOfProduct.create(data);
-        return typeOfProduct;
+        return await this.typeOfProduct.create(data);
     }
     async deleteTypeOfProduct(typeOfProductId) {
         if ((0, isEpmty_1.isEmpty)(typeOfProductId))

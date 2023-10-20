@@ -4,8 +4,8 @@ import { CreateProductDto, UpdateProductDto } from "./product.dto";
 declare class ProductService {
     product: typeof import("./product.model").ProductModel;
     typeOfProduct: typeof import("../TypesOfProducts/typeOfProduct.model").TypeOfProductModel;
-    getAllProduct(page: number, pageSize: number, typeOfProductId: string, searchProduct: string): Promise<ResultInterface>;
-    getProductById(productId: string): Promise<Product>;
+    getAllProduct(page: number, pageSize: number, typeOfProductId: string, searchProduct: string, lang: string): Promise<ResultInterface>;
+    getProductById(productId: string, lang: string): Promise<Product>;
     createProduct(productData: CreateProductDto): Promise<Product>;
     updateProduct(productData: UpdateProductDto, productId: string): Promise<Product>;
     deleteProduct(productId: string): Promise<Product>;

@@ -8,6 +8,7 @@ export declare class CartModel extends Model<Cart, CartCreationAttributes> imple
     addProduct: Function;
     removeProduct: Function;
     calculateTotal: Function;
+    getProducts: Function;
     readonly createdAt: Date;
     readonly updatedAt: Date;
 }

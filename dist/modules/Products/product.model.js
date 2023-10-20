@@ -14,11 +14,27 @@ function default_1(sequelize) {
             type: sequelize_1.DataTypes.UUID,
             defaultValue: sequelize_1.DataTypes.UUIDV4
         },
-        address: {
+        address_uz: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
-        description: {
+        address_ru: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        address_eng: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        description_uz: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        description_ru: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        description_eng: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
@@ -30,7 +46,15 @@ function default_1(sequelize) {
             type: sequelize_1.DataTypes.FLOAT,
             allowNull: false,
         },
-        title: {
+        title_uz: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        title_ru: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        title_eng: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
@@ -62,12 +86,12 @@ function default_1(sequelize) {
         sequelize,
     });
     ProductModel.beforeCreate((instance) => {
-        const slug = (0, slugify_1.default)(instance.title.toLowerCase());
+        const slug = `${(0, slugify_1.default)(instance.title_uz.toLowerCase())}-${(0, slugify_1.default)(instance.title_ru.toLowerCase())}-${(0, slugify_1.default)(instance.title_eng.toLowerCase())}`;
         instance.slug = slug;
     });
     ProductModel.beforeUpdate((instance) => {
-        if (instance.changed("title")) {
-            const slug = (0, slugify_1.default)(instance.title.toLowerCase());
+        if (instance.changed("title_uz" || "title_ru" || "title_eng")) {
+            const slug = `${(0, slugify_1.default)(instance.title_uz.toLowerCase())}-${(0, slugify_1.default)(instance.title_ru.toLowerCase())}-${(0, slugify_1.default)(instance.title_eng.toLowerCase())}`;
             instance.slug = slug;
         }
     });

@@ -8,7 +8,7 @@ class TypeOfWorkshopController {
     }
     async getAllTypeOfWorkshop(req, res, next) {
         try {
-            const findAllTypeOfWorkshopsData = await this.typeOfWorkshopService.getAllTypesOfWorkshop();
+            const findAllTypeOfWorkshopsData = await this.typeOfWorkshopService.getAllTypesOfWorkshop(req.query.lang);
             res
                 .status(200)
                 .json({ data: findAllTypeOfWorkshopsData, message: "findAll" });

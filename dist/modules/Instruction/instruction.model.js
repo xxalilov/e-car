@@ -12,10 +12,22 @@ function default_1(sequelize) {
             primaryKey: true,
             autoIncrement: true
         },
-        title: {
+        title_uz: {
             type: sequelize_1.DataTypes.STRING,
         },
-        description: {
+        title_ru: {
+            type: sequelize_1.DataTypes.STRING,
+        },
+        title_eng: {
+            type: sequelize_1.DataTypes.STRING,
+        },
+        description_uz: {
+            type: sequelize_1.DataTypes.STRING
+        },
+        description_ru: {
+            type: sequelize_1.DataTypes.STRING
+        },
+        description_eng: {
             type: sequelize_1.DataTypes.STRING
         },
         link: {

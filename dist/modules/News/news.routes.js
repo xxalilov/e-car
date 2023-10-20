@@ -5,6 +5,7 @@ const express_1 = require("express");
 const auth_middleware_1 = tslib_1.__importDefault(require("../../middlewares/auth.middleware"));
 const file_1 = require("../../utils/file");
 const news_controller_1 = tslib_1.__importDefault(require("./news.controller"));
+const language_middleware_1 = tslib_1.__importDefault(require("../../middlewares/language.middleware"));
 class NewsRouter {
     constructor() {
         this.path = "/news";
@@ -19,8 +20,8 @@ class NewsRouter {
         this.router.put(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), 
         // validationMiddleware(UpdateCarDto, "body"),
         file_1.upload.fields([{ name: "photo", maxCount: 1 }]), this.newsController.updateNews.bind(this.newsController));
-        this.router.get(`${this.path}`, (0, auth_middleware_1.default)("all"), this.newsController.getAllNews.bind(this.newsController));
-        this.router.get(`${this.path}/:id`, (0, auth_middleware_1.default)("all"), this.newsController.getNewsById.bind(this.newsController));
+        this.router.get(`${this.path}`, (0, auth_middleware_1.default)("all"), language_middleware_1.default, this.newsController.getAllNews.bind(this.newsController));
+        this.router.get(`${this.path}/:id`, (0, auth_middleware_1.default)("all"), language_middleware_1.default, this.newsController.getNewsById.bind(this.newsController));
         this.router.delete(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), this.newsController.deleteNewsById.bind(this.newsController));
     }
 }

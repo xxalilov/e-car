@@ -18,6 +18,8 @@ const cart_model_1 = tslib_1.__importDefault(require("../modules/Cart/cart.model
 const cartItem_model_1 = tslib_1.__importDefault(require("../modules/CartItem/cartItem.model"));
 const news_model_1 = tslib_1.__importDefault(require("../modules/News/news.model"));
 const instruction_model_1 = tslib_1.__importDefault(require("../modules/Instruction/instruction.model"));
+const order_model_1 = tslib_1.__importDefault(require("../modules/Order/order.model"));
+const order_item_model_1 = tslib_1.__importDefault(require("../modules/Order/order.item.model"));
 exports.sequelize = new sequelize_1.Sequelize(config_1.default.DB_DATABASE, config_1.default.DB_USER, config_1.default.DB_PASSWORD, {
     dialect: "postgres",
     host: config_1.default.DB_HOST,
@@ -26,7 +28,7 @@ exports.sequelize = new sequelize_1.Sequelize(config_1.default.DB_DATABASE, conf
 });
 const DB = async function () {
     try {
-        await exports.sequelize.sync({ force: false });
+        await exports.sequelize.sync({ force: true });
         console.log("Connected to DATABASE");
     }
     catch (error) {
@@ -46,7 +48,9 @@ exports.models = {
     Cart: (0, cart_model_1.default)(exports.sequelize),
     CartItem: (0, cartItem_model_1.default)(exports.sequelize),
     News: (0, news_model_1.default)(exports.sequelize),
-    Instruction: (0, instruction_model_1.default)(exports.sequelize)
+    Instruction: (0, instruction_model_1.default)(exports.sequelize),
+    Order: (0, order_model_1.default)(exports.sequelize),
+    OrderItem: (0, order_item_model_1.default)(exports.sequelize),
 };
 exports.default = DB;
 //# sourceMappingURL=database.js.map

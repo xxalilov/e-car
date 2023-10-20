@@ -1,7 +1,13 @@
 export declare class CreateWorkshopDto {
-    address: string;
-    title: string;
-    description: string;
+    address_uz: string;
+    address_ru: string;
+    address_eng: string;
+    title_uz: string;
+    title_ru: string;
+    title_eng: string;
+    description_uz: string;
+    description_eng: string;
+    description_ru: string;
     phone: string;
     workingTime: string;
     lat: string;
@@ -9,9 +15,15 @@ export declare class CreateWorkshopDto {
     typeOfWorkshopId: string;
 }
 export declare class UpdateWorkshopDto {
-    address: string;
-    title: string;
-    description: string;
+    address_uz: string;
+    address_ru: string;
+    address_eng: string;
+    title_uz: string;
+    title_ru: string;
+    title_eng: string;
+    description_uz: string;
+    description_eng: string;
+    description_ru: string;
     phone: string;
     workingTime: string;
     lat: string;

@@ -19,7 +19,7 @@ class InstructionController {
         this.getInstructionById = async (req, res, next) => {
             try {
                 const { id } = req.params;
-                const instruction = await this.instructionService.getInstructionById(id);
+                const instruction = await this.instructionService.getInstructionById(id, req.query.lang);
                 res.status(200).json({ data: instruction, message: "get" });
             }
             catch (error) {

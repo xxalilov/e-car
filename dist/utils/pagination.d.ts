@@ -9,6 +9,6 @@ export interface ResultInterface {
 declare class PaginationHelper<T extends Model> {
     private model;
     constructor(model: ModelStatic<T>);
-    paginate(page: number, pageSize: number, whereOption?: {}): Promise<ResultInterface>;
+    paginate(page: number, pageSize: number, whereOption?: {}, attributesOptions?: any[], orderOption?: any[], includeOption?: any[]): Promise<ResultInterface>;
 }
 export default PaginationHelper;

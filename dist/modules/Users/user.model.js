@@ -28,9 +28,6 @@ function default_1(sequelize) {
             type: sequelize_1.DataTypes.STRING,
             allowNull: true,
         },
-        card: {
-            type: sequelize_1.DataTypes.STRING(500),
-        },
     }, {
         tableName: "users",
         sequelize,

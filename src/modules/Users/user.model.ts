@@ -4,7 +4,7 @@ import { models } from "../../utils/database";
 
 export type UserCreationAttributes = Optional<
   User,
-  "id" | "firstname" | "lastname" | "phone" | "photo" | "card"
+  "id" | "firstname" | "lastname" | "phone" | "photo"
 >;
 
 export class UserModel
@@ -16,7 +16,6 @@ export class UserModel
   public lastname: string;
   public phone: string;
   public photo: string;
-  public card: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -44,9 +43,6 @@ export default function (sequelize: Sequelize): typeof UserModel {
       photo: {
         type: DataTypes.STRING,
         allowNull: true,
-      },
-      card: {
-        type: DataTypes.STRING(500),
       },
     },
     {

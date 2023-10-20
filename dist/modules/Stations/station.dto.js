@@ -17,5 +17,13 @@ tslib_1.__decorate([
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateStationDto.prototype, "title", void 0);
+], CreateStationDto.prototype, "title_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateStationDto.prototype, "title_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateStationDto.prototype, "title_eng", void 0);
 //# sourceMappingURL=station.dto.js.map

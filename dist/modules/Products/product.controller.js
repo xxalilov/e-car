@@ -18,7 +18,7 @@ class ProductController {
             searchProduct = req.query.searchData.toString();
         }
         try {
-            const findAllCarsData = await this.productService.getAllProduct(page, pageSize, typeOfProductId, searchProduct);
+            const findAllCarsData = await this.productService.getAllProduct(page, pageSize, typeOfProductId, searchProduct, req.query.lang);
             res.status(200).json(Object.assign(Object.assign({}, findAllCarsData), { message: "findAll" }));
         }
         catch (error) {
@@ -27,7 +27,7 @@ class ProductController {
     }
     async getProductById(req, res, next) {
         try {
-            const findOneProductData = await this.productService.getProductById(req.params.id);
+            const findOneProductData = await this.productService.getProductById(req.params.id, req.query.lang);
             res.status(200).json({ data: findOneProductData, message: "findOne" });
         }
         catch (error) {

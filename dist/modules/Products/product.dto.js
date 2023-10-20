@@ -9,7 +9,15 @@ exports.CreateProductDto = CreateProductDto;
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateProductDto.prototype, "title", void 0);
+], CreateProductDto.prototype, "title_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateProductDto.prototype, "title_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateProductDto.prototype, "title_eng", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsNumber)(),
     tslib_1.__metadata("design:type", Number)
@@ -17,11 +25,27 @@ tslib_1.__decorate([
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateProductDto.prototype, "description", void 0);
+], CreateProductDto.prototype, "description_uz", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateProductDto.prototype, "address", void 0);
+], CreateProductDto.prototype, "description_eng", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateProductDto.prototype, "description_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateProductDto.prototype, "address_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateProductDto.prototype, "address_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateProductDto.prototype, "address_eng", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)

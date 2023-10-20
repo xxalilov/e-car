@@ -12,15 +12,33 @@ function default_1(sequelize) {
             type: sequelize_1.DataTypes.UUID,
             defaultValue: sequelize_1.DataTypes.UUIDV4,
         },
-        address: {
+        address_uz: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        }, address_ru: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        }, address_eng: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
-        description: {
+        description_uz: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        }, description_ru: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        }, description_eng: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
-        title: {
+        title_uz: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        }, title_ru: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        }, title_eng: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },

@@ -9,15 +9,39 @@ exports.CreateWorkshopDto = CreateWorkshopDto;
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateWorkshopDto.prototype, "address", void 0);
+], CreateWorkshopDto.prototype, "address_uz", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateWorkshopDto.prototype, "title", void 0);
+], CreateWorkshopDto.prototype, "address_ru", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
-], CreateWorkshopDto.prototype, "description", void 0);
+], CreateWorkshopDto.prototype, "address_eng", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateWorkshopDto.prototype, "title_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateWorkshopDto.prototype, "title_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateWorkshopDto.prototype, "title_eng", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateWorkshopDto.prototype, "description_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateWorkshopDto.prototype, "description_eng", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], CreateWorkshopDto.prototype, "description_ru", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
@@ -45,17 +69,47 @@ tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),
     tslib_1.__metadata("design:type", String)
-], UpdateWorkshopDto.prototype, "address", void 0);
+], UpdateWorkshopDto.prototype, "address_uz", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),
     tslib_1.__metadata("design:type", String)
-], UpdateWorkshopDto.prototype, "title", void 0);
+], UpdateWorkshopDto.prototype, "address_ru", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),
     tslib_1.__metadata("design:type", String)
-], UpdateWorkshopDto.prototype, "description", void 0);
+], UpdateWorkshopDto.prototype, "address_eng", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateWorkshopDto.prototype, "title_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateWorkshopDto.prototype, "title_ru", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateWorkshopDto.prototype, "title_eng", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateWorkshopDto.prototype, "description_uz", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateWorkshopDto.prototype, "description_eng", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateWorkshopDto.prototype, "description_ru", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),

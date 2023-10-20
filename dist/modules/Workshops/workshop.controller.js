@@ -10,7 +10,7 @@ class WorkshopController {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 10;
         try {
-            const findAllWorkshopData = await this.workshopService.getAllWorkshops(page, pageSize);
+            const findAllWorkshopData = await this.workshopService.getAllWorkshops(page, pageSize, req.query.lang);
             res.status(200).json(Object.assign(Object.assign({}, findAllWorkshopData), { message: "findAll" }));
         }
         catch (error) {
@@ -22,7 +22,7 @@ class WorkshopController {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 10;
         try {
-            const findAllWorkshopData = await this.workshopService.getAllWorkshopsByType(page, pageSize, typeOfWorkshopId);
+            const findAllWorkshopData = await this.workshopService.getAllWorkshopsByType(page, pageSize, typeOfWorkshopId, req.query.lang);
             res.status(200).json(Object.assign(Object.assign({}, findAllWorkshopData), { message: "findAll" }));
         }
         catch (error) {

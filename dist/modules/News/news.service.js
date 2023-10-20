@@ -6,18 +6,35 @@ const pagination_1 = tslib_1.__importDefault(require("../../utils/pagination"));
 const isEpmty_1 = require("../../utils/isEpmty");
 const HttpException_1 = require("../../exceptions/HttpException");
 const file_1 = require("../../utils/file");
+const sequelize_1 = require("sequelize");
 class NewsService {
     constructor() {
         this.news = database_1.models.News;
     }
-    async getAllNews(page, pageSize) {
+    async getAllNews(page, pageSize, lang) {
         const paginationHelper = new pagination_1.default(this.news);
-        return await paginationHelper.paginate(page, pageSize);
+        return await paginationHelper.paginate(page, pageSize, {}, [
+            "id",
+            [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+            [sequelize_1.Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+            "link",
+            "image",
+            "createdAt",
+        ]);
     }
-    async getNewsById(newsId) {
+    async getNewsById(newsId, lang) {
         if ((0, isEpmty_1.isEmpty)(newsId))
             throw new HttpException_1.HttpException(400, "newsId is empty");
-        const news = await this.news.findByPk(newsId);
+        const news = await this.news.findByPk(newsId, {
+            attributes: [
+                "id",
+                [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                [sequelize_1.Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                "link",
+                "image",
+                "createdAt",
+            ]
+        });
         if (!news)
             throw new HttpException_1.HttpException(400, "News not found");
         return news;

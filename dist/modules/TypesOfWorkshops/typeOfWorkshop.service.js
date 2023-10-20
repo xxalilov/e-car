@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const sequelize_1 = require("sequelize");
 const database_1 = require("../../utils/database");
 const isEpmty_1 = require("../../utils/isEpmty");
 const HttpException_1 = require("../../exceptions/HttpException");
@@ -8,8 +9,14 @@ class TypeOfWorkshopService {
     constructor() {
         this.typeOfWorkshop = database_1.models.TypeOfWorkshop;
     }
-    async getAllTypesOfWorkshop() {
-        const typesOfWorkshops = await this.typeOfWorkshop.findAll();
+    async getAllTypesOfWorkshop(lang) {
+        const typesOfWorkshops = await this.typeOfWorkshop.findAll({
+            attributes: [
+                "id",
+                [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                "photo",
+            ]
+        });
         return typesOfWorkshops;
     }
     async createTypeOfWorkshop(data) {

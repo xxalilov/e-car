@@ -1,4 +1,6 @@
 export declare class CreateTypeOfProductDto {
-    title: string;
+    uz: string;
+    eng: string;
+    ru: string;
     photo: string;
 }

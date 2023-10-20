@@ -20,7 +20,15 @@ function default_1(sequelize) {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
-        title: {
+        title_uz: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        title_ru: {
+            type: sequelize_1.DataTypes.STRING,
+            allowNull: false,
+        },
+        title_eng: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },

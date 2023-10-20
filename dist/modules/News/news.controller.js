@@ -10,7 +10,7 @@ class NewsController {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 10;
         try {
-            const findAllNewsData = await this.newsService.getAllNews(page, pageSize);
+            const findAllNewsData = await this.newsService.getAllNews(page, pageSize, req.query.lang);
             res.status(200).json(Object.assign(Object.assign({}, findAllNewsData), { message: "findAll" }));
         }
         catch (error) {
@@ -19,7 +19,7 @@ class NewsController {
     }
     async getNewsById(req, res, next) {
         try {
-            const findOneNewsData = await this.newsService.getNewsById(req.params.id);
+            const findOneNewsData = await this.newsService.getNewsById(req.params.id, req.query.lang);
             res.status(200).json({ data: findOneNewsData, message: "findOne" });
         }
         catch (error) {

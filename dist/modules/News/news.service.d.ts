@@ -3,8 +3,8 @@ import { News } from "./news.interface";
 import { CreateNewsDto, UpdateNewsDto } from "./news.dto";
 declare class NewsService {
     news: typeof import("./news.model").NewsModel;
-    getAllNews(page: number, pageSize: number): Promise<ResultInterface>;
-    getNewsById(newsId: string): Promise<News>;
+    getAllNews(page: number, pageSize: number, lang: string): Promise<ResultInterface>;
+    getNewsById(newsId: string, lang: string): Promise<News>;
     createNews(newsData: CreateNewsDto): Promise<News>;
     updateNews(newsData: UpdateNewsDto, newsId: string): Promise<News>;
     deleteNews(newsId: string): Promise<News>;

@@ -8,7 +8,8 @@ class TypeOfProductController {
     }
     async getAllTypeOfProduct(req, res, next) {
         try {
-            const findAllTypeOfProductsData = await this.typeOfProductService.getAllTypesOfProduct();
+            const lang = req.query.lang.toString();
+            const findAllTypeOfProductsData = await this.typeOfProductService.getAllTypesOfProduct(lang);
             res
                 .status(200)
                 .json({ data: findAllTypeOfProductsData, message: "findAll" });
