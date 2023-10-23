@@ -5,7 +5,7 @@ export default async function (req: Request, res: Response, next: NextFunction){
     const lang = req.query.lang;
     try{
         if (!lang)  next(new HttpException(400, "Please input language"));
-        if (lang !== "uz" && lang !== "ru" && lang !== "eng")
+        if (lang !== "uz" && lang !== "ru" && lang !== "eng" && lang !== "all")
              next(new HttpException(400, "Please input correct language"));
         next();
     }catch (error) {

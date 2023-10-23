@@ -14,3 +14,21 @@ export class CreateTypeOfProductDto {
   @IsOptional({ always: false })
   public photo: string;
 }
+
+export class UpdateTypeOfProductDto {
+  @IsString()
+  @IsOptional({ always: false })
+  public uz: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public eng: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public ru: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public photo: string;
+}

@@ -43,6 +43,23 @@ class TypeOfProductController {
     }
   }
 
+  public async updateTypeOfProduct(req: RequestWithFile, res: Response, next: NextFunction) {
+    try {
+      const typeOfProductId = req.params.id;
+      const data = req.body;
+      if (req.files && req.files.photo) {
+        const photo: Photo[] = req.files.photo;
+        if (photo) {
+          data.photo = photo[0].path;
+        }
+      }
+      const updatedTypeOfProduct = await this.typeOfProductService.updateTypeOfProduct(typeOfProductId, data);
+      res.status(200).json({ data: updatedTypeOfProduct, message: "updated" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async deleteTypeOfProduct(
     req: Request,
     res: Response,
