@@ -26,6 +26,15 @@ class TypeOfWorkshopRouter implements Routes {
                 this.typesOfWorkshopController
             )
         );
+        this.router.put(
+            `${this.path}/:id`,
+            authMiddleware("admin"),
+            // validationMiddleware(CreateTypeOfWorkshopDto, "body"),
+            upload.fields([{name: "photo", maxCount: 1}]),
+            this.typesOfWorkshopController.updateTypeOfWorkshop.bind(
+                this.typesOfWorkshopController
+            )
+        );
         this.router.delete(
             `${this.path}/:id`,
             authMiddleware("admin"),
