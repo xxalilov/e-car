@@ -4,7 +4,6 @@ import validationMiddleware from "../../middlewares/validation.middleware";
 import authMiddleware from "../../middlewares/auth.middleware";
 import WorkshopController from "./workshop.controller";
 import {CreateWorkshopDto, UpdateWorkshopDto} from "./workshop.dto";
-import AuthMiddleware from "../../middlewares/auth.middleware";
 import LanguageMiddleware from "../../middlewares/language.middleware";
 
 class WorkshopRouter implements Routes {
@@ -32,7 +31,7 @@ class WorkshopRouter implements Routes {
         this.router.get(
             `${this.path}`,
             authMiddleware("all"),
-            AuthMiddleware,
+            LanguageMiddleware,
             this.workshopController.getAllWorkshops.bind(this.workshopController)
         );
         this.router.get(

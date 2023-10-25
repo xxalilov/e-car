@@ -16,6 +16,27 @@ class WorkshopService {
         lang: string
     ): Promise<ResultInterface> {
         const paginationHelper = new PaginationHelper(this.workshop);
+
+        if(lang === "all") {
+            return await paginationHelper.paginate(page, pageSize, {}, [
+                "id",
+                "title_uz",
+                "title_ru",
+                "title_eng",
+                "address_uz",
+                "address_ru",
+                "address_eng",
+                "description_uz",
+                "description_ru",
+                "description_eng",
+                "phone",
+                "workingTime",
+                "lat",
+                "long",
+                "typeOfWorkshopId",
+            ]);
+        }
+
         return await paginationHelper.paginate(page, pageSize, {}, [
             "id",
             [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
@@ -36,6 +57,29 @@ class WorkshopService {
         lang: string
     ): Promise<ResultInterface> {
         const paginationHelper = new PaginationHelper(this.workshop);
+
+        if(lang === "all") {
+            return await paginationHelper.paginate(page, pageSize, {
+                typeOfWorkshopId,
+            }, [
+                "id",
+                "title_uz",
+                "title_ru",
+                "title_eng",
+                "address_uz",
+                "address_ru",
+                "address_eng",
+                "description_uz",
+                "description_ru",
+                "description_eng",
+                "phone",
+                "workingTime",
+                "lat",
+                "long",
+                "typeOfWorkshopId",
+            ]);
+        }
+
         return await paginationHelper.paginate(page, pageSize, {
                 typeOfWorkshopId,
             },
