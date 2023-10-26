@@ -17,8 +17,8 @@ class UserRouter implements Routes {
 
     private initializeRoutes() {
         this.router.put(
-            `${this.path}/:id`,
-            // authMiddleware("user"),
+            `${this.path}`,
+            authMiddleware("user"),
             // validationMiddleware(UpdateUserDto, "body"),
             // upload.fields([{ name: "photo", maxCount: 1 }]),
             upload.single("photo"),

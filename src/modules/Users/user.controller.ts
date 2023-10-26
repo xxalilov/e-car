@@ -2,8 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import UserService from "./user.service";
 import { User } from "./user.interface";
 import { UpdateUserDto } from "./user.dto";
-import { RequestWithUser } from "../../modules/Auth/auth.interface";
-import { Photo, RequestWithFile } from "../../interfaces/file-upload.interface";
+import { RequestWithUser } from "../Auth/auth.interface";
 
 class UserController {
   private userService = new UserService();
@@ -34,7 +33,7 @@ class UserController {
   }
 
   public async updateUser(
-    req: Request,
+    req: RequestWithUser,
     res: Response,
     next: NextFunction
   ) {
@@ -52,7 +51,7 @@ class UserController {
       //   }
       // }
       const updatedUser: User = await this.userService.updateUserDetails(
-        req.params.id,
+        req.user.id,
         userData
       );
       res.status(200).json({ data: updatedUser, message: "updateUser" });

@@ -13,8 +13,7 @@ class UserRouter {
         this.initializeRoutes();
     }
     initializeRoutes() {
-        this.router.put(`${this.path}/:id`, 
-        // authMiddleware("user"),
+        this.router.put(`${this.path}`, (0, auth_middleware_1.default)("user"), 
         // validationMiddleware(UpdateUserDto, "body"),
         // upload.fields([{ name: "photo", maxCount: 1 }]),
         file_1.upload.single("photo"), this.userController.updateUser.bind(this.userController));
