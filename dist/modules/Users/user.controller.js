@@ -30,7 +30,7 @@ class UserController {
         try {
             const userData = req.body;
             console.log("BODY", req.body);
-            console.log("FILE", req.files);
+            console.log("FILE", req.file);
             if (req.files) {
                 const photo = req.files.photo;
                 if (photo) {
