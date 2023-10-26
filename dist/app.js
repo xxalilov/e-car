@@ -5,6 +5,7 @@ const path_1 = require("path");
 const express_1 = tslib_1.__importStar(require("express"));
 const cookie_parser_1 = tslib_1.__importDefault(require("cookie-parser"));
 const cors_1 = tslib_1.__importDefault(require("cors"));
+const express_fileupload_1 = tslib_1.__importDefault(require("express-fileupload"));
 const database_1 = tslib_1.__importDefault(require("./utils/database"));
 const config_1 = tslib_1.__importDefault(require("./config/config"));
 const HttpException_1 = require("./exceptions/HttpException");
@@ -27,11 +28,29 @@ class App {
     }
     initializeMiddleware() {
         this.app.use("/uploads/images", (0, express_1.static)((0, path_1.join)(__dirname, "../", "uploads", "images")));
+        this.app.use((0, express_fileupload_1.default)());
         this.app.use((0, cors_1.default)());
         this.app.use((0, express_1.json)());
         this.app.use((0, cookie_parser_1.default)());
     }
     initializeRoutes() {
+        this.app.post("/api/v1/upload", (req, res) => {
+            let sampleFile;
+            let uploadPath;
+            if (!req.files || Object.keys(req.files).length === 0) {
+                return res.status(400).send('No files were uploaded.');
+            }
+            // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+            // @ts-ignore
+            sampleFile = req.files.photo;
+            uploadPath = __dirname + '/upload/images/' + sampleFile.name;
+            // Use the mv() method to place the file somewhere on your server
+            sampleFile.mv(uploadPath, function (err) {
+                if (err)
+                    return res.status(500).send(err);
+                res.send('File uploaded!');
+            });
+        });
         this.app.use("/api/v1", index_route_1.default);
         this.app.all("*", () => {
             throw new HttpException_1.HttpException(400, "Route Not Found");
