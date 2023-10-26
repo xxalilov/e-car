@@ -29,10 +29,9 @@ class UserService {
         const user = await this.user.findByPk(userId);
         if (!user)
             throw new HttpException_1.HttpException(409, "User doesn't exist");
-        if (user.phone && userData.phone)
-            (0, file_1.deleteFile)(user.phone);
-        const updatedUser = await user.update(userData);
-        return updatedUser;
+        if (user.photo && userData.photo)
+            (0, file_1.deleteFile)(user.photo);
+        return await user.update(userData);
     }
 }
 exports.default = UserService;

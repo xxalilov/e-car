@@ -28,7 +28,7 @@ const fileFilter = (req: Request, file: any, cb: any) => {
   }
 };
 
-const deleteFile = (filePath) => {
+const deleteFile = (filePath: string) => {
   unlink(filePath, (err) => {
     if (!err) {
       return console.log("Deleted File");

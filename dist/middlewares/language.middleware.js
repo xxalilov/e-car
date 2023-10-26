@@ -6,7 +6,7 @@ async function default_1(req, res, next) {
     try {
         if (!lang)
             next(new HttpException_1.HttpException(400, "Please input language"));
-        if (lang !== "uz" && lang !== "ru" && lang !== "eng")
+        if (lang !== "uz" && lang !== "ru" && lang !== "eng" && lang !== "all")
             next(new HttpException_1.HttpException(400, "Please input correct language"));
         next();
     }

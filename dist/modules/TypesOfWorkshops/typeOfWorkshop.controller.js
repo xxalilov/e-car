@@ -33,6 +33,23 @@ class TypeOfWorkshopController {
             next(error);
         }
     }
+    async updateTypeOfWorkshop(req, res, next) {
+        try {
+            const typeOfWorkshopId = req.params.id;
+            const data = req.body;
+            if (req.files && req.files.photo) {
+                const photo = req.files.photo;
+                if (photo) {
+                    data.photo = photo[0].path;
+                }
+            }
+            const updatedTypeOfWorkshop = await this.typeOfWorkshopService.updateTypeOfWorkshop(typeOfWorkshopId, data);
+            res.status(200).json({ data: updatedTypeOfWorkshop, message: "updated" });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
     async deleteTypeOfWorkshop(req, res, next) {
         try {
             const typeOfWorkshopId = req.params.id;

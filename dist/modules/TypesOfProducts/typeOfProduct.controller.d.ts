@@ -4,6 +4,7 @@ declare class TypeOfProductController {
     private typeOfProductService;
     getAllTypeOfProduct(req: Request, res: Response, next: NextFunction): Promise<void>;
     createTypeOfProduct(req: RequestWithFile, res: Response, next: NextFunction): Promise<void>;
+    updateTypeOfProduct(req: RequestWithFile, res: Response, next: NextFunction): Promise<void>;
     deleteTypeOfProduct(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 export default TypeOfProductController;

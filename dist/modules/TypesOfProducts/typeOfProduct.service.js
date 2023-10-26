@@ -10,6 +10,17 @@ class TypeOfProductService {
         this.typeOfProduct = database_1.models.TypeOfProduct;
     }
     async getAllTypesOfProduct(lang) {
+        if (lang === "all") {
+            return await this.typeOfProduct.findAll({
+                attributes: [
+                    "id",
+                    "uz",
+                    "eng",
+                    "ru",
+                    "photo"
+                ]
+            });
+        }
         return await this.typeOfProduct.findAll({
             attributes: [
                 "id",
@@ -23,6 +34,17 @@ class TypeOfProductService {
             throw new HttpException_1.HttpException(400, "Please input photo");
         }
         return await this.typeOfProduct.create(data);
+    }
+    async updateTypeOfProduct(typeOfProductId, updateData) {
+        if ((0, isEpmty_1.isEmpty)(typeOfProductId))
+            throw new HttpException_1.HttpException(400, "Please input id");
+        const typeOfProduct = await this.typeOfProduct.findByPk(typeOfProductId);
+        if (!typeOfProduct)
+            throw new HttpException_1.HttpException(400, "Type Of Workshop not found");
+        if (updateData.photo && typeOfProduct.photo)
+            (0, file_1.deleteFile)(typeOfProduct.photo);
+        await typeOfProduct.update(updateData);
+        return typeOfProduct;
     }
     async deleteTypeOfProduct(typeOfProductId) {
         if ((0, isEpmty_1.isEmpty)(typeOfProductId))

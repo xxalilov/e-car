@@ -32,9 +32,8 @@ class UserService {
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
     const user = await this.user.findByPk(userId);
     if (!user) throw new HttpException(409, "User doesn't exist");
-    if (user.phone && userData.phone) deleteFile(user.phone);
-    const updatedUser: User = await user.update(userData);
-    return updatedUser;
+    if (user.photo && userData.photo) deleteFile(user.photo);
+    return await user.update(userData);
   }
 }
 

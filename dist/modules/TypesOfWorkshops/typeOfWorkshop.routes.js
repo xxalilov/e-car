@@ -17,6 +17,9 @@ class TypeOfWorkshopRouter {
         this.router.post(`${this.path}`, (0, auth_middleware_1.default)("admin"), 
         // validationMiddleware(CreateTypeOfWorkshopDto, "body"),
         file_1.upload.fields([{ name: "photo", maxCount: 1 }]), this.typesOfWorkshopController.createTypeOfWorkshop.bind(this.typesOfWorkshopController));
+        this.router.put(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), 
+        // validationMiddleware(CreateTypeOfWorkshopDto, "body"),
+        file_1.upload.fields([{ name: "photo", maxCount: 1 }]), this.typesOfWorkshopController.updateTypeOfWorkshop.bind(this.typesOfWorkshopController));
         this.router.delete(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), this.typesOfWorkshopController.deleteTypeOfWorkshop.bind(this.typesOfWorkshopController));
         this.router.get(`${this.path}`, (0, auth_middleware_1.default)("all"), language_middleware_1.default, this.typesOfWorkshopController.getAllTypeOfWorkshop.bind(this.typesOfWorkshopController));
     }
