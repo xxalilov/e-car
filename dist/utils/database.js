@@ -24,7 +24,7 @@ exports.sequelize = new sequelize_1.Sequelize(config_1.default.DB_DATABASE, conf
     dialect: "postgres",
     host: config_1.default.DB_HOST,
     port: parseInt(config_1.default.DB_PORT),
-    logging: true,
+    logging: false,
 });
 const DB = async function () {
     try {
