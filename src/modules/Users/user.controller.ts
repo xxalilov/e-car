@@ -34,7 +34,7 @@ class UserController {
   }
 
   public async updateUser(
-    req: RequestWithFile,
+    req: RequestWithUser,
     res: Response,
     next: NextFunction
   ) {

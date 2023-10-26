@@ -16,10 +16,10 @@ class UserRouter implements Routes {
     }
 
     private initializeRoutes() {
-        this.router.post(
+        this.router.put(
             `${this.path}`,
             authMiddleware("user"),
-            validationMiddleware(UpdateUserDto, "body"),
+            // validationMiddleware(UpdateUserDto, "body"),
             // upload.fields([{ name: "photo", maxCount: 1 }]),
             upload.single("photo"),
             this.userController.updateUser.bind(this.userController)
