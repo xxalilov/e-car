@@ -31,12 +31,15 @@ class UserController {
             const userData = req.body;
             console.log("BODY", req.body);
             console.log("FILE", req.file);
-            if (req.files) {
-                const photo = req.files.photo;
-                if (photo) {
-                    userData.photo = photo[0].path;
-                }
+            if (req.file) {
+                userData.photo = req.file.filename;
             }
+            // if (req.files) {
+            //   const photo: Photo[] = req.files.photo;
+            //   if (photo) {
+            //     userData.photo = photo[0].path;
+            //   }
+            // }
             const updatedUser = await this.userService.updateUserDetails(req.user.id.toString(), userData);
             res.status(200).json({ data: updatedUser, message: "updateUser" });
         }
