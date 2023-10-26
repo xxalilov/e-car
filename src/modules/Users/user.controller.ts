@@ -34,7 +34,7 @@ class UserController {
   }
 
   public async updateUser(
-    req: RequestWithUser,
+    req: Request,
     res: Response,
     next: NextFunction
   ) {
@@ -52,7 +52,7 @@ class UserController {
       //   }
       // }
       const updatedUser: User = await this.userService.updateUserDetails(
-        req.user.id.toString(),
+        req.params.id,
         userData
       );
       res.status(200).json({ data: updatedUser, message: "updateUser" });
