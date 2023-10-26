@@ -15,7 +15,9 @@ class UserRouter {
         this.initializeRoutes();
     }
     initializeRoutes() {
-        this.router.put(`${this.path}`, (0, auth_middleware_1.default)("user"), (0, validation_middleware_1.default)(user_dto_1.UpdateUserDto, "body"), file_1.upload.fields([{ name: "photo", maxCount: 1 }]), this.userController.updateUser.bind(this.userController));
+        this.router.put(`${this.path}`, (0, auth_middleware_1.default)("user"), (0, validation_middleware_1.default)(user_dto_1.UpdateUserDto, "body"), 
+        // upload.fields([{ name: "photo", maxCount: 1 }]),
+        file_1.upload.single("photo"), this.userController.updateUser.bind(this.userController));
         this.router.get(`${this.path}`, (0, auth_middleware_1.default)("admin"), this.userController.getAllUsers.bind(this.userController));
         this.router.get(`${this.path}/:id`, this.userController.getUserById.bind(this.userController));
     }
