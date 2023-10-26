@@ -43,7 +43,7 @@ class UserController {
       console.log("BODY", req.body);
       console.log("FILE", req.file);
       if (req.file) {
-          userData.photo = req.file.filename
+          userData.photo = req.file.path
       }
       // if (req.files) {
       //   const photo: Photo[] = req.files.photo;
