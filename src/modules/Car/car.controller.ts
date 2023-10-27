@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import path from 'path';
 import { RequestWithUser } from "../../modules/Auth/auth.interface";
 import CarService from "./car.service";
 import { Car } from "./car.interface";
@@ -50,9 +51,20 @@ class CarController {
     try {
       const carData = req.body;
       const userId = req.user.id;
-      if (req.files && req.files.photo) {
-        const photo: Photo[] = req.files.photo;
-        carData.photo = photo[0].path;
+      // if (req.files && req.files.photo) {
+      //   const photo: Photo[] = req.files.photo;
+      //   carData.photo = photo[0].path;
+      // }
+      if (req.files || Object.keys(req.files).length > 0) {
+        const baseDir = path.join(__dirname, '../../../');
+        const timestamp = Date.now();
+        let sampleFile = req.files.photo as any;
+        const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+        const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+        sampleFile.mv(uploadPath, function(err) {
+          if (err) next(err);
+        });
+        carData.photo = `uploads/images/${newFileName}`;
       }
       const newCar = await this.carService.createCar(carData, userId.toString());
       res.status(201).json({ data: newCar, message: "created" });
@@ -69,9 +81,20 @@ class CarController {
     try {
       const carData = req.body;
       const carId = req.params.id;
-      const photo: Photo[] = req.files.photo;
-      if (photo) {
-        carData.photo = photo[0].path;
+      // const photo: Photo[] = req.files.photo;
+      // if (photo) {
+      //   carData.photo = photo[0].path;
+      // }
+      if (req.files || Object.keys(req.files).length > 0) {
+        const baseDir = path.join(__dirname, '../../../');
+        const timestamp = Date.now();
+        let sampleFile = req.files.photo as any;
+        const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+        const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+        sampleFile.mv(uploadPath, function(err) {
+          if (err) next(err);
+        });
+        carData.photo = `uploads/images/${newFileName}`;
       }
       const updatedCar = await this.carService.updateCar(carData, carId);
       res.status(200).json({ data: updatedCar, message: "updated" });

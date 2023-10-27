@@ -4,7 +4,6 @@ const tslib_1 = require("tslib");
 const express_1 = require("express");
 const car_controller_1 = tslib_1.__importDefault(require("./car.controller"));
 const auth_middleware_1 = tslib_1.__importDefault(require("../../middlewares/auth.middleware"));
-const file_1 = require("../../utils/file");
 class CarRouter {
     constructor() {
         this.path = "/car";
@@ -15,11 +14,13 @@ class CarRouter {
     initializeRoutes() {
         this.router.post(`${this.path}`, (0, auth_middleware_1.default)("user"), 
         // validationMiddleware(CreateCarDto, "body"),
-        file_1.upload.fields([{ name: "photo", maxCount: 1 }]), this.carController.createCar.bind(this.carController));
+        // upload.fields([{ name: "photo", maxCount: 1 }]),
+        this.carController.createCar.bind(this.carController));
         this.router.get(`${this.path}/user`, (0, auth_middleware_1.default)("user"), this.carController.getUserCars.bind(this.carController));
         this.router.put(`${this.path}/:id`, (0, auth_middleware_1.default)("user"), 
         // validationMiddleware(UpdateCarDto, "body"),
-        file_1.upload.fields([{ name: "photo", maxCount: 1 }]), this.carController.updateCar.bind(this.carController));
+        // upload.fields([{ name: "photo", maxCount: 1 }]),
+        this.carController.updateCar.bind(this.carController));
         this.router.get(`${this.path}`, (0, auth_middleware_1.default)("admin"), this.carController.getAllCar.bind(this.carController));
         this.router.get(`${this.path}/:id`, (0, auth_middleware_1.default)("all"), this.carController.getCarById.bind(this.carController));
         this.router.delete(`${this.path}/:id`, (0, auth_middleware_1.default)("user"), this.carController.deleteCarById.bind(this.carController));
