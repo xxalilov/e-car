@@ -21,7 +21,6 @@ class UserRouter implements Routes {
             authMiddleware("user"),
             // validationMiddleware(UpdateUserDto, "body"),
             // upload.fields([{ name: "photo", maxCount: 1 }]),
-            upload.single("photo"),
             this.userController.updateUser.bind(this.userController)
         );
         this.router.get(

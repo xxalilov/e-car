@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
+const path_1 = tslib_1.__importDefault(require("path"));
 const user_service_1 = tslib_1.__importDefault(require("./user.service"));
 class UserController {
     constructor() {
@@ -29,11 +30,15 @@ class UserController {
     async updateUser(req, res, next) {
         try {
             const userData = req.body;
-            console.log(req);
-            // console.log("BODY", req.body);
-            // console.log("FILE", req.file);
-            if (req.file) {
-                userData.photo = req.file.path;
+            if (req.files || Object.keys(req.files).length > 0) {
+                const baseDir = path_1.default.join(__dirname, '../../../');
+                let sampleFile = req.files.photo;
+                const uploadPath = path_1.default.join(baseDir, 'uploads', 'images', sampleFile.name);
+                sampleFile.mv(uploadPath, function (err) {
+                    if (err)
+                        next(err);
+                });
+                userData.photo = `uploads/images/${sampleFile.name}`;
             }
             // if (req.files) {
             //   const photo: Photo[] = req.files.photo;

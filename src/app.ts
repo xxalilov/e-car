@@ -43,27 +43,6 @@ class App {
   }
 
   private initializeRoutes(): void {
-    this.app.post("/api/v1/upload", (req, res) => {
-      let sampleFile;
-      let uploadPath;
-
-      if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
-      }
-
-      // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-      // @ts-ignore
-      sampleFile = req.files.photo as any;
-      uploadPath = __dirname +'/upload/images/' + sampleFile.name;
-
-      // Use the mv() method to place the file somewhere on your server
-      sampleFile.mv(uploadPath, function(err) {
-        if (err)
-          return res.status(500).send(err);
-
-        res.send('File uploaded!');
-      });
-    })
     this.app.use("/api/v1", Router);
     this.app.all("*", () => {
       throw new HttpException(400, "Route Not Found");

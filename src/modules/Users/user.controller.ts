@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
+import path from 'path';
 import UserService from "./user.service";
 import { User } from "./user.interface";
 import { UpdateUserDto } from "./user.dto";
-import { RequestWithUser } from "../Auth/auth.interface";
+import {RequestWithFile} from "../../interfaces/file-upload.interface";
 
 class UserController {
   private userService = new UserService();
@@ -33,17 +34,20 @@ class UserController {
   }
 
   public async updateUser(
-    req: RequestWithUser,
+    req: RequestWithFile,
     res: Response,
     next: NextFunction
   ) {
     try {
       const userData: UpdateUserDto = req.body;
-      console.log(req);
-      // console.log("BODY", req.body);
-      // console.log("FILE", req.file);
-      if (req.file) {
-          userData.photo = req.file.path
+      if (req.files || Object.keys(req.files).length > 0) {
+        const baseDir = path.join(__dirname, '../../../');
+        let sampleFile = req.files.photo as any;
+        const uploadPath = path.join(baseDir, 'uploads', 'images', sampleFile.name);
+        sampleFile.mv(uploadPath, function(err) {
+          if (err) next(err);
+        });
+          userData.photo = `uploads/images/${sampleFile.name}`;
       }
       // if (req.files) {
       //   const photo: Photo[] = req.files.photo;
