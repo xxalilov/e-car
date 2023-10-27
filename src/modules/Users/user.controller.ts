@@ -42,12 +42,14 @@ class UserController {
       const userData: UpdateUserDto = req.body;
       if (req.files || Object.keys(req.files).length > 0) {
         const baseDir = path.join(__dirname, '../../../');
+        const timestamp = Date.now();
         let sampleFile = req.files.photo as any;
-        const uploadPath = path.join(baseDir, 'uploads', 'images', sampleFile.name);
+        const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+        const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
         sampleFile.mv(uploadPath, function(err) {
           if (err) next(err);
         });
-          userData.photo = `uploads/images/${sampleFile.name}`;
+          userData.photo = `uploads/images/${newFileName}`;
       }
       // if (req.files) {
       //   const photo: Photo[] = req.files.photo;
