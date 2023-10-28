@@ -13,6 +13,9 @@ function default_1(sequelize) {
             type: sequelize_1.DataTypes.UUID,
             defaultValue: sequelize_1.DataTypes.UUIDV4
         },
+        carId: {
+            type: sequelize_1.DataTypes.STRING,
+        },
         model: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,

@@ -28,7 +28,7 @@ exports.sequelize = new sequelize_1.Sequelize(config_1.default.DB_DATABASE, conf
 });
 const DB = async function () {
     try {
-        await exports.sequelize.sync({ force: false });
+        await exports.sequelize.sync({ force: true });
         console.log("Connected to DATABASE");
     }
     catch (error) {
