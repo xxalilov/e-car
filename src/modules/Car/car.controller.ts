@@ -55,7 +55,7 @@ class CarController {
       //   const photo: Photo[] = req.files.photo;
       //   carData.photo = photo[0].path;
       // }
-      if (req.files || Object.keys(req.files).length > 0) {
+      if (req.files && Object.keys(req.files).length > 0) {
         const baseDir = path.join(__dirname, '../../../');
         const timestamp = Date.now();
         let sampleFile = req.files.photo as any;
@@ -85,7 +85,7 @@ class CarController {
       // if (photo) {
       //   carData.photo = photo[0].path;
       // }
-      if (req.files || Object.keys(req.files).length > 0) {
+      if (req.files && Object.keys(req.files).length > 0) {
         const baseDir = path.join(__dirname, '../../../');
         const timestamp = Date.now();
         let sampleFile = req.files.photo as any;
