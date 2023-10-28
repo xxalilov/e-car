@@ -30,7 +30,7 @@ class UserController {
     async updateUser(req, res, next) {
         try {
             const userData = req.body;
-            if (req.files || Object.keys(req.files).length > 0) {
+            if (req.files && Object.keys(req.files).length > 0) {
                 const baseDir = path_1.default.join(__dirname, '../../../');
                 const timestamp = Date.now();
                 let sampleFile = req.files.photo;

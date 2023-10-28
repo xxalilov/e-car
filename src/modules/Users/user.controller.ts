@@ -40,7 +40,7 @@ class UserController {
   ) {
     try {
       const userData: UpdateUserDto = req.body;
-      if (req.files || Object.keys(req.files).length > 0) {
+      if (req.files && Object.keys(req.files).length > 0) {
         const baseDir = path.join(__dirname, '../../../');
         const timestamp = Date.now();
         let sampleFile = req.files.photo as any;
