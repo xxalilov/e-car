@@ -36,7 +36,7 @@ class App {
       "/uploads/images",
       static_(join(__dirname, "../", "uploads", "images"))
     );
-    // this.app.use(fileUpload());
+    this.app.use(fileUpload());
     this.app.use(cors());
     this.app.use(json());
     this.app.use(cookieParser());
