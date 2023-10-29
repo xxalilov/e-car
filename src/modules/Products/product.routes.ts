@@ -20,14 +20,14 @@ class ProductRouter implements Routes {
             `${this.path}`,
             authMiddleware("admin"),
             // validationMiddleware(CreateCarDto, "body"),
-            upload.fields([{name: "photo", maxCount: 6}]),
+            // upload.fields([{name: "photo", maxCount: 6}]),
             this.productController.createProduct.bind(this.productController)
         );
         this.router.put(
             `${this.path}/:id`,
             authMiddleware("admin"),
             // validationMiddleware(UpdateCarDto, "body"),
-            upload.fields([{name: "photo", maxCount: 1}]),
+            // upload.fields([{name: "photo", maxCount: 1}]),
             this.productController.updateProduct.bind(this.productController)
         );
         this.router.get(

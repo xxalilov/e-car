@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
-import {RequestWithUser} from "../../modules/Auth/auth.interface";
-import {Photo, RequestWithFile} from "../../interfaces/file-upload.interface";
+import path from "path";
+import { RequestWithFile } from "../../interfaces/file-upload.interface";
 import ProductService from "./product.service";
 import {Product} from "./product.interface";
 
@@ -49,14 +49,30 @@ class ProductController {
     ) {
         try {
             const productData = req.body;
-            console.log("PRODUCT DATA", productData);
-            console.log("FILES", req.files);
-            if (req.files && req.files.photo) {
-                const photo: Photo[] = req.files.photo;
-                let photos = [];
-                for (let p of photo) {
-                    photos.push(p.path);
+            if (req.files && Object.keys(req.files).length > 0) {
+                const baseDir = path.join(__dirname, '../../../');
+                const files: ([] | any) = req.files.photo;
+
+                const photos = [];
+
+                if (files.length > 0) {
+                    for (let p of files) {
+                        const newFileName = `file_${Date.now()}-${p.name.replace(/\s/g, "")}`;
+                        const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+                        p.mv(uploadPath, function (err) {
+                            if (err) next(err);
+                        });
+                        photos.push(`uploads/images/${newFileName}`);
+                    }
+                } else {
+                    const newFileName = `file_${Date.now()}-${files.name.replace(/\s/g, "")}`;
+                    const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+                    files.mv(uploadPath, function (err) {
+                        if (err) next(err);
+                    });
+                    photos.push(`uploads/images/${newFileName}`);
                 }
+
                 productData.photos = photos;
             }
             const newProduct = await this.productService.createProduct(productData);
@@ -74,9 +90,31 @@ class ProductController {
         try {
             const productData = req.body;
             const productId = req.params.id;
-            if (req.files && req.files.photo) {
-                const photo: Photo[] = req.files.photo;
-                productData.photo = photo[0].path;
+            if (req.files && Object.keys(req.files).length > 0) {
+                const baseDir = path.join(__dirname, '../../../');
+                const files: ([] | any) = req.files.photo;
+
+                const photos = [];
+
+                if (files.length > 0) {
+                    for (let p of files) {
+                        const newFileName = `file_${Date.now()}-${p.name.replace(/\s/g, "")}`;
+                        const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+                        p.mv(uploadPath, function (err) {
+                            if (err) next(err);
+                        });
+                        photos.push(`uploads/images/${newFileName}`);
+                    }
+                } else {
+                    const newFileName = `file_${Date.now()}-${files.name.replace(/\s/g, "")}`;
+                    const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+                    files.mv(uploadPath, function (err) {
+                        if (err) next(err);
+                    });
+                    photos.push(`uploads/images/${newFileName}`);
+                }
+
+                productData.photos = photos;
             }
             const updatedProduct = await this.productService.updateProduct(
                 productData,

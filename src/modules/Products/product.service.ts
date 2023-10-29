@@ -95,8 +95,8 @@ class ProductService {
             productData.typeOfProductId
         );
         if (!typeOfProduct) throw new HttpException(400, "Type not found");
-        const product = await this.product.create(productData);
-        return product;
+        return await this.product.create(productData);
+
     }
 
     public async updateProduct(
@@ -105,7 +105,11 @@ class ProductService {
     ): Promise<Product> {
         const product = await this.product.findByPk(productId);
         if (!product) throw new HttpException(400, "Product not found");
-        // if (productData.photos && product.photos) deleteFile(product.photos);
+        if (productData.photos && product.photos.length > 0) {
+            for (let photo of product.photos) {
+                deleteFile(photo);
+            }
+        }
         await product.update(productData);
         return product;
     }
@@ -113,7 +117,11 @@ class ProductService {
     public async deleteProduct(productId: string): Promise<Product> {
         const product = await this.product.findByPk(productId);
         if (!product) throw new HttpException(400, "Product not found");
-        // if (productData.photos && product.photos) deleteFile(product.photos);
+        if (product.photos && product.photos.length > 0) {
+            for (let photo of product.photos) {
+                deleteFile(photo);
+            }
+        }
         await product.destroy();
         return product;
     }

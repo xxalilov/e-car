@@ -19,8 +19,6 @@ class AdvertisingRouter implements Routes {
     this.router.post(
       `${this.path}`,
       authMiddleware("admin"),
-      // validationMiddleware(CreateAdvertisingDto, "body"),
-      upload.fields([{ name: "photo", maxCount: 1 }]),
       this.advertisingController.createAdvertising.bind(
         this.advertisingController
       )

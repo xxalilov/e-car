@@ -20,7 +20,7 @@ class TypeOfProductRouter implements Routes {
             `${this.path}`,
             authMiddleware("admin"),
             // validationMiddleware(CreateTypeOfWorkshopDto, "body"),
-            upload.fields([{name: "photo", maxCount: 1}]),
+            // upload.fields([{name: "photo", maxCount: 1}]),
             this.typesOfProductController.createTypeOfProduct.bind(
                 this.typesOfProductController
             )
@@ -35,7 +35,7 @@ class TypeOfProductRouter implements Routes {
         this.router.put(
             `${this.path}/:id`,
             authMiddleware("admin"),
-            upload.fields([{name: "photo", maxCount: 1}]),
+            // upload.fields([{name: "photo", maxCount: 1}]),
             this.typesOfProductController.updateTypeOfProduct.bind(
                 this.typesOfProductController
             )

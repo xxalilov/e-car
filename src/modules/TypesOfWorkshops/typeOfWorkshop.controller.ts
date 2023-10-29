@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { Photo, RequestWithFile } from "../../interfaces/file-upload.interface";
+import path from "path";
+import { RequestWithFile } from "../../interfaces/file-upload.interface";
 import TypeOfWorkshopService from "./typeOfWorkshop.service";
 
 class TypeOfWorkshopController {
@@ -28,11 +29,16 @@ class TypeOfWorkshopController {
   ) {
     try {
       const data = req.body;
-      if (req.files && req.files.photo) {
-        const photo: Photo[] = req.files.photo;
-        if (photo) {
-          data.photo = photo[0].path;
-        }
+      if (req.files && Object.keys(req.files).length > 0) {
+        const baseDir = path.join(__dirname, '../../../');
+        const timestamp = Date.now();
+        let sampleFile = req.files.photo as any;
+        const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+        const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+        sampleFile.mv(uploadPath, function(err) {
+          if (err) next(err);
+        });
+        data.photo = `uploads/images/${newFileName}`;
       }
       const newTypeOfWorkshop =
         await this.typeOfWorkshopService.createTypeOfWorkshop(data);
@@ -46,11 +52,16 @@ class TypeOfWorkshopController {
     try {
       const typeOfWorkshopId = req.params.id;
       const data = req.body;
-      if (req.files && req.files.photo) {
-        const photo: Photo[] = req.files.photo;
-        if (photo) {
-          data.photo = photo[0].path;
-        }
+      if (req.files && Object.keys(req.files).length > 0) {
+        const baseDir = path.join(__dirname, '../../../');
+        const timestamp = Date.now();
+        let sampleFile = req.files.photo as any;
+        const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+        const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+        sampleFile.mv(uploadPath, function(err) {
+          if (err) next(err);
+        });
+        data.photo = `uploads/images/${newFileName}`;
       }
       const updatedTypeOfWorkshop = await this.typeOfWorkshopService.updateTypeOfWorkshop(typeOfWorkshopId, data);
       res.status(200).json({ data: updatedTypeOfWorkshop, message: "updated" });

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { Photo, RequestWithFile } from "../../interfaces/file-upload.interface";
+import path from "path";
+import {RequestWithFile } from "../../interfaces/file-upload.interface";
 import AdvertisingService from "./advertising.service";
 
 class AdvertisingController {
@@ -26,9 +27,16 @@ class AdvertisingController {
   ) {
     try {
       const advertisingData = req.body;
-      if (req.files && req.files.photo) {
-        const photo: Photo[] = req.files.photo;
-        advertisingData.photo = photo[0].path;
+      if (req.files && Object.keys(req.files).length > 0) {
+        const baseDir = path.join(__dirname, '../../../');
+        const timestamp = Date.now();
+        let sampleFile = req.files.photo as any;
+        const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+        const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+        sampleFile.mv(uploadPath, function (err) {
+          if (err) next(err);
+        });
+        advertisingData.photo = `uploads/images/${newFileName}`;
       }
       const newAdvertising = await this.advertisingService.createAdvertising(
         advertisingData
