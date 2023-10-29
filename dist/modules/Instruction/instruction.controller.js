@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const instruction_service_1 = tslib_1.__importDefault(require("./instruction.service"));
+const path_1 = tslib_1.__importDefault(require("path"));
 class InstructionController {
     constructor() {
         this.instructionService = new instruction_service_1.default();
@@ -29,6 +30,18 @@ class InstructionController {
         this.createInstruction = async (req, res, next) => {
             try {
                 const instructionData = req.body;
+                if (req.files && Object.keys(req.files).length > 0) {
+                    const baseDir = path_1.default.join(__dirname, '../../../');
+                    const timestamp = Date.now();
+                    let sampleFile = req.files.photo;
+                    const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+                    const uploadPath = path_1.default.join(baseDir, 'uploads', 'images', newFileName);
+                    sampleFile.mv(uploadPath, function (err) {
+                        if (err)
+                            next(err);
+                    });
+                    instructionData.photo = `uploads/images/${newFileName}`;
+                }
                 const instruction = await this.instructionService.createInstruction(instructionData);
                 res.status(201).json({ data: instruction, message: "create" });
             }
@@ -40,6 +53,18 @@ class InstructionController {
             try {
                 const { id } = req.params;
                 const instructionData = req.body;
+                if (req.files && Object.keys(req.files).length > 0) {
+                    const baseDir = path_1.default.join(__dirname, '../../../');
+                    const timestamp = Date.now();
+                    let sampleFile = req.files.photo;
+                    const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+                    const uploadPath = path_1.default.join(baseDir, 'uploads', 'images', newFileName);
+                    sampleFile.mv(uploadPath, function (err) {
+                        if (err)
+                            next(err);
+                    });
+                    instructionData.photo = `uploads/images/${newFileName}`;
+                }
                 const instruction = await this.instructionService.updateInstruction(instructionData, id);
                 res.status(200).json({ data: instruction, message: "update" });
             }

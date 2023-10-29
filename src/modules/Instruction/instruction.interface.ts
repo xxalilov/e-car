@@ -7,6 +7,7 @@ export interface Instruction {
     description_ru: string;
     description_eng: string;
     link: string;
+    youtubeCover: string;
     type: string;
     typeId: string;
 }

@@ -27,6 +27,10 @@ export class CreateInstructionDto {
     public link: string;
 
     @IsString()
+    @IsOptional({always: false})
+    public youtubeCover: string;
+
+    @IsString()
     public type: string;
 
     @IsString()
@@ -62,6 +66,10 @@ export class UpdateInstructionDto {
     @IsString()
     @IsOptional({always: false})
     public link: string;
+
+    @IsString()
+    @IsOptional({always: false})
+    public youtubeCover: string;
 
     @IsString()
     @IsOptional({always: false})

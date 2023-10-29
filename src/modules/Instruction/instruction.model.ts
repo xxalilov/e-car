@@ -1,7 +1,7 @@
 import {DataTypes, Model, Optional, Sequelize} from "sequelize";
 import {Instruction} from "./instruction.interface";
 
-export type InstructionCreationAttributes = Optional<Instruction, "id" | "title_uz" | "title_ru" | "title_eng" | "description_uz" | "description_eng" | "description_ru" | "link" | "type" | "typeId">;
+export type InstructionCreationAttributes = Optional<Instruction, "id" | "title_uz" | "title_ru" | "title_eng" | "description_uz" | "description_eng" | "description_ru" | "link" | "youtubeCover" | "type" | "typeId">;
 
 export class InstructionModel extends Model<Instruction, InstructionCreationAttributes> implements Instruction {
     public id: number;
@@ -12,6 +12,7 @@ export class InstructionModel extends Model<Instruction, InstructionCreationAttr
     public description_ru: string;
     public description_eng: string;
     public link: string;
+    public youtubeCover: string;
     public type: string;
     public typeId: string;
     public readonly createdAt!: Date;
@@ -45,6 +46,9 @@ export default function (sequelize: Sequelize): typeof InstructionModel {
         },
 
         link: {
+            type: DataTypes.STRING
+        },
+        youtubeCover: {
             type: DataTypes.STRING
         },
         type: {

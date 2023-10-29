@@ -6,7 +6,7 @@ declare class InstructionService {
     getAllInstructions(page: number, pageSize: number): Promise<ResultInterface>;
     getInstructionById(typeId: string, lang: string): Promise<Instruction[]>;
     createInstruction(instructionData: CreateInstructionDto): Promise<Instruction>;
-    updateInstruction(instuctionData: UpdateInstructionDto, instructionId: string): Promise<Instruction>;
+    updateInstruction(instructionData: UpdateInstructionDto, instructionId: string): Promise<Instruction>;
     deleteInstruction(instructionId: string): Promise<Instruction>;
 }
 export default InstructionService;

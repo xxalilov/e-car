@@ -40,6 +40,11 @@ tslib_1.__decorate([
 ], CreateInstructionDto.prototype, "link", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], CreateInstructionDto.prototype, "youtubeCover", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
 ], CreateInstructionDto.prototype, "type", void 0);
 tslib_1.__decorate([
@@ -85,6 +90,11 @@ tslib_1.__decorate([
     (0, class_validator_1.IsOptional)({ always: false }),
     tslib_1.__metadata("design:type", String)
 ], UpdateInstructionDto.prototype, "link", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateInstructionDto.prototype, "youtubeCover", void 0);
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)({ always: false }),

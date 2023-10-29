@@ -5,6 +5,7 @@ import {HttpException} from "../../exceptions/HttpException";
 import {Instruction} from "./instruction.interface";
 import {CreateInstructionDto, UpdateInstructionDto} from "./instruction.dto";
 import {Sequelize} from "sequelize";
+import {deleteFile} from "../../utils/file";
 
 class InstructionService {
     public instruction = models.Instruction;
@@ -46,10 +47,11 @@ class InstructionService {
         return await this.instruction.create(instructionData);
     }
 
-    public async updateInstruction(instuctionData: UpdateInstructionDto, instructionId: string): Promise<Instruction> {
+    public async updateInstruction(instructionData: UpdateInstructionDto, instructionId: string): Promise<Instruction> {
         const instruction = await this.instruction.findByPk(instructionId);
         if (!instruction) throw new HttpException(400, "Instruction not found");
-        await instruction.update(instuctionData);
+        if (instructionData.youtubeCover && instruction.youtubeCover) deleteFile(instruction.youtubeCover)
+        await instruction.update(instructionData);
         return instruction
     }
 

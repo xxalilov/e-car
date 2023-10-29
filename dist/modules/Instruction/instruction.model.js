@@ -33,6 +33,9 @@ function default_1(sequelize) {
         link: {
             type: sequelize_1.DataTypes.STRING
         },
+        youtubeCover: {
+            type: sequelize_1.DataTypes.STRING
+        },
         type: {
             type: sequelize_1.DataTypes.STRING
         },

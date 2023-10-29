@@ -6,6 +6,7 @@ const pagination_1 = tslib_1.__importDefault(require("../../utils/pagination"));
 const isEpmty_1 = require("../../utils/isEpmty");
 const HttpException_1 = require("../../exceptions/HttpException");
 const sequelize_1 = require("sequelize");
+const file_1 = require("../../utils/file");
 class InstructionService {
     constructor() {
         this.instruction = database_1.models.Instruction;
@@ -43,11 +44,13 @@ class InstructionService {
     async createInstruction(instructionData) {
         return await this.instruction.create(instructionData);
     }
-    async updateInstruction(instuctionData, instructionId) {
+    async updateInstruction(instructionData, instructionId) {
         const instruction = await this.instruction.findByPk(instructionId);
         if (!instruction)
             throw new HttpException_1.HttpException(400, "Instruction not found");
-        await instruction.update(instuctionData);
+        if (instructionData.youtubeCover && instruction.youtubeCover)
+            (0, file_1.deleteFile)(instruction.youtubeCover);
+        await instruction.update(instructionData);
         return instruction;
     }
     async deleteInstruction(instructionId) {

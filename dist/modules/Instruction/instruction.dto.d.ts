@@ -6,6 +6,7 @@ export declare class CreateInstructionDto {
     description_ru: string;
     description_eng: string;
     link: string;
+    youtubeCover: string;
     type: string;
     typeId: string;
 }
@@ -17,6 +18,7 @@ export declare class UpdateInstructionDto {
     description_ru: string;
     description_eng: string;
     link: string;
+    youtubeCover: string;
     type: string;
     typeId: string;
 }

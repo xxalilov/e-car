@@ -1,5 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import InstructionService from "./instruction.service";
+import path from "path";
+import {RequestWithFile} from "../../interfaces/file-upload.interface";
 
 class InstructionController {
     public instructionService = new InstructionService();
@@ -25,9 +27,20 @@ class InstructionController {
         }
     }
 
-    public createInstruction = async (req: Request, res: Response, next: NextFunction) => {
+    public createInstruction = async (req: RequestWithFile, res: Response, next: NextFunction) => {
         try {
             const instructionData = req.body;
+            if (req.files && Object.keys(req.files).length > 0) {
+                const baseDir = path.join(__dirname, '../../../');
+                const timestamp = Date.now();
+                let sampleFile = req.files.photo as any;
+                const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+                const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+                sampleFile.mv(uploadPath, function (err) {
+                    if (err) next(err);
+                });
+                instructionData.photo = `uploads/images/${newFileName}`;
+            }
             const instruction = await this.instructionService.createInstruction(instructionData);
             res.status(201).json({data: instruction, message: "create"});
         } catch (error) {
@@ -35,10 +48,21 @@ class InstructionController {
         }
     }
 
-    public updateInstruction = async (req: Request, res: Response, next: NextFunction) => {
+    public updateInstruction = async (req: RequestWithFile, res: Response, next: NextFunction) => {
         try {
             const {id} = req.params;
             const instructionData = req.body;
+            if (req.files && Object.keys(req.files).length > 0) {
+                const baseDir = path.join(__dirname, '../../../');
+                const timestamp = Date.now();
+                let sampleFile = req.files.photo as any;
+                const newFileName = `file_${timestamp}-${sampleFile.name.replace(/\s/g, "")}`;
+                const uploadPath = path.join(baseDir, 'uploads', 'images', newFileName);
+                sampleFile.mv(uploadPath, function (err) {
+                    if (err) next(err);
+                });
+                instructionData.photo = `uploads/images/${newFileName}`;
+            }
             const instruction = await this.instructionService.updateInstruction(instructionData, id);
             res.status(200).json({data: instruction, message: "update"});
         } catch (error) {
