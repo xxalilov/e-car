@@ -29,7 +29,7 @@ class App {
     initializeMiddleware() {
         this.app.use("/uploads/images", (0, express_1.static)((0, path_1.join)(__dirname, "../", "uploads", "images")));
         // Serving the Frontend
-        this.app.use((0, express_1.static)((0, path_1.join)(__dirname, "../client/build")));
+        this.app.use((0, express_1.static)((0, path_1.join)(__dirname, "../../client/build")));
         this.app.use((0, express_fileupload_1.default)());
         this.app.use((0, cors_1.default)());
         this.app.use((0, express_1.json)());
@@ -38,7 +38,7 @@ class App {
     initializeRoutes() {
         this.app.use("/api/v1", index_route_1.default);
         this.app.get("*", (req, res, next) => {
-            res.sendFile((0, path_1.join)(__dirname, "../client/build/index.html"), (err) => {
+            res.sendFile((0, path_1.join)(__dirname, "../../client/build/index.html"), (err) => {
                 return next(new HttpException_1.HttpException(404, `${req.path} yo'li mavjud emas`));
             });
         });
