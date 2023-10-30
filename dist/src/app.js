@@ -27,7 +27,7 @@ class App {
         });
     }
     initializeMiddleware() {
-        this.app.use("/uploads/images", (0, express_1.static)((0, path_1.join)(__dirname, "../../", "uploads", "images")));
+        this.app.use("/uploads/images", (0, express_1.static)((0, path_1.join)(__dirname, "../", "../", "uploads", "images")));
         // Serving the Frontend
         this.app.use((0, express_1.static)((0, path_1.join)(__dirname, "../../client/build")));
         this.app.use((0, express_fileupload_1.default)());
