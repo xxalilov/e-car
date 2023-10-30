@@ -46,6 +46,16 @@ class StationController {
             next(error);
         }
     }
+    public async updateStation(req: Request, res: Response, next: NextFunction) {
+        const stationId = req.params.id;
+        try {
+            const station = await this.stationService.updateStation(stationId, req.body);
+            res.status(200).json({data: station, message: "updated"});
+        } catch (error) {
+            next(error);
+        }
+    }
+
 
     public async deleteStation(req: Request, res: Response, next: NextFunction) {
         const stationId = req.params.id;

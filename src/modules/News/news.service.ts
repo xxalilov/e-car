@@ -16,6 +16,20 @@ class NewsService {
         lang: string
     ): Promise<ResultInterface> {
         const paginationHelper = new PaginationHelper(this.news);
+        if(lang ==="all") {
+            return await paginationHelper.paginate(page, pageSize, {}, [
+                "id",
+                "title_uz",
+                "title_ru",
+                "title_eng",
+                "description_uz",
+                "description_ru",
+                "description_eng",
+                "link",
+                "image",
+                "createdAt",
+            ]);
+        }
         return await paginationHelper.paginate(page, pageSize, {}, [
             "id",
             [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],

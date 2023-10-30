@@ -36,6 +36,9 @@ class App {
       "/uploads/images",
       static_(join(__dirname, "../", "uploads", "images"))
     );
+    // Serving the Frontend
+    this.app.use(express.static(join(__dirname, "../client/build")));
+
     this.app.use(fileUpload());
     this.app.use(cors());
     this.app.use(json());
@@ -44,6 +47,11 @@ class App {
 
   private initializeRoutes(): void {
     this.app.use("/api/v1", Router);
+    this.app.get("*", (req, res, next) => {
+      res.sendFile(join(__dirname, "../client/build/index.html"), (err) => {
+        return next(new HttpException(404,`${req.path} yo'li mavjud emas` ));
+      });
+    });
     this.app.all("*", () => {
       throw new HttpException(400, "Route Not Found");
     });

@@ -1,7 +1,7 @@
 import PaginationHelper, {ResultInterface} from "../../utils/pagination";
 import {models} from "../../utils/database";
 import {Station} from "./station.interface";
-import {CreateStationDto} from "./station.dto";
+import {CreateStationDto, UpdateStationDto} from "./station.dto";
 import {HttpException} from "../../exceptions/HttpException";
 import {getDistance} from "geolib";
 import {Sequelize} from "sequelize";
@@ -32,7 +32,7 @@ class StationService {
 
             ]
         });
-        const filteredData = await allStations.filter((data) => {
+        return allStations.filter((data) => {
             const distance = getDistance(
                 {latitude: parseFloat(lat), longitude: parseFloat(long)},
                 {
@@ -47,12 +47,15 @@ class StationService {
                 return;
             }
         });
-
-        return filteredData;
     }
 
     public async createStation(stationData: CreateStationDto): Promise<Station> {
-        const station = await this.station.create(stationData);
+        return await this.station.create(stationData);
+    }
+    public async updateStation(stationId: string, updateData: UpdateStationDto): Promise<Station> {
+        const station = await this.station.findByPk(stationId);
+        if (!station) throw new HttpException(404, "station not found");
+        await station.update(updateData);
         return station;
     }
 

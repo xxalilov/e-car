@@ -46,7 +46,7 @@ class NewsController {
                 sampleFile.mv(uploadPath, function (err) {
                     if (err) next(err);
                 });
-                newsData.photo = `uploads/images/${newFileName}`;
+                newsData.image = `uploads/images/${newFileName}`;
             }
             const newNews = await this.newsService.createNews(newsData);
             res.status(201).json({data: newNews, message: "created"});
@@ -72,7 +72,7 @@ class NewsController {
                 sampleFile.mv(uploadPath, function (err) {
                     if (err) next(err);
                 });
-                newsData.photo = `uploads/images/${newFileName}`;
+                newsData.image = `uploads/images/${newFileName}`;
             }
             const updatedNews = await this.newsService.updateNews(newsData, newsId);
             res.status(200).json({data: updatedNews, message: "updated"});

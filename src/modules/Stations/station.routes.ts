@@ -35,10 +35,15 @@ class StationRouter implements Routes {
             authMiddleware("all"),
             this.stationController.getAllStations.bind(this.stationController)
         );
-        this.router.get(
+        this.router.delete(
             `${this.path}/:id`,
-            authMiddleware("all"),
+            authMiddleware("admin"),
             this.stationController.deleteStation.bind(this.stationController)
+        );
+        this.router.put(
+            `${this.path}/:id`,
+            authMiddleware("admin"),
+            this.stationController.updateStation.bind(this.stationController)
         );
     }
 }

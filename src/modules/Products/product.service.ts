@@ -21,51 +21,118 @@ class ProductService {
         lang: string
     ): Promise<ResultInterface> {
         const paginationHelper = new PaginationHelper(this.product);
-        if (searchProduct) {
-            return await paginationHelper.paginate(page, pageSize, {
-                    slug: {[Op.like]: `%${slugify(searchProduct.toLowerCase())}%`}
-                },
-                [
-                    "id",
-                    [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
-                    [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
-                    [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
-                    "price",
-                    "lat",
-                    "long",
-                    "phone",
-                    "photos",
-                ]);
-        }
-        if (typeOfProductId) {
-            return await paginationHelper.paginate(page, pageSize, {
-                    typeOfProductId,
-                },
-                [
-                    "id",
-                    [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
-                    [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
-                    [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
-                    "price",
-                    "lat",
-                    "long",
-                    "phone",
-                    "photos",
-                ]);
+        if(lang === "all") {
+            if (searchProduct) {
+                return await paginationHelper.paginate(page, pageSize, {
+                        slug: {[Op.like]: `%${slugify(searchProduct.toLowerCase())}%`}
+                    },
+                    [
+                        "id",
+                        "title_uz",
+                        "title_ru",
+                        "title_eng",
+                        "description_uz",
+                        "description_ru",
+                        "description_eng",
+                        "address_uz",
+                        "address_ru",
+                        "address_eng",
+                        "price",
+                        "lat",
+                        "long",
+                        "phone",
+                        "photos",
+                    ]);
+            }
+            if (typeOfProductId) {
+                return await paginationHelper.paginate(page, pageSize, {
+                        typeOfProductId,
+                    },
+                    [
+                        "id",
+                        "title_uz",
+                        "title_ru",
+                        "title_eng",
+                        "description_uz",
+                        "description_ru",
+                        "description_eng",
+                        "address_uz",
+                        "address_ru",
+                        "address_eng",
+                        "price",
+                        "lat",
+                        "long",
+                        "phone",
+                        "photos",
+                    ]);
+            } else {
+                return await paginationHelper.paginate(page, pageSize, {},
+                    [
+                        "id",
+                        "title_uz",
+                        "title_ru",
+                        "title_eng",
+                        "description_uz",
+                        "description_ru",
+                        "description_eng",
+                        "address_uz",
+                        "address_ru",
+                        "address_eng",
+                        "price",
+                        "lat",
+                        "long",
+                        "phone",
+                        "photos",
+                    ],
+                    [["isTop", "DESC"]]);
+            }
         } else {
-            return await paginationHelper.paginate(page, pageSize, {},
-                [
-                    "id",
-                    [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
-                    [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
-                    [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
-                    "price",
-                    "lat",
-                    "long",
-                    "phone",
-                    "photos",
-                ],
-                [["isTop", "DESC"]]);
+            if (searchProduct) {
+                return await paginationHelper.paginate(page, pageSize, {
+                        slug: {[Op.like]: `%${slugify(searchProduct.toLowerCase())}%`}
+                    },
+                    [
+                        "id",
+                        [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                        [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
+                        [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                        "price",
+                        "lat",
+                        "long",
+                        "phone",
+                        "photos",
+                    ]);
+            }
+            if (typeOfProductId) {
+                return await paginationHelper.paginate(page, pageSize, {
+                        typeOfProductId,
+                    },
+                    [
+                        "id",
+                        [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                        [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
+                        [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                        "price",
+                        "lat",
+                        "long",
+                        "phone",
+                        "photos",
+                    ]);
+            } else {
+                return await paginationHelper.paginate(page, pageSize, {},
+                    [
+                        "id",
+                        [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                        [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
+                        [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                        "price",
+                        "lat",
+                        "long",
+                        "phone",
+                        "photos",
+                    ],
+                    [["isTop", "DESC"]]);
+            }
         }
     }
 
