@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { RequestWithUser } from "../../modules/Auth/auth.interface";
+import { RequestWithUser } from "../Auth/auth.interface";
 import { RequestWithFile } from "../../interfaces/file-upload.interface";
 declare class CarController {
     private carService;

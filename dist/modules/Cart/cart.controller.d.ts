@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { RequestWithUser } from "../../modules/Auth/auth.interface";
+import { RequestWithUser } from "../Auth/auth.interface";
 declare class CartController {
     private cartService;
     getUserCart(req: RequestWithUser, res: Response, next: NextFunction): Promise<void>;

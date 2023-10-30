@@ -4,7 +4,7 @@ const tslib_1 = require("tslib");
 const express_1 = require("express");
 const auth_controller_1 = tslib_1.__importDefault(require("./auth.controller"));
 const validation_middleware_1 = tslib_1.__importDefault(require("../../middlewares/validation.middleware"));
-const admin_dto_1 = require("../../modules/Admin/admin.dto");
+const admin_dto_1 = require("../Admin/admin.dto");
 const auth_middleware_1 = tslib_1.__importDefault(require("../../middlewares/auth.middleware"));
 class AuthRouter {
     constructor() {

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CarModel = void 0;
 const sequelize_1 = require("sequelize");
-const user_model_1 = require("../../modules/Users/user.model");
+const user_model_1 = require("../Users/user.model");
 class CarModel extends sequelize_1.Model {
 }
 exports.CarModel = CarModel;
