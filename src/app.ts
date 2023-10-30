@@ -37,7 +37,7 @@ class App {
       static_(join(__dirname, "../", "uploads", "images"))
     );
     // Serving the Frontend
-    this.app.use(express.static(join(__dirname, "../client/build")));
+    this.app.use(static_(join(__dirname, "../client/build")));
 
     this.app.use(fileUpload());
     this.app.use(cors());
