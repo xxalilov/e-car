@@ -58,6 +58,7 @@ class InstructionService {
     public async deleteInstruction(instructionId: string): Promise<Instruction> {
         const instruction = await this.instruction.findByPk(instructionId);
         if (!instruction) throw new HttpException(400, "Instruction not found");
+        if (instruction.youtubeCover) deleteFile(instruction.youtubeCover)
         await instruction.destroy();
         return instruction;
     }

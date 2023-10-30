@@ -57,6 +57,8 @@ class InstructionService {
         const instruction = await this.instruction.findByPk(instructionId);
         if (!instruction)
             throw new HttpException_1.HttpException(400, "Instruction not found");
+        if (instruction.youtubeCover)
+            (0, file_1.deleteFile)(instruction.youtubeCover);
         await instruction.destroy();
         return instruction;
     }

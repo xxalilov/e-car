@@ -40,7 +40,7 @@ class InstructionController {
                         if (err)
                             next(err);
                     });
-                    instructionData.photo = `uploads/images/${newFileName}`;
+                    instructionData.youtubeCover = `uploads/images/${newFileName}`;
                 }
                 const instruction = await this.instructionService.createInstruction(instructionData);
                 res.status(201).json({ data: instruction, message: "create" });
@@ -63,7 +63,7 @@ class InstructionController {
                         if (err)
                             next(err);
                     });
-                    instructionData.photo = `uploads/images/${newFileName}`;
+                    instructionData.youtubeCover = `uploads/images/${newFileName}`;
                 }
                 const instruction = await this.instructionService.updateInstruction(instructionData, id);
                 res.status(200).json({ data: instruction, message: "update" });
