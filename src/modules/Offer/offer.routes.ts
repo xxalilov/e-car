@@ -17,8 +17,6 @@ class OfferRouter implements Routes {
         this.router.post(
             `${this.path}`,
             authMiddleware("user"),
-            // validationMiddleware(CreateCarDto, "body"),
-            upload.fields([{name: "photo", maxCount: 1}]),
             this.offerController.createOffer.bind(this.offerController)
         );
         this.router.get(
