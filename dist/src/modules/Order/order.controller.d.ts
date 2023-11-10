@@ -1,0 +1,10 @@
+import { NextFunction, Response } from "express";
+import { RequestWithUser } from "../../modules/Auth/auth.interface";
+declare class orderController {
+    private orderService;
+    getUserOrders(req: RequestWithUser, res: Response, next: NextFunction): Promise<void>;
+    createOrder(req: RequestWithUser, res: Response, next: NextFunction): Promise<void>;
+    payOrder(req: RequestWithUser, res: Response, next: NextFunction): Promise<void>;
+    verifyCode(req: RequestWithUser, res: Response, next: NextFunction): Promise<void>;
+}
+export default orderController;

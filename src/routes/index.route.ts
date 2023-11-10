@@ -13,10 +13,13 @@ import NewsRouter from "../modules/News/news.routes";
 import InstructionRouter from "../modules/Instruction/instruction.routes";
 import OrderRouter from "../modules/Order/order.routes";
 import OfferRouter from "../modules/Offer/offer.routes";
+import AdminRouter from "../modules/Admin/admin.routes";
+import ShippingRouter from "../modules/Shipping/shipping.routes";
 
 const router = express.Router();
 
 router.use("/", new UserRouter().router);
+router.use('/', new AdminRouter().router);
 router.use("/", new AuthRouter().router);
 router.use("/", new CarRouter().router);
 router.use("/", new StationRouter().router);
@@ -30,5 +33,7 @@ router.use("/", new NewsRouter().router);
 router.use("/", new InstructionRouter().router);
 router.use("/", new OrderRouter().router);
 router.use("/", new OfferRouter().router);
+router.use("/", new ShippingRouter().router)
+
 
 export default router;

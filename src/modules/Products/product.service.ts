@@ -41,8 +41,9 @@ class ProductService {
                         "lat",
                         "long",
                         "phone",
+                        "isTop",
                         "photos",
-                    ]);
+                    ], [["isTop", "DESC"]]);
             }
             if (typeOfProductId) {
                 return await paginationHelper.paginate(page, pageSize, {
@@ -63,8 +64,9 @@ class ProductService {
                         "lat",
                         "long",
                         "phone",
+                        "isTop",
                         "photos",
-                    ]);
+                    ], [["isTop", "DESC"]]);
             } else {
                 return await paginationHelper.paginate(page, pageSize, {},
                     [
@@ -82,6 +84,7 @@ class ProductService {
                         "lat",
                         "long",
                         "phone",
+                        "isTop",
                         "photos",
                     ],
                     [["isTop", "DESC"]]);
@@ -101,7 +104,7 @@ class ProductService {
                         "long",
                         "phone",
                         "photos",
-                    ]);
+                    ], [["isTop", "DESC"]]);
             }
             if (typeOfProductId) {
                 return await paginationHelper.paginate(page, pageSize, {
@@ -117,7 +120,7 @@ class ProductService {
                         "long",
                         "phone",
                         "photos",
-                    ]);
+                    ], [["isTop", "DESC"]]);
             } else {
                 return await paginationHelper.paginate(page, pageSize, {},
                     [

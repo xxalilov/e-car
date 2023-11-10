@@ -21,6 +21,7 @@ const instruction_model_1 = tslib_1.__importDefault(require("../modules/Instruct
 const order_model_1 = tslib_1.__importDefault(require("../modules/Order/order.model"));
 const order_item_model_1 = tslib_1.__importDefault(require("../modules/Order/order.item.model"));
 const offer_model_1 = tslib_1.__importDefault(require("../modules/Offer/offer.model"));
+const shipping_model_1 = tslib_1.__importDefault(require("../modules/Shipping/shipping.model"));
 exports.sequelize = new sequelize_1.Sequelize(config_1.default.DB_DATABASE, config_1.default.DB_USER, config_1.default.DB_PASSWORD, {
     dialect: "postgres",
     host: config_1.default.DB_HOST,
@@ -53,6 +54,7 @@ exports.models = {
     Order: (0, order_model_1.default)(exports.sequelize),
     OrderItem: (0, order_item_model_1.default)(exports.sequelize),
     Offer: (0, offer_model_1.default)(exports.sequelize),
+    Shipping: (0, shipping_model_1.default)(exports.sequelize),
 };
 exports.default = DB;
 //# sourceMappingURL=database.js.map

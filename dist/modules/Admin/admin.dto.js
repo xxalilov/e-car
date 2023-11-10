@@ -8,6 +8,11 @@ class CreateAdminDto {
 exports.CreateAdminDto = CreateAdminDto;
 tslib_1.__decorate([
     (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], CreateAdminDto.prototype, "fullname", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsEmail)(),
     tslib_1.__metadata("design:type", String)
 ], CreateAdminDto.prototype, "email", void 0);
 tslib_1.__decorate([
@@ -18,6 +23,11 @@ class UpdateAdminEmail {
 }
 exports.UpdateAdminEmail = UpdateAdminEmail;
 tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)({ always: false }),
+    tslib_1.__metadata("design:type", String)
+], UpdateAdminEmail.prototype, "fullname", void 0);
+tslib_1.__decorate([
     (0, class_validator_1.IsEmail)(),
     tslib_1.__metadata("design:type", String)
 ], UpdateAdminEmail.prototype, "email", void 0);
@@ -27,5 +37,13 @@ exports.UpdateAdminPassword = UpdateAdminPassword;
 tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
+], UpdateAdminPassword.prototype, "currentPassword", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
 ], UpdateAdminPassword.prototype, "password", void 0);
+tslib_1.__decorate([
+    (0, class_validator_1.IsString)(),
+    tslib_1.__metadata("design:type", String)
+], UpdateAdminPassword.prototype, "reapetPassword", void 0);
 //# sourceMappingURL=admin.dto.js.map

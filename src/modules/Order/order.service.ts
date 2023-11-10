@@ -18,7 +18,7 @@ class OrderService {
         if (isEmpty(userId)) throw new HttpException(400, "userId is empty");
         const user = await this.user.findByPk(userId);
         if (!user) throw new HttpException(400, "User not found");
-        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid"];
+        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid", "createdAt"];
         if (type === "history") {
             return await paginationHelper.paginate(page, pageSize, {
                 userId,

@@ -1,4 +1,4 @@
-export interface Instruction {
+    export interface Instruction {
     id: number;
     title_uz: string;
     title_ru: string;

@@ -18,6 +18,7 @@ import InstructionModel from "../modules/Instruction/instruction.model";
 import OrderModel from "../modules/Order/order.model";
 import OrderItemModel from "../modules/Order/order.item.model";
 import OfferModel from "../modules/Offer/offer.model";
+import ShippingModel from "../modules/Shipping/shipping.model";
 
 export const sequelize = new Sequelize(
     config.DB_DATABASE,
@@ -57,6 +58,7 @@ export const models = {
     Order: OrderModel(sequelize),
     OrderItem: OrderItemModel(sequelize),
     Offer: OfferModel(sequelize),
+    Shipping: ShippingModel(sequelize),
 };
 
 export default DB;

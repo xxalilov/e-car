@@ -18,5 +18,6 @@ export declare const models: {
     Order: typeof import("../modules/Order/order.model").OrderModel;
     OrderItem: typeof import("../modules/Order/order.item.model").OrderItemModel;
     Offer: typeof import("../modules/Offer/offer.model").OfferModel;
+    Shipping: typeof import("../modules/Shipping/shipping.model").ShippingModel;
 };
 export default DB;
