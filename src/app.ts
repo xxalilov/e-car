@@ -38,7 +38,6 @@ class App {
     );
     // Serving the Frontend
     this.app.use(static_(join(__dirname, "../client/build")));
-
     this.app.use(fileUpload());
     this.app.use(cors());
     this.app.use(json());

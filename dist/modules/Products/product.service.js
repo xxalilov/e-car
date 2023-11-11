@@ -159,7 +159,7 @@ class ProductService {
         const product = await this.product.findByPk(productId);
         if (!product)
             throw new HttpException_1.HttpException(400, "Product not found");
-        if (productData.photos && product.photos.length > 0) {
+        if (productData.photos && product.photos && product.photos.length > 0) {
             for (let photo of product.photos) {
                 (0, file_1.deleteFile)(photo);
             }

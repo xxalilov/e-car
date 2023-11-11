@@ -75,6 +75,7 @@ class ProductController {
 
                 productData.photos = photos;
             }
+
             const newProduct = await this.productService.createProduct(productData);
             res.status(201).json({data: newProduct, message: "created"});
         } catch (error) {
@@ -116,6 +117,7 @@ class ProductController {
 
                 productData.photos = photos;
             }
+
             const updatedProduct = await this.productService.updateProduct(
                 productData,
                 productId
