@@ -7,6 +7,7 @@ import {Offer} from "./offer.interface";
 
 class OfferService {
     public offer = models.Offer;
+    public user = models.User;
 
     public async getAllOffers(
         page: number,
@@ -18,12 +19,17 @@ class OfferService {
             "text",
             "userId",
             "createdAt",
+            {model: this.user, as: "user"}
         ]);
     }
 
     public async createOffer(offerData: CreateOfferDto): Promise<Offer> {
         if(isEmpty(offerData)) throw new HttpException(400, "offerData is Empty");
-        return await this.offer.create(offerData);
+        const user = await this.user.findByPk(offerData.userId);
+        if(!user) throw new HttpException(400, "user not found");
+        const offer = await this.offer.create(offerData);
+        await user.addOffer(offer.id);
+        return offer;
     }
 
     public async deleteOffer(offerId: string): Promise<Offer> {

@@ -68,6 +68,52 @@ class OrderService {
             ]);
         }
     }
+    async getOrders(page, pageSize, type, searchData) {
+        const paginationHelper = new pagination_1.default(this.order);
+        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid", "createdAt"];
+        if (type === "history") {
+            return await paginationHelper.paginate(page, pageSize, {
+                shipping_status: true,
+            }, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: { attributes: ["quantity"], as: "orderItem" },
+                },
+            ]);
+        }
+        else if (type === "pending") {
+            return await paginationHelper.paginate(page, pageSize, {
+                shipping_status: false,
+            }, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: { attributes: ["quantity"], as: "orderItem" },
+                },
+            ]);
+        }
+        else if (type === "search") {
+            return await paginationHelper.paginate(page, pageSize, {
+                id: searchData
+            }, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: { attributes: ["quantity"], as: "orderItem" },
+                },
+            ]);
+        }
+        else {
+            return await paginationHelper.paginate(page, pageSize, {}, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: { attributes: ["quantity"], as: "orderItem" },
+                },
+            ]);
+        }
+    }
     async createOrder(orderData, userId) {
         if ((0, isEpmty_1.isEmpty)(orderData))
             throw new HttpException_1.HttpException(400, "Please input orderData");
@@ -103,6 +149,14 @@ class OrderService {
         // await this.paymeService.verify(userId, user.card, code);
         await order.update({ is_paid: true });
         return order;
+    }
+    async updateOrder(orderId, updateData) {
+        if ((0, isEpmty_1.isEmpty)(orderId))
+            throw new HttpException_1.HttpException(400, "Please input orderId");
+        const findOrder = await this.order.findByPk(orderId);
+        if (!findOrder)
+            throw new HttpException_1.HttpException(400, "Order not found");
+        return await findOrder.update(updateData);
     }
 }
 exports.default = OrderService;

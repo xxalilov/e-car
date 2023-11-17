@@ -14,8 +14,12 @@ class AdminRouter {
         this.initializeRoutes();
     }
     initializeRoutes() {
+        this.router.post(`${this.path}`, (0, auth_middleware_1.default)("superadmin"), (0, validation_middleware_1.default)(admin_dto_1.CreateAdmin, "body"), this.adminController.createAdmin.bind(this.adminController));
+        this.router.delete(`${this.path}/:id`, (0, auth_middleware_1.default)("superadmin"), this.adminController.deleteAdminById.bind(this.adminController));
         this.router.put(`${this.path}/email`, (0, auth_middleware_1.default)("admin"), (0, validation_middleware_1.default)(admin_dto_1.UpdateAdminEmail, "body"), this.adminController.updateAdminEmail.bind(this.adminController));
         this.router.put(`${this.path}/password`, (0, auth_middleware_1.default)("admin"), (0, validation_middleware_1.default)(admin_dto_1.UpdateAdminPassword, "body"), this.adminController.updateAdminPassword.bind(this.adminController));
+        this.router.put(`${this.path}/:id`, (0, auth_middleware_1.default)("superadmin"), this.adminController.updateAdminDetails.bind(this.adminController));
+        this.router.get(`${this.path}`, (0, auth_middleware_1.default)("superadmin"), this.adminController.getAllAdmins.bind(this.adminController));
     }
 }
 exports.default = AdminRouter;

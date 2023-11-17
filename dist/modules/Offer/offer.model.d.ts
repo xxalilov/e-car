@@ -1,10 +1,9 @@
 import { Model, Optional, Sequelize } from "sequelize";
 import { Offer } from "./offer.interface";
-export type OfferCreationAttributes = Optional<Offer, "id" | "text" | "userId">;
+export type OfferCreationAttributes = Optional<Offer, "id" | "text">;
 export declare class OfferModel extends Model<Offer, OfferCreationAttributes> implements Offer {
     id: number;
     text: string;
-    userId: string;
     readonly createdAt: Date;
     readonly updatedAt: Date;
 }

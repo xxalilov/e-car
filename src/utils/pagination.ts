@@ -32,15 +32,16 @@ class PaginationHelper<T extends Model> {
             order: orderOption,
             include: includeOption
         };
+        const {count} = await this.model.findAndCountAll({where: options.where});
         const results = await this.model.findAndCountAll(options);
 
-        const totalPages = Math.ceil(results.count / pageSize);
+        const totalPages = Math.ceil(count / pageSize);
 
         return {
             data: results.rows,
             page,
             pageSize,
-            totalCount: results.count,
+            totalCount: count,
             totalPages,
         };
     }

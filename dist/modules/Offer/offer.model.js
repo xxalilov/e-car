@@ -16,10 +16,6 @@ function default_1(sequelize) {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
-        userId: {
-            type: sequelize_1.DataTypes.STRING,
-            allowNull: false,
-        },
     }, {
         tableName: "offers",
         sequelize,

@@ -1,6 +1,8 @@
 import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 import { User } from "./user.interface";
 import { models } from "../../utils/database";
+import {OfferModel} from "../Offer/offer.model";
+import {OrderModel} from "../Order/order.model";
 
 export type UserCreationAttributes = Optional<
   User,
@@ -19,6 +21,8 @@ export class UserModel
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public addOffer!: Function;
 }
 
 export default function (sequelize: Sequelize): typeof UserModel {
@@ -54,6 +58,24 @@ export default function (sequelize: Sequelize): typeof UserModel {
   UserModel.afterCreate(async (user: UserModel, options) => {
     await models.Cart.create({ userId: user.id });
   });
+
+  UserModel.hasMany(OfferModel, {
+    foreignKey: "userId",
+    as: "offers",
+  });
+  OfferModel.belongsTo(UserModel, {
+    foreignKey: "userId",
+    as: "user",
+  });
+
+  // UserModel.hasMany(OrderModel, {
+  //   foreignKey: "userId",
+  //   as: "orders",
+  // });
+  // OrderModel.belongsTo(UserModel, {
+  //   foreignKey: "userId",
+  //   as: "user",
+  // });
 
   return UserModel;
 }

@@ -52,6 +52,50 @@ class OrderService {
         }
     }
 
+    public async getOrders(page: number, pageSize: number, type: string, searchData: string): Promise<ResultInterface> {
+        const paginationHelper = new PaginationHelper(this.order);
+        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid", "createdAt"];
+        if (type === "history") {
+            return await paginationHelper.paginate(page, pageSize, {
+                shipping_status: true,
+            }, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: {attributes: ["quantity"], as: "orderItem"},
+                },
+            ]);
+        } else if (type === "pending") {
+            return await paginationHelper.paginate(page, pageSize, {
+                shipping_status: false,
+            }, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: {attributes: ["quantity"], as: "orderItem"},
+                },
+            ]);
+        }  else if (type === "search") {
+            return await paginationHelper.paginate(page, pageSize, {
+                id: searchData
+            }, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: {attributes: ["quantity"], as: "orderItem"},
+                },
+            ]);
+        } else {
+            return await paginationHelper.paginate(page, pageSize, {}, attributes, [], [
+                {
+                    model: this.product,
+                    as: "products",
+                    through: {attributes: ["quantity"], as: "orderItem"},
+                },
+            ]);
+        }
+    }
+
     public async createOrder(
         orderData: CreateOrderDto,
         userId: string,
@@ -102,6 +146,16 @@ class OrderService {
         await order.update({is_paid: true});
 
         return order;
+    }
+
+    public async updateOrder(orderId: string, updateData): Promise<Order> {
+        if (isEmpty(orderId))
+            throw new HttpException(400, "Please input orderId");
+        const findOrder = await this.order.findByPk(orderId);
+
+        if (!findOrder) throw new HttpException(400, "Order not found");
+
+        return  await findOrder.update(updateData);
     }
 
     // public async removeProduct(productId: string, userId: string): Promise<order> {

@@ -43,6 +43,7 @@ const DB = async function () {
 
 export const models = {
     Admin: AdminMode(sequelize),
+    Offer: OfferModel(sequelize),
     User: UserModel(sequelize),
     Car: CarModel(sequelize),
     Station: StationModel(sequelize),
@@ -57,7 +58,6 @@ export const models = {
     Instruction: InstructionModel(sequelize),
     Order: OrderModel(sequelize),
     OrderItem: OrderItemModel(sequelize),
-    Offer: OfferModel(sequelize),
     Shipping: ShippingModel(sequelize),
 };
 

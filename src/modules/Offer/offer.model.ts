@@ -3,13 +3,12 @@ import {Offer} from "./offer.interface";
 
 export type OfferCreationAttributes = Optional<
     Offer,
-    "id" | "text" | "userId"
+    "id" | "text"
 >;
 
 export class OfferModel extends Model<Offer, OfferCreationAttributes> implements Offer {
     public id: number;
     public text: string;
-    public userId: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
@@ -23,10 +22,6 @@ export default function (sequelize: Sequelize): typeof OfferModel {
                 autoIncrement: true
             },
             text: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            userId: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

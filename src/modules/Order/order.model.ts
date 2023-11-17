@@ -1,6 +1,7 @@
 import {DataTypes, Model, Optional, Sequelize} from "sequelize";
 import {Order} from "./order.interface";
 import {Product} from "../Products/product.interface";
+import {ProductModel} from "../Products/product.model";
 
 export type OrderCreationAttributes = Optional<
     Order,

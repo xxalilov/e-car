@@ -8,6 +8,7 @@ const HttpException_1 = require("../../exceptions/HttpException");
 class OfferService {
     constructor() {
         this.offer = database_1.models.Offer;
+        this.user = database_1.models.User;
     }
     async getAllOffers(page, pageSize) {
         const paginationHelper = new pagination_1.default(this.offer);
@@ -16,12 +17,18 @@ class OfferService {
             "text",
             "userId",
             "createdAt",
+            { model: this.user, as: "user" }
         ]);
     }
     async createOffer(offerData) {
         if ((0, isEpmty_1.isEmpty)(offerData))
             throw new HttpException_1.HttpException(400, "offerData is Empty");
-        return await this.offer.create(offerData);
+        const user = await this.user.findByPk(offerData.userId);
+        if (!user)
+            throw new HttpException_1.HttpException(400, "user not found");
+        const offer = await this.offer.create(offerData);
+        await user.addOffer(offer.id);
+        return offer;
     }
     async deleteOffer(offerId) {
         if ((0, isEpmty_1.isEmpty)(offerId))

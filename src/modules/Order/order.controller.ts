@@ -21,6 +21,22 @@ class orderController {
         }
     }
 
+    public async getOrders(
+        req: RequestWithUser,
+        res: Response,
+        next: NextFunction
+    ) {
+        const page = parseInt(req.query.page as string) || 1;
+        const pageSize = parseInt(req.query.pageSize as string) || 10;
+        const searchData = req.query.searchData as string;
+        try {
+            const order = await this.orderService.getOrders(page, pageSize, req.query.type.toString(), searchData);
+            res.status(200).json({...order, message: "get"});
+        } catch (error) {
+            next(error);
+        }
+    }
+
     public async createOrder(
         req: RequestWithUser,
         res: Response,
@@ -42,6 +58,15 @@ class orderController {
         try {
             const order = await this.orderService.payOrder(req.user.id, req.body.card_number, req.body.card_expire);
             res.status(200).json({data: order, message: "send code"});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    public async updateOrder(req: RequestWithUser, res: Response, next: NextFunction) {
+        try {
+            const order = await this.orderService.updateOrder(req.params.id, req.body);
+            res.status(200).json({data: order, message: "updated"});
         } catch (error) {
             next(error);
         }

@@ -39,6 +39,7 @@ const DB = async function () {
 };
 exports.models = {
     Admin: (0, admin_model_1.default)(exports.sequelize),
+    Offer: (0, offer_model_1.default)(exports.sequelize),
     User: (0, user_model_1.default)(exports.sequelize),
     Car: (0, car_model_1.default)(exports.sequelize),
     Station: (0, station_model_1.default)(exports.sequelize),
@@ -53,7 +54,6 @@ exports.models = {
     Instruction: (0, instruction_model_1.default)(exports.sequelize),
     Order: (0, order_model_1.default)(exports.sequelize),
     OrderItem: (0, order_item_model_1.default)(exports.sequelize),
-    Offer: (0, offer_model_1.default)(exports.sequelize),
     Shipping: (0, shipping_model_1.default)(exports.sequelize),
 };
 exports.default = DB;

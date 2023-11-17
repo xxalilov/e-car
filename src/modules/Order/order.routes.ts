@@ -30,10 +30,23 @@ class OrderRouter implements Routes {
         // );
 
         this.router.get(
+            `${this.path}/admin`,
+            authMiddleware("admin"),
+            // validationMiddleware(CreateCarDto, "body"),
+            this.orderController.getOrders.bind(this.orderController)
+        );
+
+        this.router.get(
             `${this.path}`,
             authMiddleware("user"),
             // validationMiddleware(CreateCarDto, "body"),
             this.orderController.getUserOrders.bind(this.orderController)
+        );
+        this.router.put(
+            `${this.path}/:id`,
+            authMiddleware("admin"),
+            // validationMiddleware(CreateCarDto, "body"),
+            this.orderController.updateOrder.bind(this.orderController)
         );
     }
 }

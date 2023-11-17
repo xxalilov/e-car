@@ -22,6 +22,33 @@ export class UpdateAdminEmail {
   public email: string;
 }
 
+export class CreateAdmin {
+  @IsString()
+  @IsOptional({ always: false })
+  public fullname: string;
+
+  @IsEmail()
+  public email: string;
+
+  @IsString()
+  public password: string;
+}
+
+
+export class UpdateAdminDetails {
+  @IsString()
+  @IsOptional({ always: false })
+  public fullname: string;
+
+  @IsEmail()
+  @IsOptional({ always: false })
+  public email: string;
+
+  @IsString()
+  @IsOptional({ always: false })
+  public password: string;
+}
+
 export class UpdateAdminPassword {
   @IsString()
   public currentPassword: string;
