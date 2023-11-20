@@ -19,8 +19,7 @@ class OfferService {
             "text",
             "userId",
             "createdAt",
-            {model: this.user, as: "user"}
-        ]);
+        ], [], [{model: this.user, as: "user"}]);
     }
 
     public async createOffer(offerData: CreateOfferDto): Promise<Offer> {

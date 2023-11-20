@@ -17,8 +17,7 @@ class OfferService {
             "text",
             "userId",
             "createdAt",
-            { model: this.user, as: "user" }
-        ]);
+        ], [], [{ model: this.user, as: "user" }]);
     }
     async createOffer(offerData) {
         if ((0, isEpmty_1.isEmpty)(offerData))
