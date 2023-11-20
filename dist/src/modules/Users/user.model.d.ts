@@ -9,5 +9,6 @@ export declare class UserModel extends Model<User, UserCreationAttributes> imple
     photo: string;
     readonly createdAt: Date;
     readonly updatedAt: Date;
+    addOffer: Function;
 }
 export default function (sequelize: Sequelize): typeof UserModel;

@@ -35,6 +35,18 @@ class orderController {
             next(error);
         }
     }
+    async getOrders(req, res, next) {
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 10;
+        const searchData = req.query.searchData;
+        try {
+            const order = await this.orderService.getOrders(page, pageSize, req.query.type.toString(), searchData);
+            res.status(200).json(Object.assign(Object.assign({}, order), { message: "get" }));
+        }
+        catch (error) {
+            next(error);
+        }
+    }
     async createOrder(req, res, next) {
         try {
             const userId = req.user.id.toString();
@@ -49,6 +61,15 @@ class orderController {
         try {
             const order = await this.orderService.payOrder(req.user.id, req.body.card_number, req.body.card_expire);
             res.status(200).json({ data: order, message: "send code" });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+    async updateOrder(req, res, next) {
+        try {
+            const order = await this.orderService.updateOrder(req.params.id, req.body);
+            res.status(200).json({ data: order, message: "updated" });
         }
         catch (error) {
             next(error);

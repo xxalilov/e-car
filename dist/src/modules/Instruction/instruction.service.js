@@ -24,6 +24,7 @@ class InstructionService {
                 [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
                 [sequelize_1.Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
                 "link",
+                "youtubeCover",
                 "type",
                 "typeId",
             ]
@@ -33,6 +34,7 @@ class InstructionService {
                 [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
                 [sequelize_1.Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
                 "link",
+                "youtubeCover",
                 "type",
                 "typeId",
             ]

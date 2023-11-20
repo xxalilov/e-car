@@ -9,6 +9,7 @@ declare class OrderService {
     product: typeof import("../Products/product.model").ProductModel;
     paymeService: PaymeService;
     getUserOrders(page: number, pageSize: number, userId: string, type: string): Promise<ResultInterface>;
+    getOrders(page: number, pageSize: number, type: string, searchData: string): Promise<ResultInterface>;
     createOrder(orderData: CreateOrderDto, userId: string): Promise<Order>;
     payOrder(userId: string, card_number: string, card_expire: string): Promise<{
         sent: boolean;
@@ -17,5 +18,6 @@ declare class OrderService {
         token: string;
     }>;
     confirmPayOrder(orderId: string, userId: string, token: string, code: string): Promise<Order>;
+    updateOrder(orderId: string, updateData: any): Promise<Order>;
 }
 export default OrderService;

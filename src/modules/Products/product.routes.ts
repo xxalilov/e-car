@@ -32,8 +32,8 @@ class ProductRouter implements Routes {
         );
         this.router.get(
             `${this.path}`,
-            authMiddleware("all"),
-            LanguageMiddleware,
+            // authMiddleware("all"),
+            // LanguageMiddleware,
             this.productController.getAllProducts.bind(this.productController)
         );
         this.router.delete(

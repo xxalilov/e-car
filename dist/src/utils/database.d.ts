@@ -3,6 +3,7 @@ export declare const sequelize: Sequelize;
 declare const DB: () => Promise<void>;
 export declare const models: {
     Admin: typeof import("../modules/Admin/admin.model").AdminModel;
+    Offer: typeof import("../modules/Offer/offer.model").OfferModel;
     User: typeof import("../modules/Users/user.model").UserModel;
     Car: typeof import("../modules/Car/car.model").CarModel;
     Station: typeof import("../modules/Stations/station.model").StationModel;
@@ -17,6 +18,6 @@ export declare const models: {
     Instruction: typeof import("../modules/Instruction/instruction.model").InstructionModel;
     Order: typeof import("../modules/Order/order.model").OrderModel;
     OrderItem: typeof import("../modules/Order/order.item.model").OrderItemModel;
-    Offer: typeof import("../modules/Offer/offer.model").OfferModel;
+    Shipping: typeof import("../modules/Shipping/shipping.model").ShippingModel;
 };
 export default DB;

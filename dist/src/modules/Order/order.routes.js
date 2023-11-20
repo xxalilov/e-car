@@ -23,9 +23,15 @@ class OrderRouter {
         //     // validationMiddleware(CreateCarDto, "body"),
         //     this.orderController.removeProduct.bind(this.orderController)
         // );
+        this.router.get(`${this.path}/admin`, (0, auth_middleware_1.default)("admin"), 
+        // validationMiddleware(CreateCarDto, "body"),
+        this.orderController.getOrders.bind(this.orderController));
         this.router.get(`${this.path}`, (0, auth_middleware_1.default)("user"), 
         // validationMiddleware(CreateCarDto, "body"),
         this.orderController.getUserOrders.bind(this.orderController));
+        this.router.put(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), 
+        // validationMiddleware(CreateCarDto, "body"),
+        this.orderController.updateOrder.bind(this.orderController));
     }
 }
 exports.default = OrderRouter;

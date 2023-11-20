@@ -12,14 +12,18 @@ class ProductController {
         const pageSize = parseInt(req.query.pageSize) || 10;
         let typeOfProductId = null;
         let searchProduct = null;
+        let lang = "eng";
         if (req.query.type) {
             typeOfProductId = req.query.type.toString();
         }
         if (req.query.searchData) {
             searchProduct = req.query.searchData.toString();
         }
+        if (req.query.lang) {
+            lang = req.query.lang.toString();
+        }
         try {
-            const findAllCarsData = await this.productService.getAllProduct(page, pageSize, typeOfProductId, searchProduct, req.query.lang);
+            const findAllCarsData = await this.productService.getAllProduct(page, pageSize, typeOfProductId, searchProduct, lang);
             res.status(200).json(Object.assign(Object.assign({}, findAllCarsData), { message: "findAll" }));
         }
         catch (error) {

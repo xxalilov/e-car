@@ -16,8 +16,11 @@ const news_routes_1 = tslib_1.__importDefault(require("../modules/News/news.rout
 const instruction_routes_1 = tslib_1.__importDefault(require("../modules/Instruction/instruction.routes"));
 const order_routes_1 = tslib_1.__importDefault(require("../modules/Order/order.routes"));
 const offer_routes_1 = tslib_1.__importDefault(require("../modules/Offer/offer.routes"));
+const admin_routes_1 = tslib_1.__importDefault(require("../modules/Admin/admin.routes"));
+const shipping_routes_1 = tslib_1.__importDefault(require("../modules/Shipping/shipping.routes"));
 const router = express_1.default.Router();
 router.use("/", new user_routes_1.default().router);
+router.use('/', new admin_routes_1.default().router);
 router.use("/", new auth_routes_1.default().router);
 router.use("/", new car_routes_1.default().router);
 router.use("/", new station_routes_1.default().router);
@@ -31,5 +34,6 @@ router.use("/", new news_routes_1.default().router);
 router.use("/", new instruction_routes_1.default().router);
 router.use("/", new order_routes_1.default().router);
 router.use("/", new offer_routes_1.default().router);
+router.use("/", new shipping_routes_1.default().router);
 exports.default = router;
 //# sourceMappingURL=index.route.js.map
