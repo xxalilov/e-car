@@ -7,6 +7,7 @@ declare class OrderService {
     cart: typeof import("../Cart/cart.model").CartModel;
     user: typeof import("../Users/user.model").UserModel;
     product: typeof import("../Products/product.model").ProductModel;
+    shipping: typeof import("../Shipping/shipping.model").ShippingModel;
     paymeService: PaymeService;
     getUserOrders(page: number, pageSize: number, userId: string, type: string): Promise<ResultInterface>;
     getOrders(page: number, pageSize: number, type: string, searchData: string): Promise<ResultInterface>;

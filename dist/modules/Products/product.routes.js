@@ -4,6 +4,7 @@ const tslib_1 = require("tslib");
 const express_1 = require("express");
 const auth_middleware_1 = tslib_1.__importDefault(require("../../middlewares/auth.middleware"));
 const product_controller_1 = tslib_1.__importDefault(require("./product.controller"));
+const language_middleware_1 = tslib_1.__importDefault(require("../../middlewares/language.middleware"));
 class ProductRouter {
     constructor() {
         this.path = "/products";
@@ -20,10 +21,7 @@ class ProductRouter {
         // validationMiddleware(UpdateCarDto, "body"),
         // upload.fields([{name: "photo", maxCount: 1}]),
         this.productController.updateProduct.bind(this.productController));
-        this.router.get(`${this.path}`, 
-        // authMiddleware("all"),
-        // LanguageMiddleware,
-        this.productController.getAllProducts.bind(this.productController));
+        this.router.get(`${this.path}`, (0, auth_middleware_1.default)("all"), language_middleware_1.default, this.productController.getAllProducts.bind(this.productController));
         this.router.delete(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), this.productController.deleteProduct.bind(this.productController));
     }
 }

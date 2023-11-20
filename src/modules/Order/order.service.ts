@@ -11,6 +11,7 @@ class OrderService {
     public cart = models.Cart;
     public user = models.User;
     public product = models.Product;
+    public shipping = models.Shipping;
     public paymeService = new PaymeService();
 
     public async getUserOrders(page: number, pageSize: number, userId: string, type: string): Promise<ResultInterface> {
@@ -108,7 +109,9 @@ class OrderService {
         const products = await userCart.getProducts();
 
         if (!userCart) throw new HttpException(400, "userCart not found");
-        const order = await this.order.create({total_price: userCart.totalPrice, userId, ...orderData});
+        const shippingType = await this.shipping.findOne({where: {type: orderData.shipping_type}});
+        if(!shippingType) throw new HttpException(400, "Shipping type not found");
+        const order = await this.order.create({total_price: userCart.totalPrice + shippingType.price, userId, ...orderData});
         for (let product of products) {
             order.addProduct(product, product.dataValues.CartItemModel.dataValues.quantity);
             userCart.removeProduct(product);

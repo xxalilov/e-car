@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
+const slugify_1 = tslib_1.__importDefault(require("slugify"));
 const sequelize_1 = require("sequelize");
 const database_1 = require("../../utils/database");
 const pagination_1 = tslib_1.__importDefault(require("../../utils/pagination"));
@@ -14,123 +15,85 @@ class ProductService {
     }
     async getAllProduct(page, pageSize, typeOfProductId, searchProduct, lang) {
         const paginationHelper = new pagination_1.default(this.product);
-        return await paginationHelper.paginate(page, pageSize);
-        // if(lang === "all") {
-        //     if (searchProduct) {
-        //         return await paginationHelper.paginate(page, pageSize, {
-        //                 slug: {[Op.like]: `%${slugify(searchProduct.toLowerCase())}%`}
-        //             },
-        //             [
-        //                 "id",
-        //                 "title_uz",
-        //                 "title_ru",
-        //                 "title_eng",
-        //                 "description_uz",
-        //                 "description_ru",
-        //                 "description_eng",
-        //                 "address_uz",
-        //                 "address_ru",
-        //                 "address_eng",
-        //                 "price",
-        //                 "lat",
-        //                 "long",
-        //                 "phone",
-        //                 "isTop",
-        //                 "photos",
-        //             ], [["isTop", "DESC"]]);
-        //     }
-        //     if (typeOfProductId) {
-        //         return await paginationHelper.paginate(page, pageSize, {
-        //                 typeOfProductId,
-        //             },
-        //             [
-        //                 "id",
-        //                 "title_uz",
-        //                 "title_ru",
-        //                 "title_eng",
-        //                 "description_uz",
-        //                 "description_ru",
-        //                 "description_eng",
-        //                 "address_uz",
-        //                 "address_ru",
-        //                 "address_eng",
-        //                 "price",
-        //                 "lat",
-        //                 "long",
-        //                 "phone",
-        //                 "isTop",
-        //                 "photos",
-        //             ], [["isTop", "DESC"]]);
-        //     } else {
-        //         return await paginationHelper.paginate(page, pageSize, {},
-        //             [
-        //                 "id",
-        //                 "title_uz",
-        //                 "title_ru",
-        //                 "title_eng",
-        //                 "description_uz",
-        //                 "description_ru",
-        //                 "description_eng",
-        //                 "address_uz",
-        //                 "address_ru",
-        //                 "address_eng",
-        //                 "price",
-        //                 "lat",
-        //                 "long",
-        //                 "phone",
-        //                 "isTop",
-        //                 "photos",
-        //             ],
-        //             [["isTop", "DESC"]]);
-        //     }
-        // } else {
-        //     if (searchProduct) {
-        //         return await paginationHelper.paginate(page, pageSize, {
-        //                 slug: {[Op.like]: `%${slugify(searchProduct.toLowerCase())}%`}
-        //             },
-        //             [
-        //                 "id",
-        //                 [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
-        //                 [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
-        //                 [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
-        //                 "price",
-        //                 "lat",
-        //                 "long",
-        //                 "phone",
-        //                 "photos",
-        //             ], [["isTop", "DESC"]]);
-        //     }
-        //     if (typeOfProductId) {
-        //         return await paginationHelper.paginate(page, pageSize, {
-        //                 typeOfProductId,
-        //             },
-        //             [
-        //                 "id",
-        //                 [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
-        //                 [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
-        //                 [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
-        //                 "price",
-        //                 "lat",
-        //                 "long",
-        //                 "phone",
-        //                 "photos",
-        //             ], [["isTop", "DESC"]]);
-        //     } else {
-        //         return await paginationHelper.paginate(page, pageSize, {},
-        //             [
-        //                 "id",
-        //                 [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
-        //                 [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
-        //                 [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
-        //                 "price",
-        //                 "lat",
-        //                 "long",
-        //                 "phone",
-        //                 "photos",
-        //             ],
-        //             [["isTop", "DESC"]]);
-        //     }
-        // }
+        // return await paginationHelper.paginate(page, pageSize)
+        const attributes = [
+            "id",
+            "title_uz",
+            "title_ru",
+            "title_eng",
+            "description_uz",
+            "description_ru",
+            "description_eng",
+            "address_uz",
+            "address_ru",
+            "address_eng",
+            "price",
+            "lat",
+            "long",
+            "phone",
+            "isTop",
+            "photos",
+        ];
+        if (lang === "all") {
+            if (searchProduct) {
+                return await paginationHelper.paginate(page, pageSize, {
+                    slug: { [sequelize_1.Op.like]: `%${(0, slugify_1.default)(searchProduct.toLowerCase())}%` }
+                }, attributes, [["isTop", "DESC"]]);
+            }
+            if (typeOfProductId) {
+                return await paginationHelper.paginate(page, pageSize, {
+                    typeOfProductId,
+                }, attributes, [["isTop", "DESC"]]);
+            }
+            else {
+                return await paginationHelper.paginate(page, pageSize, {}, attributes, [["isTop", "DESC"]]);
+            }
+        }
+        else {
+            if (searchProduct) {
+                return await paginationHelper.paginate(page, pageSize, {
+                    slug: { [sequelize_1.Op.like]: `%${(0, slugify_1.default)(searchProduct.toLowerCase())}%` }
+                }, [
+                    "id",
+                    [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                    [sequelize_1.Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
+                    [sequelize_1.Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                    "price",
+                    "lat",
+                    "long",
+                    "phone",
+                    "photos",
+                ], [["isTop", "DESC"]]);
+            }
+            if (typeOfProductId) {
+                return await paginationHelper.paginate(page, pageSize, {
+                    typeOfProductId,
+                }, [
+                    "id",
+                    [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                    [sequelize_1.Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
+                    [sequelize_1.Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                    "price",
+                    "lat",
+                    "long",
+                    "phone",
+                    "photos",
+                ], [["isTop", "DESC"]]);
+            }
+            else {
+                return await paginationHelper.paginate(page, pageSize, {}, [
+                    "id",
+                    [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                    [sequelize_1.Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
+                    [sequelize_1.Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                    "price",
+                    "lat",
+                    "long",
+                    "phone",
+                    "photos",
+                ], [["isTop", "DESC"]]);
+            }
+        }
     }
     async getProductById(productId, lang) {
         if ((0, isEpmty_1.isEmpty)(productId))

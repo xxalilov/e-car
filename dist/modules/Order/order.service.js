@@ -12,6 +12,7 @@ class OrderService {
         this.cart = database_1.models.Cart;
         this.user = database_1.models.User;
         this.product = database_1.models.Product;
+        this.shipping = database_1.models.Shipping;
         this.paymeService = new payme_service_1.default();
         // public async removeProduct(productId: string, userId: string): Promise<order> {
         //     if (isEmpty(productId))
@@ -123,7 +124,10 @@ class OrderService {
         const products = await userCart.getProducts();
         if (!userCart)
             throw new HttpException_1.HttpException(400, "userCart not found");
-        const order = await this.order.create(Object.assign({ total_price: userCart.totalPrice, userId }, orderData));
+        const shippingType = await this.shipping.findOne({ where: { type: orderData.shipping_type } });
+        if (!shippingType)
+            throw new HttpException_1.HttpException(400, "Shipping type not found");
+        const order = await this.order.create(Object.assign({ total_price: userCart.totalPrice + shippingType.price, userId }, orderData));
         for (let product of products) {
             order.addProduct(product, product.dataValues.CartItemModel.dataValues.quantity);
             userCart.removeProduct(product);
