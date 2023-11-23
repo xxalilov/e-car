@@ -127,7 +127,7 @@ class OrderService {
         const shippingType = await this.shipping.findOne({ where: { type: orderData.shipping_type } });
         if (!shippingType)
             throw new HttpException_1.HttpException(400, "Shipping type not found");
-        const order = await this.order.create(Object.assign({ total_price: userCart.totalPrice + shippingType.price, userId }, orderData));
+        const order = await this.order.create(Object.assign({ total_price: userCart.totalPrice + shippingType.price, userId, shipping_price: shippingType.price }, orderData));
         for (let product of products) {
             order.addProduct(product, product.dataValues.CartItemModel.dataValues.quantity);
             userCart.removeProduct(product);

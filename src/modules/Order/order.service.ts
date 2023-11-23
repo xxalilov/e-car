@@ -76,7 +76,7 @@ class OrderService {
                     through: {attributes: ["quantity"], as: "orderItem"},
                 },
             ]);
-        }  else if (type === "search") {
+        } else if (type === "search") {
             return await paginationHelper.paginate(page, pageSize, {
                 id: searchData
             }, attributes, [], [
@@ -110,8 +110,12 @@ class OrderService {
 
         if (!userCart) throw new HttpException(400, "userCart not found");
         const shippingType = await this.shipping.findOne({where: {type: orderData.shipping_type}});
-        if(!shippingType) throw new HttpException(400, "Shipping type not found");
-        const order = await this.order.create({total_price: userCart.totalPrice + shippingType.price, userId, ...orderData});
+        if (!shippingType) throw new HttpException(400, "Shipping type not found");
+        const order = await this.order.create({
+            total_price: userCart.totalPrice + shippingType.price,
+            userId,
+            shipping_price: shippingType.price, ...orderData
+        });
         for (let product of products) {
             order.addProduct(product, product.dataValues.CartItemModel.dataValues.quantity);
             userCart.removeProduct(product);
@@ -158,7 +162,7 @@ class OrderService {
 
         if (!findOrder) throw new HttpException(400, "Order not found");
 
-        return  await findOrder.update(updateData);
+        return await findOrder.update(updateData);
     }
 
     // public async removeProduct(productId: string, userId: string): Promise<order> {

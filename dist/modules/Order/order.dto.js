@@ -15,10 +15,6 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:type", String)
 ], CreateOrderDto.prototype, "shipping_address", void 0);
 tslib_1.__decorate([
-    (0, class_validator_1.IsNumber)(),
-    tslib_1.__metadata("design:type", Number)
-], CreateOrderDto.prototype, "shipping_price", void 0);
-tslib_1.__decorate([
     (0, class_validator_1.IsString)(),
     tslib_1.__metadata("design:type", String)
 ], CreateOrderDto.prototype, "payment_type", void 0);

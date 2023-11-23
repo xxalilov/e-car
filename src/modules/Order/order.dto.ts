@@ -7,9 +7,6 @@ export class CreateOrderDto {
     @IsString()
     public shipping_address: string;
 
-    @IsNumber()
-    public shipping_price: number;
-
     @IsString()
     public payment_type: string;
 }
