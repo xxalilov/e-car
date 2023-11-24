@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from "express";
 import {RequestWithUser} from "../../modules/Auth/auth.interface";
 import OrderService from "./order.service";
 
-class orderController {
+class OrderController {
     private orderService = new OrderService();
 
     public async getUserOrders(
@@ -81,23 +81,21 @@ class orderController {
         }
     }
 
-    // public async removeProduct(
-    //     req: RequestWithUser,
-    //     res: Response,
-    //     next: NextFunction
-    // ) {
-    //     try {
-    //         const productId = req.body.productId;
-    //         const userId = req.user.id;
-    //         const removedProduct = await this.orderService.removeProduct(
-    //             productId,
-    //             userId.toString()
-    //         );
-    //         res.status(200).json({data: removedProduct, message: "removed"});
-    //     } catch (error) {
-    //         next(error);
-    //     }
-    // }
+    public async removeOrder(
+        req: RequestWithUser,
+        res: Response,
+        next: NextFunction
+    ) {
+        try {
+            const orderId = req.params.orderId;
+            const removedOrder = await this.orderService.removeOrder(
+                orderId
+            );
+            res.status(200).json({data: removedOrder, message: "removed"});
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
-export default orderController;
+export default OrderController;

@@ -2,26 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const order_service_1 = tslib_1.__importDefault(require("./order.service"));
-class orderController {
+class OrderController {
     constructor() {
         this.orderService = new order_service_1.default();
-        // public async removeProduct(
-        //     req: RequestWithUser,
-        //     res: Response,
-        //     next: NextFunction
-        // ) {
-        //     try {
-        //         const productId = req.body.productId;
-        //         const userId = req.user.id;
-        //         const removedProduct = await this.orderService.removeProduct(
-        //             productId,
-        //             userId.toString()
-        //         );
-        //         res.status(200).json({data: removedProduct, message: "removed"});
-        //     } catch (error) {
-        //         next(error);
-        //     }
-        // }
     }
     async getUserOrders(req, res, next) {
         const page = parseInt(req.query.page) || 1;
@@ -84,6 +67,16 @@ class orderController {
             next(error);
         }
     }
+    async removeOrder(req, res, next) {
+        try {
+            const orderId = req.params.orderId;
+            const removedOrder = await this.orderService.removeOrder(orderId);
+            res.status(200).json({ data: removedOrder, message: "removed" });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
-exports.default = orderController;
+exports.default = OrderController;
 //# sourceMappingURL=order.controller.js.map

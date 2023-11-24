@@ -14,18 +14,6 @@ class OrderService {
         this.product = database_1.models.Product;
         this.shipping = database_1.models.Shipping;
         this.paymeService = new payme_service_1.default();
-        // public async removeProduct(productId: string, userId: string): Promise<order> {
-        //     if (isEmpty(productId))
-        //         throw new HttpException(400, "Please input productId");
-        //     const findProduct = await this.product.findByPk(productId);
-        //     if (!findProduct) throw new HttpException(400, "Product not found");
-        //     const order = await this.order.findOne({ where: { userId } });
-        //     if (!order) throw new HttpException(500, "Server error");
-        //
-        //     await order.removeProduct(findProduct);
-        //
-        //     return order;
-        // }
     }
     async getUserOrders(page, pageSize, userId, type) {
         const paginationHelper = new pagination_1.default(this.order);
@@ -161,6 +149,15 @@ class OrderService {
         if (!findOrder)
             throw new HttpException_1.HttpException(400, "Order not found");
         return await findOrder.update(updateData);
+    }
+    async removeOrder(orderId) {
+        if ((0, isEpmty_1.isEmpty)(orderId))
+            throw new HttpException_1.HttpException(400, "Please input orderId");
+        const order = await this.order.findByPk(orderId);
+        if (!order)
+            throw new HttpException_1.HttpException(404, "Order Not Found");
+        await order.destroy();
+        return order;
     }
 }
 exports.default = OrderService;

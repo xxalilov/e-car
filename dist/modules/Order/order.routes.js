@@ -32,6 +32,9 @@ class OrderRouter {
         this.router.put(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), 
         // validationMiddleware(CreateCarDto, "body"),
         this.orderController.updateOrder.bind(this.orderController));
+        this.router.delete(`${this.path}/:id`, (0, auth_middleware_1.default)("all"), 
+        // validationMiddleware(CreateCarDto, "body"),
+        this.orderController.removeOrder.bind(this.orderController));
     }
 }
 exports.default = OrderRouter;

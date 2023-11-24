@@ -29,6 +29,18 @@ class WorkshopController {
             next(error);
         }
     }
+    async getAllWorkshopsWithDistance(req, res, next) {
+        const lat = req.query.lat.toString();
+        const long = req.query.long.toString();
+        const typeOfWorkshopId = req.params.id;
+        try {
+            const workshops = await this.workshopService.getAllWorkshopsWithDistance(lat, long, typeOfWorkshopId, req.query.lang);
+            res.status(201).json({ data: workshops, message: "find" });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
     async createWorkshop(req, res, next) {
         try {
             const workshopData = req.body;

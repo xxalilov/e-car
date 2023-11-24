@@ -45,6 +45,23 @@ class WorkshopController {
         }
     }
 
+    public async getAllWorkshopsWithDistance(req: Request, res: Response, next: NextFunction) {
+        const lat = req.query.lat.toString();
+        const long = req.query.long.toString();
+        const typeOfWorkshopId = req.params.id;
+        try {
+            const workshops = await this.workshopService.getAllWorkshopsWithDistance(
+                lat,
+                long,
+                typeOfWorkshopId,
+                req.query.lang as string
+            );
+            res.status(201).json({data: workshops, message: "find"});
+        } catch (error) {
+            next(error);
+        }
+    }
+
     public async createWorkshop(req: Request, res: Response, next: NextFunction) {
         try {
             const workshopData = req.body;

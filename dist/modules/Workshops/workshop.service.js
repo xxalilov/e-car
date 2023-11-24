@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
+const geolib_1 = require("geolib");
 const database_1 = require("../../utils/database");
 const pagination_1 = tslib_1.__importDefault(require("../../utils/pagination"));
 const isEpmty_1 = require("../../utils/isEpmty");
@@ -84,6 +85,31 @@ class WorkshopService {
         //   where: { typeOfWorkshopId },
         // });
         // return workshops;
+    }
+    async getAllWorkshopsWithDistance(lat, long, typeOfWorkshopId, lang) {
+        const allWorkshops = await this.workshop.findAll({ where: { typeOfWorkshopId }, attributes: [
+                "id",
+                [sequelize_1.Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                [sequelize_1.Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
+                [sequelize_1.Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                "phone",
+                "workingTime",
+                "lat",
+                "long",
+                "typeOfWorkshopId",
+            ] });
+        return allWorkshops.filter((data) => {
+            const distance = (0, geolib_1.getDistance)({ latitude: parseFloat(lat), longitude: parseFloat(long) }, {
+                latitude: parseFloat(data.lat),
+                longitude: parseFloat(data.long),
+            });
+            if (distance / 1000 <= 50) {
+                return data;
+            }
+            else {
+                return;
+            }
+        });
     }
     async createWorkshop(workshopData) {
         const typeOfWorkshop = await this.typeOfWorkshop.findByPk(workshopData.typeOfWorkshopId);

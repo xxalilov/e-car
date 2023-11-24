@@ -35,6 +35,14 @@ class WorkshopRouter implements Routes {
             this.workshopController.getAllWorkshops.bind(this.workshopController)
         );
         this.router.get(
+            `${this.path}/distance/:id`,
+            authMiddleware("all"),
+            LanguageMiddleware,
+            this.workshopController.getAllWorkshopsWithDistance.bind(
+                this.workshopController
+            )
+        );
+        this.router.get(
             `${this.path}/:id`,
             authMiddleware("all"),
             LanguageMiddleware,

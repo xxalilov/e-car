@@ -48,6 +48,12 @@ class OrderRouter implements Routes {
             // validationMiddleware(CreateCarDto, "body"),
             this.orderController.updateOrder.bind(this.orderController)
         );
+        this.router.delete(
+            `${this.path}/:id`,
+            authMiddleware("all"),
+            // validationMiddleware(CreateCarDto, "body"),
+            this.orderController.removeOrder.bind(this.orderController)
+        );
     }
 }
 

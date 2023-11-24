@@ -42,6 +42,12 @@ function default_1(sequelize) {
         },
         total_price: {
             type: sequelize_1.DataTypes.FLOAT
+        },
+        status: {
+            type: sequelize_1.DataTypes.ENUM({
+                values: ["in_progress", "delivered", "done", "canceled"]
+            }),
+            defaultValue: "in_progress"
         }
     }, {
         tableName: "orders",

@@ -8,4 +8,5 @@ export interface Order {
     total_price: number;
     payment_type: string;
     is_paid: boolean;
+    status: string;
 }

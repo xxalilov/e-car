@@ -1,3 +1,4 @@
+import {getDistance} from "geolib";
 import {models} from "../../utils/database";
 import {Workshop} from "./workshop.interface";
 import PaginationHelper, {ResultInterface} from "../../utils/pagination";
@@ -99,6 +100,36 @@ class WorkshopService {
         //   where: { typeOfWorkshopId },
         // });
         // return workshops;
+    }
+    
+    public async getAllWorkshopsWithDistance(lat: string, long: string, typeOfWorkshopId: string, lang: string) {
+        const allWorkshops = await this.workshop.findAll({where: {typeOfWorkshopId}, attributes: [
+                "id",
+                [Sequelize.literal(`COALESCE("title_${lang}")`), 'title'],
+                [Sequelize.literal(`COALESCE("address_${lang}")`), 'address'],
+                [Sequelize.literal(`COALESCE("description_${lang}")`), 'description'],
+                "phone",
+                "workingTime",
+                "lat",
+                "long",
+                "typeOfWorkshopId",
+            ]});
+        return allWorkshops.filter((data) => {
+            const distance = getDistance(
+                {latitude: parseFloat(lat), longitude: parseFloat(long)},
+                {
+                    latitude: parseFloat(data.lat),
+                    longitude: parseFloat(data.long),
+                }
+            );
+
+            if (distance / 1000 <= 50) {
+                return data;
+            } else {
+                return;
+            }
+        });
+
     }
 
     public async createWorkshop(

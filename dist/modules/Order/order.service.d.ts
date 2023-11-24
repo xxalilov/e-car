@@ -20,5 +20,6 @@ declare class OrderService {
     }>;
     confirmPayOrder(orderId: string, userId: string, token: string, code: string): Promise<Order>;
     updateOrder(orderId: string, updateData: any): Promise<Order>;
+    removeOrder(orderId: string): Promise<Order>;
 }
 export default OrderService;

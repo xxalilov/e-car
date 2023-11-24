@@ -6,6 +6,7 @@ declare class WorkshopService {
     typeOfWorkshop: typeof import("../TypesOfWorkshops/typeOfWorkshop.model").TypeOfWorkshopModel;
     getAllWorkshops(page: number, pageSize: number, lang: string): Promise<ResultInterface>;
     getAllWorkshopsByType(page: number, pageSize: number, typeOfWorkshopId: string, lang: string): Promise<ResultInterface>;
+    getAllWorkshopsWithDistance(lat: string, long: string, typeOfWorkshopId: string, lang: string): Promise<import("./workshop.model").WorkshopModel[]>;
     createWorkshop(workshopData: CreateWorkshopDto): Promise<Workshop>;
     updateWorkshop(workshopData: UpdateWorkshopDto, workshopId: string): Promise<Workshop>;
     deleteWorkshop(workshopId: string): Promise<Workshop>;

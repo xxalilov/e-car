@@ -165,18 +165,15 @@ class OrderService {
         return await findOrder.update(updateData);
     }
 
-    // public async removeProduct(productId: string, userId: string): Promise<order> {
-    //     if (isEmpty(productId))
-    //         throw new HttpException(400, "Please input productId");
-    //     const findProduct = await this.product.findByPk(productId);
-    //     if (!findProduct) throw new HttpException(400, "Product not found");
-    //     const order = await this.order.findOne({ where: { userId } });
-    //     if (!order) throw new HttpException(500, "Server error");
-    //
-    //     await order.removeProduct(findProduct);
-    //
-    //     return order;
-    // }
+    public async removeOrder(orderId: string): Promise<Order> {
+        if (isEmpty(orderId))
+            throw new HttpException(400, "Please input orderId");
+        const order = await this.order.findByPk(orderId);
+        if (!order) throw new HttpException(404, "Order Not Found");
+
+        await order.destroy();
+        return order;
+    }
 }
 
 export default OrderService;

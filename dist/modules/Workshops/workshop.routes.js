@@ -18,6 +18,7 @@ class WorkshopRouter {
         this.router.post(`${this.path}`, (0, auth_middleware_1.default)("admin"), (0, validation_middleware_1.default)(workshop_dto_1.CreateWorkshopDto, "body"), this.workshopController.createWorkshop.bind(this.workshopController));
         this.router.put(`${this.path}/:id`, (0, auth_middleware_1.default)("admin"), (0, validation_middleware_1.default)(workshop_dto_1.UpdateWorkshopDto, "body"), this.workshopController.updateWorkshop.bind(this.workshopController));
         this.router.get(`${this.path}`, (0, auth_middleware_1.default)("all"), language_middleware_1.default, this.workshopController.getAllWorkshops.bind(this.workshopController));
+        this.router.get(`${this.path}/distance/:id`, (0, auth_middleware_1.default)("all"), language_middleware_1.default, this.workshopController.getAllWorkshopsWithDistance.bind(this.workshopController));
         this.router.get(`${this.path}/:id`, (0, auth_middleware_1.default)("all"), language_middleware_1.default, this.workshopController.getAllWorkshopsByType.bind(this.workshopController));
         this.router.delete(`${this.path}/:id`, (0, auth_middleware_1.default)("all"), this.workshopController.deleteWorkshop.bind(this.workshopController));
     }
