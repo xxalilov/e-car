@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mem-cache": "^1.0.4",
     "axios": "^1.5.1",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
@@ -22,6 +23,7 @@
     "express-fileupload": "^1.4.1",
     "geolib": "^3.3.4",
     "jsonwebtoken": "^9.0.2",
+    "mem-cache": "^0.0.5",
     "multer": "^1.4.5-lts.1",
     "pg": "^8.11.3",
     "sequelize": "^6.33.0",

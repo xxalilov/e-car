@@ -19,7 +19,7 @@ class AuthController {
     }
     async sendConfirmation(req, res, next) {
         try {
-            const phoneNumber = req.body;
+            const phoneNumber = req.body.phoneNumber;
             const confirmationCode = await this.authService.sendConfirmation(phoneNumber);
             res
                 .status(200)

@@ -12,6 +12,9 @@ interface ConfigInterface {
     PAYME_ENDPOINT: string;
     PAYME_ID: string;
     PAYME_PASSWORD: string;
+    ESKIZ_ENDPOINT: string;
+    ESKIZ_EMAIL: string;
+    ESKIZ_PASSWORD: string;
 }
 declare const _default: ConfigInterface;
 export default _default;

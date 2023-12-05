@@ -20,6 +20,9 @@ class Config {
             PAYME_ENDPOINT: process.env.PAYME_ENDPOINT,
             PAYME_ID: process.env.PAYME_ID,
             PAYME_PASSWORD: process.env.PAYME_PASSWORD,
+            ESKIZ_ENDPOINT: process.env.ESKIZ_ENDPOINT,
+            ESKIZ_EMAIL: process.env.ESKIZ_EMAIL,
+            ESKIZ_PASSWORD: process.env.ESKIZ_PASSWORD,
         };
     }
     getSanitzedConfig(config) {

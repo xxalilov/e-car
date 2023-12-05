@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const bcrypt_1 = require("bcrypt");
 const jsonwebtoken_1 = require("jsonwebtoken");
+const mem_cache_1 = tslib_1.__importDefault(require("mem-cache"));
+const SMSClient_1 = tslib_1.__importDefault(require("./SMSClient"));
 const database_1 = require("../../utils/database");
 const config_1 = tslib_1.__importDefault(require("../../config/config"));
 const HttpException_1 = require("../../exceptions/HttpException");
@@ -11,7 +13,9 @@ class AuthService {
     constructor() {
         this.admin = database_1.models.Admin;
         this.user = database_1.models.User;
-        this.confirmationCodes = {};
+        this.cache = new mem_cache_1.default();
+        this.expirationTime = 120000;
+        this.smsClient = new SMSClient_1.default(config_1.default.ESKIZ_ENDPOINT, config_1.default.ESKIZ_EMAIL, config_1.default.ESKIZ_PASSWORD);
     }
     // Signin super admin
     async signinAdmin(adminData) {
@@ -49,23 +53,25 @@ class AuthService {
         return { cookie, findAdmin: admin, token: tokenData.token };
     }
     async sendConfirmation(phoneNumber) {
-        // Generate a random confirmation code (you can customize this logic)
-        const confirmationCode = Math.floor(1000 + Math.random() * 9000);
-        // Store the confirmation code in memory
-        this.confirmationCodes[phoneNumber] = confirmationCode.toString();
-        console.log("STORED CODES", this.confirmationCodes);
-        // console.log(this.confirmationCodes[phoneNumber]);
-        // Send SMS with the confirmation code
-        // await twilioClient.messages.create({
-        //   body: `Your confirmation code is: ${confirmationCode}`,
-        //   from: twilioPhoneNumber,
-        //   to: phoneNumber,
-        // });
-        return confirmationCode;
+        const currentConfirmation = await this.cache.get(phoneNumber.toString());
+        if (currentConfirmation) {
+            throw new HttpException_1.HttpException(400, "Confirmation code already sent");
+        }
+        else {
+            const otp = Math.floor(Math.random() * (Math.pow(10, (4 - 1)) * 9)) + Math.pow(10, (4 - 1));
+            const message = `Your confirmation code is: ${otp}`;
+            await this.smsClient.sendSMS(phoneNumber.toString(), message);
+            this.cache.set(phoneNumber.toString(), otp, this.expirationTime);
+            return otp;
+        }
     }
     async checkConfirmation(phoneNumber, confirmationCode) {
-        if (confirmationCode === 1111) {
+        const otp = await this.cache.get(phoneNumber.toString());
+        if (!otp)
+            throw new HttpException_1.HttpException(400, "Confirmation code is expired");
+        if (confirmationCode == otp) {
             const user = await this.user.findOne({ where: { phone: phoneNumber } });
+            this.cache.remove(phoneNumber.toString());
             if (user) {
                 const tokenData = this.createToken(user);
                 const cookie = this.createCookie(tokenData);
@@ -81,7 +87,7 @@ class AuthService {
             }
         }
         else {
-            return { token: null, cookie: null, user: null };
+            throw new HttpException_1.HttpException(400, "Confirmation code is incorrect");
         }
     }
     // Generate Token

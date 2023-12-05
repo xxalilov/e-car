@@ -25,7 +25,7 @@ class AuthController {
     next: NextFunction
   ) {
     try {
-      const phoneNumber: number = req.body;
+      const phoneNumber: number = req.body.phoneNumber;
       const confirmationCode = await this.authService.sendConfirmation(
         phoneNumber
       );
