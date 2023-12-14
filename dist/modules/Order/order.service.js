@@ -22,7 +22,7 @@ class OrderService {
         const user = await this.user.findByPk(userId);
         if (!user)
             throw new HttpException_1.HttpException(400, "User not found");
-        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid", "createdAt"];
+        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid", "status", "createdAt"];
         if (type === "history") {
             return await paginationHelper.paginate(page, pageSize, {
                 userId,
@@ -59,7 +59,7 @@ class OrderService {
     }
     async getOrders(page, pageSize, type, searchData) {
         const paginationHelper = new pagination_1.default(this.order);
-        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid", "createdAt"];
+        const attributes = ["id", "shipping_type", "shipping_address", "shipping_price", "shipping_status", "total_price", "payment_type", "is_paid", "status", "createdAt"];
         if (type === "history") {
             return await paginationHelper.paginate(page, pageSize, {
                 shipping_status: true,
@@ -110,8 +110,8 @@ class OrderService {
             where: { userId },
         });
         const products = await userCart.getProducts();
-        if (!userCart)
-            throw new HttpException_1.HttpException(400, "userCart not found");
+        if (products.length === 0)
+            throw new HttpException_1.HttpException(400, "userCart is empty");
         const shippingType = await this.shipping.findOne({ where: { type: orderData.shipping_type } });
         if (!shippingType)
             throw new HttpException_1.HttpException(400, "Shipping type not found");

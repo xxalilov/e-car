@@ -27,22 +27,22 @@ export default function (sequelize: Sequelize): typeof InstructionModel {
             autoIncrement: true
         },
         title_uz: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(400),
         },
         title_ru: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(400),
         },
         title_eng: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(400),
         },
         description_uz: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING(1000)
         },
         description_ru: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING(1000)
         },
         description_eng: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING(1000)
         },
 
         link: {

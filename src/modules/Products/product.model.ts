@@ -70,15 +70,15 @@ export default function (sequelize: Sequelize): typeof ProductModel {
                 allowNull: false,
             },
             description_uz: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(1000),
                 allowNull: false,
             },
             description_ru: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(1000),
                 allowNull: false,
             },
             description_eng: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(1000),
                 allowNull: false,
             },
             phone: {
@@ -90,15 +90,15 @@ export default function (sequelize: Sequelize): typeof ProductModel {
                 allowNull: false,
             },
             title_uz: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(400),
                 allowNull: false,
             },
             title_ru: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(400),
                 allowNull: false,
             },
             title_eng: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(400),
                 allowNull: false,
             },
             lat: {

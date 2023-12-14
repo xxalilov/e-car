@@ -19,6 +19,7 @@ class Config {
             ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
             PAYME_ENDPOINT: process.env.PAYME_ENDPOINT,
             PAYME_ID: process.env.PAYME_ID,
+            PAYME_KEY: process.env.PAYME_KEY,
             PAYME_PASSWORD: process.env.PAYME_PASSWORD,
             ESKIZ_ENDPOINT: process.env.ESKIZ_ENDPOINT,
             ESKIZ_EMAIL: process.env.ESKIZ_EMAIL,

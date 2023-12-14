@@ -27,15 +27,15 @@ function default_1(sequelize) {
             allowNull: false,
         },
         description_uz: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(1000),
             allowNull: false,
         },
         description_ru: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(1000),
             allowNull: false,
         },
         description_eng: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(1000),
             allowNull: false,
         },
         phone: {
@@ -47,15 +47,15 @@ function default_1(sequelize) {
             allowNull: false,
         },
         title_uz: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(400),
             allowNull: false,
         },
         title_ru: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(400),
             allowNull: false,
         },
         title_eng: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(400),
             allowNull: false,
         },
         lat: {

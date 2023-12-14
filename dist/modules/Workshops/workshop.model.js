@@ -23,13 +23,13 @@ function default_1(sequelize) {
             allowNull: false,
         },
         description_uz: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(500),
             allowNull: false,
         }, description_ru: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(500),
             allowNull: false,
         }, description_eng: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(500),
             allowNull: false,
         },
         title_uz: {

@@ -13,22 +13,22 @@ function default_1(sequelize) {
             autoIncrement: true
         },
         title_uz: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(400),
         },
         title_ru: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(400),
         },
         title_eng: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.STRING(400),
         },
         description_uz: {
-            type: sequelize_1.DataTypes.STRING
+            type: sequelize_1.DataTypes.STRING(1000)
         },
         description_ru: {
-            type: sequelize_1.DataTypes.STRING
+            type: sequelize_1.DataTypes.STRING(1000)
         },
         description_eng: {
-            type: sequelize_1.DataTypes.STRING
+            type: sequelize_1.DataTypes.STRING(1000)
         },
         link: {
             type: sequelize_1.DataTypes.STRING

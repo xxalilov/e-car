@@ -29,25 +29,25 @@ export default function (sequelize: Sequelize): typeof NewsModel {
                 autoIncrement: true
             },
             title_uz: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(400),
                 allowNull: false,
             },
             title_ru: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(400),
                 allowNull: false,
             },
             title_eng: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(400),
                 allowNull: false,
             },
             description_uz: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(1000),
             },
             description_ru: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(1000),
             },
             description_eng: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(1000),
             },
             link: {
                 type: DataTypes.STRING,

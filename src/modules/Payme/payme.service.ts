@@ -77,24 +77,24 @@ class PaymeService {
         };
         const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
         if (response.status === 200) {
-                return response.data;
+            return response.data;
         } else {
             throw new HttpException(400, "Something went wrong");
         }
     }
 
     public async checkCard(userId: string, token: string): Promise<{}> {
-            const data = {
-                id: parseInt(userId),
-                method: "cards.check",
-                params: {
-                    token
-                },
-            };
-            const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
-            if (response.status === 200) {
-                return response.data;
-            }
+        const data = {
+            id: parseInt(userId),
+            method: "cards.check",
+            params: {
+                token
+            },
+        };
+        const response = await axios.post(config.PAYME_ENDPOINT, data, this.auth);
+        if (response.status === 200) {
+            return response.data;
+        }
 
         return {};
     }

@@ -16,6 +16,7 @@ interface ENV {
     ADMIN_PASSWORD: string | undefined;
     PAYME_ENDPOINT: string | undefined;
     PAYME_ID: string | undefined;
+    PAYME_KEY: string | undefined;
     PAYME_PASSWORD: string | undefined;
     ESKIZ_ENDPOINT: string | undefined;
     ESKIZ_EMAIL: string | undefined;
@@ -34,6 +35,7 @@ interface ConfigInterface {
     ADMIN_EMAIL: string;
     ADMIN_PASSWORD: string;
     PAYME_ENDPOINT: string;
+    PAYME_KEY: string;
     PAYME_ID: string;
     PAYME_PASSWORD: string;
     ESKIZ_ENDPOINT: string;
@@ -56,6 +58,7 @@ class Config {
             ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
             PAYME_ENDPOINT: process.env.PAYME_ENDPOINT,
             PAYME_ID: process.env.PAYME_ID,
+            PAYME_KEY: process.env.PAYME_KEY,
             PAYME_PASSWORD: process.env.PAYME_PASSWORD,
             ESKIZ_ENDPOINT: process.env.ESKIZ_ENDPOINT,
             ESKIZ_EMAIL: process.env.ESKIZ_EMAIL,

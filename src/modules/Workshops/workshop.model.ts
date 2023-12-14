@@ -62,13 +62,13 @@ export default function (sequelize: Sequelize): typeof WorkshopModel {
                 allowNull: false,
             },
             description_uz: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(500),
                 allowNull: false,
             }, description_ru: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(500),
                 allowNull: false,
             }, description_eng: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(500),
                 allowNull: false,
             },
             title_uz: {

@@ -10,6 +10,7 @@ interface ConfigInterface {
     ADMIN_EMAIL: string;
     ADMIN_PASSWORD: string;
     PAYME_ENDPOINT: string;
+    PAYME_KEY: string;
     PAYME_ID: string;
     PAYME_PASSWORD: string;
     ESKIZ_ENDPOINT: string;
