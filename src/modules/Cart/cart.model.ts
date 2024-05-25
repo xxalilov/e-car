@@ -5,7 +5,7 @@ import {
     Sequelize,
 } from "sequelize";
 import {Cart} from "./cart.interface";
-import {Product} from "../../modules/Products/product.interface";
+import {Product} from "../Products/product.interface";
 
 export type CartCreationAttributes = Optional<
     Cart,
